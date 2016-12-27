@@ -112,17 +112,6 @@
       return result;
     }
 
-    public static DateTime ConvertFromTimestamp(int timestamp) {
-      return EpochUtility.ToDateTime(timestamp).ToLocalTime();
-    }
-
-    public static int? ConvertToTimestamp(DateTime? t) {
-      if (t == null)
-        return null;
-
-      return (int?)EpochUtility.ToEpoch(t.Value);
-    }
-
     [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
     private static HttpClient CreateGitHubHttpClient() {
       var handler = new WinHttpHandler() {

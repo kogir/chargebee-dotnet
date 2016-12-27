@@ -75,7 +75,7 @@
         }
         return l;
       } else if (value is DateTime) {
-        return ApiUtil.ConvertToTimestamp((DateTime)value).ToString();
+        return EpochUtility.ToEpoch((DateTime)value);
       } else {
         throw new SystemException("Type [" + value.GetType().ToString() + "] not handled");
       }
