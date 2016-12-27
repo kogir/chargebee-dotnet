@@ -33,11 +33,11 @@
 
       internal Entry(string json) {
         if (!string.IsNullOrEmpty(json))
-          m_jobj = JToken.Parse(json);
+          _jobj = JToken.Parse(json);
       }
 
       internal Entry(JToken jobj) {
-        m_jobj = jobj;
+        _jobj = jobj;
       }
     }
   }

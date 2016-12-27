@@ -4,18 +4,18 @@
   using System.Net.Http;
 
   public class EntityRequest<T> {
-    string m_url;
-    protected HttpMethod m_method;
-    protected Params m_params = new Params();
+    string _url;
+    protected HttpMethod _method;
+    protected Params _params = new Params();
     protected Dictionary<string, string> headers = new Dictionary<string, string>();
 
     public EntityRequest(string url, HttpMethod method) {
-      m_url = url;
-      m_method = method;
+      _url = url;
+      _method = method;
     }
 
     public T Param(string paramName, Object value) {
-      m_params.Add(paramName, value);
+      _params.Add(paramName, value);
       return (T)Convert.ChangeType(this, typeof(T));
     }
 
@@ -29,15 +29,15 @@
     }
 
     public EntityResult Request(ApiConfig env) {
-      switch (m_method.Method) {
+      switch (_method.Method) {
         case "GET":
-          return ApiUtil.Get(m_url, m_params, headers, env);
+          return ApiUtil.Get(_url, _params, headers, env);
         case "POST":
-          return ApiUtil.Post(m_url, m_params, headers, env);
+          return ApiUtil.Post(_url, _params, headers, env);
         default:
           throw new NotImplementedException(string.Format(
               "HTTP method {0} is not implemented",
-              m_method));
+              _method));
       }
 
     }

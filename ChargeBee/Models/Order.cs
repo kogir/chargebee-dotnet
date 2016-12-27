@@ -69,35 +69,35 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest Id(string id) {
-        m_params.AddOpt("id", id);
+        _params.AddOpt("id", id);
         return this;
       }
       public CreateRequest InvoiceId(string invoiceId) {
-        m_params.Add("invoice_id", invoiceId);
+        _params.Add("invoice_id", invoiceId);
         return this;
       }
       public CreateRequest Status(StatusEnum status) {
-        m_params.AddOpt("status", status);
+        _params.AddOpt("status", status);
         return this;
       }
       public CreateRequest ReferenceId(string referenceId) {
-        m_params.AddOpt("reference_id", referenceId);
+        _params.AddOpt("reference_id", referenceId);
         return this;
       }
       public CreateRequest FulfillmentStatus(string fulfillmentStatus) {
-        m_params.AddOpt("fulfillment_status", fulfillmentStatus);
+        _params.AddOpt("fulfillment_status", fulfillmentStatus);
         return this;
       }
       public CreateRequest Note(string note) {
-        m_params.AddOpt("note", note);
+        _params.AddOpt("note", note);
         return this;
       }
       public CreateRequest TrackingId(string trackingId) {
-        m_params.AddOpt("tracking_id", trackingId);
+        _params.AddOpt("tracking_id", trackingId);
         return this;
       }
       public CreateRequest BatchId(string batchId) {
-        m_params.AddOpt("batch_id", batchId);
+        _params.AddOpt("batch_id", batchId);
         return this;
       }
     }
@@ -108,27 +108,27 @@ namespace ChargeBee.Models {
       }
 
       public UpdateRequest Status(StatusEnum status) {
-        m_params.AddOpt("status", status);
+        _params.AddOpt("status", status);
         return this;
       }
       public UpdateRequest ReferenceId(string referenceId) {
-        m_params.AddOpt("reference_id", referenceId);
+        _params.AddOpt("reference_id", referenceId);
         return this;
       }
       public UpdateRequest FulfillmentStatus(string fulfillmentStatus) {
-        m_params.AddOpt("fulfillment_status", fulfillmentStatus);
+        _params.AddOpt("fulfillment_status", fulfillmentStatus);
         return this;
       }
       public UpdateRequest Note(string note) {
-        m_params.AddOpt("note", note);
+        _params.AddOpt("note", note);
         return this;
       }
       public UpdateRequest TrackingId(string trackingId) {
-        m_params.AddOpt("tracking_id", trackingId);
+        _params.AddOpt("tracking_id", trackingId);
         return this;
       }
       public UpdateRequest BatchId(string batchId) {
-        m_params.AddOpt("batch_id", batchId);
+        _params.AddOpt("batch_id", batchId);
         return this;
       }
     }
@@ -151,7 +151,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<OrderListRequest>("created_at", this);
       }
       public OrderListRequest SortByCreatedAt(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
         return this;
       }
     }

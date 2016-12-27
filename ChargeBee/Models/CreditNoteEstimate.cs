@@ -40,7 +40,7 @@ namespace ChargeBee.Models {
       get { return GetResourceList<CreditNoteEstimateTax>("taxes"); }
     }
     public List<CreditNoteEstimateLineItemTax> LineItemTaxes {
-      get { return GetResourceList<CreditNoteEstimateLineItemTax>("line_item_taxes"); }
+      get { return GetResourceList<CreditNoteEstimateLineItemTax>("line_ite_taxes"); }
     }
 
     public enum TypeEnum {
@@ -105,7 +105,7 @@ namespace ChargeBee.Models {
       }
 
       public int? ItemLevelDiscountAmount() {
-        return GetValue<int?>("item_level_discount_amount", false);
+        return GetValue<int?>("ite_level_discount_amount", false);
       }
 
       public string Description() {
@@ -125,7 +125,7 @@ namespace ChargeBee.Models {
     public class CreditNoteEstimateDiscount : Resource {
       public enum EntityTypeEnum {
         Unknown,
-        [Description("item_level_coupon")]
+        [Description("ite_level_coupon")]
         ItemLevelCoupon,
         [Description("document_level_coupon")]
         DocumentLevelCoupon,
@@ -169,7 +169,7 @@ namespace ChargeBee.Models {
 
     public class CreditNoteEstimateLineItemTax : Resource {
       public string LineItemId() {
-        return GetValue<string>("line_item_id", false);
+        return GetValue<string>("line_ite_id", false);
       }
 
       public string TaxName() {

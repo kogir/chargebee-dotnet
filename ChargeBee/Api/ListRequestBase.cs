@@ -3,22 +3,22 @@
   using System.Net.Http;
 
   public class ListRequestBase<U> where U : ListRequestBase<U> {
-    string m_url;
-    protected HttpMethod m_method = HttpMethod.Get;
-    protected Params m_params = new Params();
+    string _url;
+    protected HttpMethod _method = HttpMethod.Get;
+    protected Params _params = new Params();
     protected Dictionary<string, string> headers = new Dictionary<string, string>();
 
     public ListRequestBase(string url) {
-      m_url = url;
+      _url = url;
     }
 
     public U Limit(int limit) {
-      m_params.AddOpt("limit", limit);
+      _params.AddOpt("limit", limit);
       return (U)this;
     }
 
     public U Offset(string offset) {
-      m_params.AddOpt("offset", offset);
+      _params.AddOpt("offset", offset);
       return (U)this;
     }
 
@@ -28,7 +28,7 @@
     }
 
     public ListResult Request(ApiConfig env) {
-      return ApiUtil.GetList(m_url, m_params, headers, ApiConfig.Instance);
+      return ApiUtil.GetList(_url, _params, headers, ApiConfig.Instance);
     }
 
     public ListResult Request() {
@@ -36,7 +36,7 @@
     }
 
     public Params Params() {
-      return m_params;
+      return _params;
     }
 
   }

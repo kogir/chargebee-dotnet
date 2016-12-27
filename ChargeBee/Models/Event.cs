@@ -79,12 +79,12 @@ namespace ChargeBee.Models {
 
       [Obsolete]
       public EventListRequest StartTime(long startTime) {
-        m_params.AddOpt("start_time", startTime);
+        _params.AddOpt("start_time", startTime);
         return this;
       }
       [Obsolete]
       public EventListRequest EndTime(long endTime) {
-        m_params.AddOpt("end_time", endTime);
+        _params.AddOpt("end_time", endTime);
         return this;
       }
       public StringFilter<EventListRequest> Id() {
@@ -96,7 +96,7 @@ namespace ChargeBee.Models {
       }
       [Obsolete]
       public EventListRequest WebhookStatus(WebhookStatusEnum webhookStatus) {
-        m_params.AddOpt("webhook_status", webhookStatus);
+        _params.AddOpt("webhook_status", webhookStatus);
         return this;
       }
       public EnumFilter<EventTypeEnum, EventListRequest> EventType() {
@@ -104,7 +104,7 @@ namespace ChargeBee.Models {
       }
       [Obsolete]
       public EventListRequest EventType(EventTypeEnum eventType) {
-        m_params.AddOpt("event_type", eventType);
+        _params.AddOpt("event_type", eventType);
         return this;
       }
       public EnumFilter<SourceEnum, EventListRequest> Source() {
@@ -114,7 +114,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<EventListRequest>("occurred_at", this);
       }
       public EventListRequest SortByOccurredAt(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "occurred_at");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "occurred_at");
         return this;
       }
     }
@@ -171,7 +171,7 @@ namespace ChargeBee.Models {
       public EventContent() { }
 
       internal EventContent(JToken jobj) {
-        m_jobj = jobj;
+        _jobj = jobj;
       }
     }
   }

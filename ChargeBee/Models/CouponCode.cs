@@ -42,15 +42,15 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest CouponId(string couponId) {
-        m_params.Add("coupon_id", couponId);
+        _params.Add("coupon_id", couponId);
         return this;
       }
       public CreateRequest CouponSetName(string couponSetName) {
-        m_params.Add("coupon_set_name", couponSetName);
+        _params.Add("coupon_set_name", couponSetName);
         return this;
       }
       public CreateRequest Code(string code) {
-        m_params.Add("code", code);
+        _params.Add("code", code);
         return this;
       }
     }

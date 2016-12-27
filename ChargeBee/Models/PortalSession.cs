@@ -70,15 +70,15 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest RedirectUrl(string redirectUrl) {
-        m_params.Add("redirect_url", redirectUrl);
+        _params.Add("redirect_url", redirectUrl);
         return this;
       }
       public CreateRequest ForwardUrl(string forwardUrl) {
-        m_params.AddOpt("forward_url", forwardUrl);
+        _params.AddOpt("forward_url", forwardUrl);
         return this;
       }
       public CreateRequest CustomerId(string customerId) {
-        m_params.Add("customer[id]", customerId);
+        _params.Add("customer[id]", customerId);
         return this;
       }
     }
@@ -89,7 +89,7 @@ namespace ChargeBee.Models {
       }
 
       public ActivateRequest Token(string token) {
-        m_params.Add("token", token);
+        _params.Add("token", token);
         return this;
       }
     }

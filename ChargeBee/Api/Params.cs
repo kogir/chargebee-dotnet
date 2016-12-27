@@ -9,7 +9,7 @@
   using Newtonsoft.Json.Linq;
 
   public class Params {
-    Dictionary<string, object> m_dict = new Dictionary<string, object>();
+    Dictionary<string, object> _dict = new Dictionary<string, object>();
 
     public void Add(string key, object value) {
       if (value == null || string.IsNullOrEmpty(value.ToString()))
@@ -19,7 +19,7 @@
     }
 
     public void AddOpt(string key, object value) {
-      m_dict.Add(key, value == null ? string.Empty : ConvertValue(value));
+      _dict.Add(key, value == null ? string.Empty : ConvertValue(value));
     }
 
     public string GetQuery(bool IsList) {
@@ -27,9 +27,9 @@
     }
 
     private string[] GetPairs(bool IsList) {
-      List<string> pairs = new List<string>(m_dict.Keys.Count);
+      List<string> pairs = new List<string>(_dict.Keys.Count);
 
-      foreach (var pair in m_dict) {
+      foreach (var pair in _dict) {
         if (pair.Value is IList) {
           if (IsList) {
             pairs.Add(string.Format("{0}={1}", WebUtility.UrlEncode(pair.Key), WebUtility.UrlEncode(JsonConvert.SerializeObject(pair.Value))));

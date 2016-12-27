@@ -10,21 +10,21 @@ namespace ChargeBee.Internal {
 
     internal Resource(string json) {
       if (!string.IsNullOrEmpty(json))
-        m_jobj = JToken.Parse(json);
+        _jobj = JToken.Parse(json);
     }
 
     internal Resource(JToken jobj) {
-      m_jobj = jobj;
+      _jobj = jobj;
     }
 
     public T GetValue<T>(string key, bool required = true) {
       if (required)
         ThrowIfKeyMissed(key);
 
-      if (m_jobj[key] == null)
+      if (_jobj[key] == null)
         return default(T);
 
-      return m_jobj[key].ToObject<T>();
+      return _jobj[key].ToObject<T>();
     }
 
     public DateTime? GetDateTime(string key, bool required = true) {
@@ -38,10 +38,10 @@ namespace ChargeBee.Internal {
       if (required)
         ThrowIfKeyMissed(key);
 
-      if (m_jobj[key] == null)
+      if (_jobj[key] == null)
         return null;
 
-      return JToken.Parse(m_jobj[key].ToString());
+      return JToken.Parse(_jobj[key].ToString());
     }
 
     public T GetEnum<T>(string key, bool required = true) {
@@ -70,7 +70,7 @@ namespace ChargeBee.Internal {
     }
 
     protected void ThrowIfKeyMissed(string key) {
-      if (m_jobj[key] == null)
+      if (_jobj[key] == null)
         throw new ArgumentException(string.Format("The property {0} is not present!", key));
     }
 
@@ -82,10 +82,10 @@ namespace ChargeBee.Internal {
     }
 
     protected List<T> GetResourceList<T>(string property) where T : Resource, new() {
-      if (m_jobj == null)
+      if (_jobj == null)
         return null;
 
-      JToken jobj = m_jobj[property];
+      JToken jobj = _jobj[property];
       if (jobj == null)
         return null;
 
@@ -100,10 +100,10 @@ namespace ChargeBee.Internal {
     }
 
     protected List<T> GetList<T>(string property) {
-      if (m_jobj == null)
+      if (_jobj == null)
         return null;
 
-      JToken jobj = m_jobj[property];
+      JToken jobj = _jobj[property];
       if (jobj == null)
         return null;
 
@@ -116,10 +116,10 @@ namespace ChargeBee.Internal {
     }
 
     protected T GetSubResource<T>(string property) where T : Resource, new() {
-      if (m_jobj == null)
+      if (_jobj == null)
         return null;
 
-      JToken jobj = m_jobj[property];
+      JToken jobj = _jobj[property];
       if (jobj == null)
         return null;
       T t = new T();

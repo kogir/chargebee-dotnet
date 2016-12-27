@@ -53,19 +53,19 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest EntityType(EntityTypeEnum entityType) {
-        m_params.Add("entity_type", entityType);
+        _params.Add("entity_type", entityType);
         return this;
       }
       public CreateRequest EntityId(string entityId) {
-        m_params.Add("entity_id", entityId);
+        _params.Add("entity_id", entityId);
         return this;
       }
       public CreateRequest Notes(string notes) {
-        m_params.Add("notes", notes);
+        _params.Add("notes", notes);
         return this;
       }
       public CreateRequest AddedBy(string addedBy) {
-        m_params.AddOpt("added_by", addedBy);
+        _params.AddOpt("added_by", addedBy);
         return this;
       }
     }
@@ -76,18 +76,18 @@ namespace ChargeBee.Models {
       }
 
       public CommentListRequest EntityType(EntityTypeEnum entityType) {
-        m_params.AddOpt("entity_type", entityType);
+        _params.AddOpt("entity_type", entityType);
         return this;
       }
       public CommentListRequest EntityId(string entityId) {
-        m_params.AddOpt("entity_id", entityId);
+        _params.AddOpt("entity_id", entityId);
         return this;
       }
       public TimestampFilter<CommentListRequest> CreatedAt() {
         return new TimestampFilter<CommentListRequest>("created_at", this);
       }
       public CommentListRequest SortByCreatedAt(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
         return this;
       }
     }

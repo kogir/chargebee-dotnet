@@ -101,7 +101,7 @@ namespace ChargeBee.Models {
       get { return GetResourceList<CreditNoteTax>("taxes"); }
     }
     public List<CreditNoteLineItemTax> LineItemTaxes {
-      get { return GetResourceList<CreditNoteLineItemTax>("line_item_taxes"); }
+      get { return GetResourceList<CreditNoteLineItemTax>("line_ite_taxes"); }
     }
     public List<CreditNoteLinkedRefund> LinkedRefunds {
       get { return GetResourceList<CreditNoteLinkedRefund>("linked_refunds"); }
@@ -119,43 +119,43 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest ReferenceInvoiceId(string referenceInvoiceId) {
-        m_params.Add("reference_invoice_id", referenceInvoiceId);
+        _params.Add("reference_invoice_id", referenceInvoiceId);
         return this;
       }
       public CreateRequest Total(int total) {
-        m_params.AddOpt("total", total);
+        _params.AddOpt("total", total);
         return this;
       }
       public CreateRequest Type(TypeEnum type) {
-        m_params.Add("type", type);
+        _params.Add("type", type);
         return this;
       }
       public CreateRequest ReasonCode(ReasonCodeEnum reasonCode) {
-        m_params.Add("reason_code", reasonCode);
+        _params.Add("reason_code", reasonCode);
         return this;
       }
       public CreateRequest Date(long date) {
-        m_params.AddOpt("date", date);
+        _params.AddOpt("date", date);
         return this;
       }
       public CreateRequest CustomerNotes(string customerNotes) {
-        m_params.AddOpt("customer_notes", customerNotes);
+        _params.AddOpt("customer_notes", customerNotes);
         return this;
       }
       public CreateRequest LineItemReferenceLineItemId(int index, string lineItemReferenceLineItemId) {
-        m_params.Add("line_items[reference_line_item_id][" + index + "]", lineItemReferenceLineItemId);
+        _params.Add("line_items[reference_line_ite_id][" + index + "]", lineItemReferenceLineItemId);
         return this;
       }
       public CreateRequest LineItemUnitAmount(int index, int lineItemUnitAmount) {
-        m_params.Add("line_items[unit_amount][" + index + "]", lineItemUnitAmount);
+        _params.Add("line_items[unit_amount][" + index + "]", lineItemUnitAmount);
         return this;
       }
       public CreateRequest LineItemQuantity(int index, int lineItemQuantity) {
-        m_params.Add("line_items[quantity][" + index + "]", lineItemQuantity);
+        _params.Add("line_items[quantity][" + index + "]", lineItemQuantity);
         return this;
       }
       public CreateRequest LineItemDescription(int index, string lineItemDescription) {
-        m_params.AddOpt("line_items[description][" + index + "]", lineItemDescription);
+        _params.AddOpt("line_items[description][" + index + "]", lineItemDescription);
         return this;
       }
     }
@@ -166,7 +166,7 @@ namespace ChargeBee.Models {
       }
 
       public CreditNoteListRequest IncludeDeleted(bool includeDeleted) {
-        m_params.AddOpt("include_deleted", includeDeleted);
+        _params.AddOpt("include_deleted", includeDeleted);
         return this;
       }
       public StringFilter<CreditNoteListRequest> Id() {
@@ -215,7 +215,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<CreditNoteListRequest>("updated_at", this);
       }
       public CreditNoteListRequest SortByDate(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "date");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "date");
         return this;
       }
     }
@@ -316,7 +316,7 @@ namespace ChargeBee.Models {
       }
 
       public int? ItemLevelDiscountAmount() {
-        return GetValue<int?>("item_level_discount_amount", false);
+        return GetValue<int?>("ite_level_discount_amount", false);
       }
 
       public string Description() {
@@ -335,7 +335,7 @@ namespace ChargeBee.Models {
     public class CreditNoteDiscount : Resource {
       public enum EntityTypeEnum {
         Unknown,
-        [Description("item_level_coupon")]
+        [Description("ite_level_coupon")]
         ItemLevelCoupon,
         [Description("document_level_coupon")]
         DocumentLevelCoupon,
@@ -378,7 +378,7 @@ namespace ChargeBee.Models {
 
     public class CreditNoteLineItemTax : Resource {
       public string LineItemId() {
-        return GetValue<string>("line_item_id", false);
+        return GetValue<string>("line_ite_id", false);
       }
 
       public string TaxName() {

@@ -92,7 +92,7 @@ namespace ChargeBee.Models {
       get { return GetEnum<AutoCollectionEnum>("auto_collection", true); }
     }
     public int NetTermDays {
-      get { return GetValue<int>("net_term_days", true); }
+      get { return GetValue<int>("net_ter_days", true); }
     }
     public bool AllowDirectDebit {
       get { return GetValue<bool>("allow_direct_debit", true); }
@@ -101,7 +101,7 @@ namespace ChargeBee.Models {
       get { return (DateTime)GetDateTime("created_at", true); }
     }
     public string CreatedFromIp {
-      get { return GetValue<string>("created_from_ip", false); }
+      get { return GetValue<string>("created_fro_ip", false); }
     }
     public TaxabilityEnum? Taxability {
       get { return GetEnum<TaxabilityEnum>("taxability", false); }
@@ -165,213 +165,213 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest Id(string id) {
-        m_params.AddOpt("id", id);
+        _params.AddOpt("id", id);
         return this;
       }
       public CreateRequest FirstName(string firstName) {
-        m_params.AddOpt("first_name", firstName);
+        _params.AddOpt("first_name", firstName);
         return this;
       }
       public CreateRequest LastName(string lastName) {
-        m_params.AddOpt("last_name", lastName);
+        _params.AddOpt("last_name", lastName);
         return this;
       }
       public CreateRequest Email(string email) {
-        m_params.AddOpt("email", email);
+        _params.AddOpt("email", email);
         return this;
       }
       public CreateRequest PreferredCurrencyCode(string preferredCurrencyCode) {
-        m_params.AddOpt("preferred_currency_code", preferredCurrencyCode);
+        _params.AddOpt("preferred_currency_code", preferredCurrencyCode);
         return this;
       }
       public CreateRequest Phone(string phone) {
-        m_params.AddOpt("phone", phone);
+        _params.AddOpt("phone", phone);
         return this;
       }
       public CreateRequest Company(string company) {
-        m_params.AddOpt("company", company);
+        _params.AddOpt("company", company);
         return this;
       }
       public CreateRequest AutoCollection(AutoCollectionEnum autoCollection) {
-        m_params.AddOpt("auto_collection", autoCollection);
+        _params.AddOpt("auto_collection", autoCollection);
         return this;
       }
       public CreateRequest NetTermDays(int netTermDays) {
-        m_params.AddOpt("net_term_days", netTermDays);
+        _params.AddOpt("net_ter_days", netTermDays);
         return this;
       }
       public CreateRequest AllowDirectDebit(bool allowDirectDebit) {
-        m_params.AddOpt("allow_direct_debit", allowDirectDebit);
+        _params.AddOpt("allow_direct_debit", allowDirectDebit);
         return this;
       }
       public CreateRequest VatNumber(string vatNumber) {
-        m_params.AddOpt("vat_number", vatNumber);
+        _params.AddOpt("vat_number", vatNumber);
         return this;
       }
       public CreateRequest Taxability(TaxabilityEnum taxability) {
-        m_params.AddOpt("taxability", taxability);
+        _params.AddOpt("taxability", taxability);
         return this;
       }
       public CreateRequest Locale(string locale) {
-        m_params.AddOpt("locale", locale);
+        _params.AddOpt("locale", locale);
         return this;
       }
       public CreateRequest EntityCode(EntityCodeEnum entityCode) {
-        m_params.AddOpt("entity_code", entityCode);
+        _params.AddOpt("entity_code", entityCode);
         return this;
       }
       public CreateRequest ExemptNumber(string exemptNumber) {
-        m_params.AddOpt("exempt_number", exemptNumber);
+        _params.AddOpt("exempt_number", exemptNumber);
         return this;
       }
       public CreateRequest MetaData(JToken metaData) {
-        m_params.AddOpt("meta_data", metaData);
+        _params.AddOpt("meta_data", metaData);
         return this;
       }
       [Obsolete]
       public CreateRequest CreatedFromIp(string createdFromIp) {
-        m_params.AddOpt("created_from_ip", createdFromIp);
+        _params.AddOpt("created_fro_ip", createdFromIp);
         return this;
       }
       public CreateRequest InvoiceNotes(string invoiceNotes) {
-        m_params.AddOpt("invoice_notes", invoiceNotes);
+        _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
       }
       public CreateRequest CardGateway(GatewayEnum cardGateway) {
-        m_params.AddOpt("card[gateway]", cardGateway);
+        _params.AddOpt("card[gateway]", cardGateway);
         return this;
       }
       public CreateRequest CardTmpToken(string cardTmpToken) {
-        m_params.AddOpt("card[tmp_token]", cardTmpToken);
+        _params.AddOpt("card[tmp_token]", cardTmpToken);
         return this;
       }
       public CreateRequest PaymentMethodType(TypeEnum paymentMethodType) {
-        m_params.AddOpt("payment_method[type]", paymentMethodType);
+        _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
       }
       public CreateRequest PaymentMethodGateway(GatewayEnum paymentMethodGateway) {
-        m_params.AddOpt("payment_method[gateway]", paymentMethodGateway);
+        _params.AddOpt("payment_method[gateway]", paymentMethodGateway);
         return this;
       }
       public CreateRequest PaymentMethodReferenceId(string paymentMethodReferenceId) {
-        m_params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
+        _params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
         return this;
       }
       public CreateRequest PaymentMethodTmpToken(string paymentMethodTmpToken) {
-        m_params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
+        _params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
         return this;
       }
       public CreateRequest CardFirstName(string cardFirstName) {
-        m_params.AddOpt("card[first_name]", cardFirstName);
+        _params.AddOpt("card[first_name]", cardFirstName);
         return this;
       }
       public CreateRequest CardLastName(string cardLastName) {
-        m_params.AddOpt("card[last_name]", cardLastName);
+        _params.AddOpt("card[last_name]", cardLastName);
         return this;
       }
       public CreateRequest CardNumber(string cardNumber) {
-        m_params.AddOpt("card[number]", cardNumber);
+        _params.AddOpt("card[number]", cardNumber);
         return this;
       }
       public CreateRequest CardExpiryMonth(int cardExpiryMonth) {
-        m_params.AddOpt("card[expiry_month]", cardExpiryMonth);
+        _params.AddOpt("card[expiry_month]", cardExpiryMonth);
         return this;
       }
       public CreateRequest CardExpiryYear(int cardExpiryYear) {
-        m_params.AddOpt("card[expiry_year]", cardExpiryYear);
+        _params.AddOpt("card[expiry_year]", cardExpiryYear);
         return this;
       }
       public CreateRequest CardCvv(string cardCvv) {
-        m_params.AddOpt("card[cvv]", cardCvv);
+        _params.AddOpt("card[cvv]", cardCvv);
         return this;
       }
       public CreateRequest CardBillingAddr1(string cardBillingAddr1) {
-        m_params.AddOpt("card[billing_addr1]", cardBillingAddr1);
+        _params.AddOpt("card[billing_addr1]", cardBillingAddr1);
         return this;
       }
       public CreateRequest CardBillingAddr2(string cardBillingAddr2) {
-        m_params.AddOpt("card[billing_addr2]", cardBillingAddr2);
+        _params.AddOpt("card[billing_addr2]", cardBillingAddr2);
         return this;
       }
       public CreateRequest CardBillingCity(string cardBillingCity) {
-        m_params.AddOpt("card[billing_city]", cardBillingCity);
+        _params.AddOpt("card[billing_city]", cardBillingCity);
         return this;
       }
       public CreateRequest CardBillingStateCode(string cardBillingStateCode) {
-        m_params.AddOpt("card[billing_state_code]", cardBillingStateCode);
+        _params.AddOpt("card[billing_state_code]", cardBillingStateCode);
         return this;
       }
       public CreateRequest CardBillingState(string cardBillingState) {
-        m_params.AddOpt("card[billing_state]", cardBillingState);
+        _params.AddOpt("card[billing_state]", cardBillingState);
         return this;
       }
       public CreateRequest CardBillingZip(string cardBillingZip) {
-        m_params.AddOpt("card[billing_zip]", cardBillingZip);
+        _params.AddOpt("card[billing_zip]", cardBillingZip);
         return this;
       }
       public CreateRequest CardBillingCountry(string cardBillingCountry) {
-        m_params.AddOpt("card[billing_country]", cardBillingCountry);
+        _params.AddOpt("card[billing_country]", cardBillingCountry);
         return this;
       }
       [Obsolete]
       public CreateRequest CardIpAddress(string cardIpAddress) {
-        m_params.AddOpt("card[ip_address]", cardIpAddress);
+        _params.AddOpt("card[ip_address]", cardIpAddress);
         return this;
       }
       public CreateRequest BillingAddressFirstName(string billingAddressFirstName) {
-        m_params.AddOpt("billing_address[first_name]", billingAddressFirstName);
+        _params.AddOpt("billing_address[first_name]", billingAddressFirstName);
         return this;
       }
       public CreateRequest BillingAddressLastName(string billingAddressLastName) {
-        m_params.AddOpt("billing_address[last_name]", billingAddressLastName);
+        _params.AddOpt("billing_address[last_name]", billingAddressLastName);
         return this;
       }
       public CreateRequest BillingAddressEmail(string billingAddressEmail) {
-        m_params.AddOpt("billing_address[email]", billingAddressEmail);
+        _params.AddOpt("billing_address[email]", billingAddressEmail);
         return this;
       }
       public CreateRequest BillingAddressCompany(string billingAddressCompany) {
-        m_params.AddOpt("billing_address[company]", billingAddressCompany);
+        _params.AddOpt("billing_address[company]", billingAddressCompany);
         return this;
       }
       public CreateRequest BillingAddressPhone(string billingAddressPhone) {
-        m_params.AddOpt("billing_address[phone]", billingAddressPhone);
+        _params.AddOpt("billing_address[phone]", billingAddressPhone);
         return this;
       }
       public CreateRequest BillingAddressLine1(string billingAddressLine1) {
-        m_params.AddOpt("billing_address[line1]", billingAddressLine1);
+        _params.AddOpt("billing_address[line1]", billingAddressLine1);
         return this;
       }
       public CreateRequest BillingAddressLine2(string billingAddressLine2) {
-        m_params.AddOpt("billing_address[line2]", billingAddressLine2);
+        _params.AddOpt("billing_address[line2]", billingAddressLine2);
         return this;
       }
       public CreateRequest BillingAddressLine3(string billingAddressLine3) {
-        m_params.AddOpt("billing_address[line3]", billingAddressLine3);
+        _params.AddOpt("billing_address[line3]", billingAddressLine3);
         return this;
       }
       public CreateRequest BillingAddressCity(string billingAddressCity) {
-        m_params.AddOpt("billing_address[city]", billingAddressCity);
+        _params.AddOpt("billing_address[city]", billingAddressCity);
         return this;
       }
       public CreateRequest BillingAddressStateCode(string billingAddressStateCode) {
-        m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+        _params.AddOpt("billing_address[state_code]", billingAddressStateCode);
         return this;
       }
       public CreateRequest BillingAddressState(string billingAddressState) {
-        m_params.AddOpt("billing_address[state]", billingAddressState);
+        _params.AddOpt("billing_address[state]", billingAddressState);
         return this;
       }
       public CreateRequest BillingAddressZip(string billingAddressZip) {
-        m_params.AddOpt("billing_address[zip]", billingAddressZip);
+        _params.AddOpt("billing_address[zip]", billingAddressZip);
         return this;
       }
       public CreateRequest BillingAddressCountry(string billingAddressCountry) {
-        m_params.AddOpt("billing_address[country]", billingAddressCountry);
+        _params.AddOpt("billing_address[country]", billingAddressCountry);
         return this;
       }
       public CreateRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) {
-        m_params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
+        _params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
         return this;
       }
     }
@@ -382,7 +382,7 @@ namespace ChargeBee.Models {
       }
 
       public CustomerListRequest IncludeDeleted(bool includeDeleted) {
-        m_params.AddOpt("include_deleted", includeDeleted);
+        _params.AddOpt("include_deleted", includeDeleted);
         return this;
       }
       public StringFilter<CustomerListRequest> Id() {
@@ -413,7 +413,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<CustomerListRequest>("updated_at", this);
       }
       public CustomerListRequest SortByCreatedAt(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
         return this;
       }
     }
@@ -424,63 +424,63 @@ namespace ChargeBee.Models {
       }
 
       public UpdateRequest FirstName(string firstName) {
-        m_params.AddOpt("first_name", firstName);
+        _params.AddOpt("first_name", firstName);
         return this;
       }
       public UpdateRequest LastName(string lastName) {
-        m_params.AddOpt("last_name", lastName);
+        _params.AddOpt("last_name", lastName);
         return this;
       }
       public UpdateRequest Email(string email) {
-        m_params.AddOpt("email", email);
+        _params.AddOpt("email", email);
         return this;
       }
       public UpdateRequest PreferredCurrencyCode(string preferredCurrencyCode) {
-        m_params.AddOpt("preferred_currency_code", preferredCurrencyCode);
+        _params.AddOpt("preferred_currency_code", preferredCurrencyCode);
         return this;
       }
       public UpdateRequest Phone(string phone) {
-        m_params.AddOpt("phone", phone);
+        _params.AddOpt("phone", phone);
         return this;
       }
       public UpdateRequest Company(string company) {
-        m_params.AddOpt("company", company);
+        _params.AddOpt("company", company);
         return this;
       }
       public UpdateRequest AutoCollection(AutoCollectionEnum autoCollection) {
-        m_params.AddOpt("auto_collection", autoCollection);
+        _params.AddOpt("auto_collection", autoCollection);
         return this;
       }
       public UpdateRequest AllowDirectDebit(bool allowDirectDebit) {
-        m_params.AddOpt("allow_direct_debit", allowDirectDebit);
+        _params.AddOpt("allow_direct_debit", allowDirectDebit);
         return this;
       }
       public UpdateRequest NetTermDays(int netTermDays) {
-        m_params.AddOpt("net_term_days", netTermDays);
+        _params.AddOpt("net_ter_days", netTermDays);
         return this;
       }
       public UpdateRequest Taxability(TaxabilityEnum taxability) {
-        m_params.AddOpt("taxability", taxability);
+        _params.AddOpt("taxability", taxability);
         return this;
       }
       public UpdateRequest Locale(string locale) {
-        m_params.AddOpt("locale", locale);
+        _params.AddOpt("locale", locale);
         return this;
       }
       public UpdateRequest EntityCode(EntityCodeEnum entityCode) {
-        m_params.AddOpt("entity_code", entityCode);
+        _params.AddOpt("entity_code", entityCode);
         return this;
       }
       public UpdateRequest ExemptNumber(string exemptNumber) {
-        m_params.AddOpt("exempt_number", exemptNumber);
+        _params.AddOpt("exempt_number", exemptNumber);
         return this;
       }
       public UpdateRequest InvoiceNotes(string invoiceNotes) {
-        m_params.AddOpt("invoice_notes", invoiceNotes);
+        _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
       }
       public UpdateRequest MetaData(JToken metaData) {
-        m_params.AddOpt("meta_data", metaData);
+        _params.AddOpt("meta_data", metaData);
         return this;
       }
     }
@@ -491,19 +491,19 @@ namespace ChargeBee.Models {
       }
 
       public UpdatePaymentMethodRequest PaymentMethodType(TypeEnum paymentMethodType) {
-        m_params.Add("payment_method[type]", paymentMethodType);
+        _params.Add("payment_method[type]", paymentMethodType);
         return this;
       }
       public UpdatePaymentMethodRequest PaymentMethodGateway(GatewayEnum paymentMethodGateway) {
-        m_params.AddOpt("payment_method[gateway]", paymentMethodGateway);
+        _params.AddOpt("payment_method[gateway]", paymentMethodGateway);
         return this;
       }
       public UpdatePaymentMethodRequest PaymentMethodReferenceId(string paymentMethodReferenceId) {
-        m_params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
+        _params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
         return this;
       }
       public UpdatePaymentMethodRequest PaymentMethodTmpToken(string paymentMethodTmpToken) {
-        m_params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
+        _params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
         return this;
       }
     }
@@ -514,63 +514,63 @@ namespace ChargeBee.Models {
       }
 
       public UpdateBillingInfoRequest VatNumber(string vatNumber) {
-        m_params.AddOpt("vat_number", vatNumber);
+        _params.AddOpt("vat_number", vatNumber);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressFirstName(string billingAddressFirstName) {
-        m_params.AddOpt("billing_address[first_name]", billingAddressFirstName);
+        _params.AddOpt("billing_address[first_name]", billingAddressFirstName);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressLastName(string billingAddressLastName) {
-        m_params.AddOpt("billing_address[last_name]", billingAddressLastName);
+        _params.AddOpt("billing_address[last_name]", billingAddressLastName);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressEmail(string billingAddressEmail) {
-        m_params.AddOpt("billing_address[email]", billingAddressEmail);
+        _params.AddOpt("billing_address[email]", billingAddressEmail);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressCompany(string billingAddressCompany) {
-        m_params.AddOpt("billing_address[company]", billingAddressCompany);
+        _params.AddOpt("billing_address[company]", billingAddressCompany);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressPhone(string billingAddressPhone) {
-        m_params.AddOpt("billing_address[phone]", billingAddressPhone);
+        _params.AddOpt("billing_address[phone]", billingAddressPhone);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressLine1(string billingAddressLine1) {
-        m_params.AddOpt("billing_address[line1]", billingAddressLine1);
+        _params.AddOpt("billing_address[line1]", billingAddressLine1);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressLine2(string billingAddressLine2) {
-        m_params.AddOpt("billing_address[line2]", billingAddressLine2);
+        _params.AddOpt("billing_address[line2]", billingAddressLine2);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressLine3(string billingAddressLine3) {
-        m_params.AddOpt("billing_address[line3]", billingAddressLine3);
+        _params.AddOpt("billing_address[line3]", billingAddressLine3);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressCity(string billingAddressCity) {
-        m_params.AddOpt("billing_address[city]", billingAddressCity);
+        _params.AddOpt("billing_address[city]", billingAddressCity);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressStateCode(string billingAddressStateCode) {
-        m_params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+        _params.AddOpt("billing_address[state_code]", billingAddressStateCode);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressState(string billingAddressState) {
-        m_params.AddOpt("billing_address[state]", billingAddressState);
+        _params.AddOpt("billing_address[state]", billingAddressState);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressZip(string billingAddressZip) {
-        m_params.AddOpt("billing_address[zip]", billingAddressZip);
+        _params.AddOpt("billing_address[zip]", billingAddressZip);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressCountry(string billingAddressCountry) {
-        m_params.AddOpt("billing_address[country]", billingAddressCountry);
+        _params.AddOpt("billing_address[country]", billingAddressCountry);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) {
-        m_params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
+        _params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
         return this;
       }
     }
@@ -581,39 +581,39 @@ namespace ChargeBee.Models {
       }
 
       public AddContactRequest ContactId(string contactId) {
-        m_params.AddOpt("contact[id]", contactId);
+        _params.AddOpt("contact[id]", contactId);
         return this;
       }
       public AddContactRequest ContactFirstName(string contactFirstName) {
-        m_params.AddOpt("contact[first_name]", contactFirstName);
+        _params.AddOpt("contact[first_name]", contactFirstName);
         return this;
       }
       public AddContactRequest ContactLastName(string contactLastName) {
-        m_params.AddOpt("contact[last_name]", contactLastName);
+        _params.AddOpt("contact[last_name]", contactLastName);
         return this;
       }
       public AddContactRequest ContactEmail(string contactEmail) {
-        m_params.Add("contact[email]", contactEmail);
+        _params.Add("contact[email]", contactEmail);
         return this;
       }
       public AddContactRequest ContactPhone(string contactPhone) {
-        m_params.AddOpt("contact[phone]", contactPhone);
+        _params.AddOpt("contact[phone]", contactPhone);
         return this;
       }
       public AddContactRequest ContactLabel(string contactLabel) {
-        m_params.AddOpt("contact[label]", contactLabel);
+        _params.AddOpt("contact[label]", contactLabel);
         return this;
       }
       public AddContactRequest ContactEnabled(bool contactEnabled) {
-        m_params.AddOpt("contact[enabled]", contactEnabled);
+        _params.AddOpt("contact[enabled]", contactEnabled);
         return this;
       }
       public AddContactRequest ContactSendBillingEmail(bool contactSendBillingEmail) {
-        m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
+        _params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
         return this;
       }
       public AddContactRequest ContactSendAccountEmail(bool contactSendAccountEmail) {
-        m_params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
+        _params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
         return this;
       }
     }
@@ -624,39 +624,39 @@ namespace ChargeBee.Models {
       }
 
       public UpdateContactRequest ContactId(string contactId) {
-        m_params.Add("contact[id]", contactId);
+        _params.Add("contact[id]", contactId);
         return this;
       }
       public UpdateContactRequest ContactFirstName(string contactFirstName) {
-        m_params.AddOpt("contact[first_name]", contactFirstName);
+        _params.AddOpt("contact[first_name]", contactFirstName);
         return this;
       }
       public UpdateContactRequest ContactLastName(string contactLastName) {
-        m_params.AddOpt("contact[last_name]", contactLastName);
+        _params.AddOpt("contact[last_name]", contactLastName);
         return this;
       }
       public UpdateContactRequest ContactEmail(string contactEmail) {
-        m_params.AddOpt("contact[email]", contactEmail);
+        _params.AddOpt("contact[email]", contactEmail);
         return this;
       }
       public UpdateContactRequest ContactPhone(string contactPhone) {
-        m_params.AddOpt("contact[phone]", contactPhone);
+        _params.AddOpt("contact[phone]", contactPhone);
         return this;
       }
       public UpdateContactRequest ContactLabel(string contactLabel) {
-        m_params.AddOpt("contact[label]", contactLabel);
+        _params.AddOpt("contact[label]", contactLabel);
         return this;
       }
       public UpdateContactRequest ContactEnabled(bool contactEnabled) {
-        m_params.AddOpt("contact[enabled]", contactEnabled);
+        _params.AddOpt("contact[enabled]", contactEnabled);
         return this;
       }
       public UpdateContactRequest ContactSendBillingEmail(bool contactSendBillingEmail) {
-        m_params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
+        _params.AddOpt("contact[send_billing_email]", contactSendBillingEmail);
         return this;
       }
       public UpdateContactRequest ContactSendAccountEmail(bool contactSendAccountEmail) {
-        m_params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
+        _params.AddOpt("contact[send_account_email]", contactSendAccountEmail);
         return this;
       }
     }
@@ -667,7 +667,7 @@ namespace ChargeBee.Models {
       }
 
       public DeleteContactRequest ContactId(string contactId) {
-        m_params.Add("contact[id]", contactId);
+        _params.Add("contact[id]", contactId);
         return this;
       }
     }
@@ -678,15 +678,15 @@ namespace ChargeBee.Models {
       }
 
       public AddPromotionalCreditsRequest Amount(int amount) {
-        m_params.Add("amount", amount);
+        _params.Add("amount", amount);
         return this;
       }
       public AddPromotionalCreditsRequest CurrencyCode(string currencyCode) {
-        m_params.AddOpt("currency_code", currencyCode);
+        _params.AddOpt("currency_code", currencyCode);
         return this;
       }
       public AddPromotionalCreditsRequest Description(string description) {
-        m_params.Add("description", description);
+        _params.Add("description", description);
         return this;
       }
     }
@@ -697,15 +697,15 @@ namespace ChargeBee.Models {
       }
 
       public DeductPromotionalCreditsRequest Amount(int amount) {
-        m_params.Add("amount", amount);
+        _params.Add("amount", amount);
         return this;
       }
       public DeductPromotionalCreditsRequest CurrencyCode(string currencyCode) {
-        m_params.AddOpt("currency_code", currencyCode);
+        _params.AddOpt("currency_code", currencyCode);
         return this;
       }
       public DeductPromotionalCreditsRequest Description(string description) {
-        m_params.Add("description", description);
+        _params.Add("description", description);
         return this;
       }
     }
@@ -716,15 +716,15 @@ namespace ChargeBee.Models {
       }
 
       public SetPromotionalCreditsRequest Amount(int amount) {
-        m_params.Add("amount", amount);
+        _params.Add("amount", amount);
         return this;
       }
       public SetPromotionalCreditsRequest CurrencyCode(string currencyCode) {
-        m_params.AddOpt("currency_code", currencyCode);
+        _params.AddOpt("currency_code", currencyCode);
         return this;
       }
       public SetPromotionalCreditsRequest Description(string description) {
-        m_params.Add("description", description);
+        _params.Add("description", description);
         return this;
       }
     }
@@ -735,27 +735,27 @@ namespace ChargeBee.Models {
       }
 
       public RecordExcessPaymentRequest Comment(string comment) {
-        m_params.AddOpt("comment", comment);
+        _params.AddOpt("comment", comment);
         return this;
       }
       public RecordExcessPaymentRequest TransactionAmount(int transactionAmount) {
-        m_params.Add("transaction[amount]", transactionAmount);
+        _params.Add("transaction[amount]", transactionAmount);
         return this;
       }
       public RecordExcessPaymentRequest TransactionCurrencyCode(string transactionCurrencyCode) {
-        m_params.AddOpt("transaction[currency_code]", transactionCurrencyCode);
+        _params.AddOpt("transaction[currency_code]", transactionCurrencyCode);
         return this;
       }
       public RecordExcessPaymentRequest TransactionDate(long transactionDate) {
-        m_params.Add("transaction[date]", transactionDate);
+        _params.Add("transaction[date]", transactionDate);
         return this;
       }
       public RecordExcessPaymentRequest TransactionPaymentMethod(ChargeBee.Models.Enums.PaymentMethodEnum transactionPaymentMethod) {
-        m_params.Add("transaction[payment_method]", transactionPaymentMethod);
+        _params.Add("transaction[payment_method]", transactionPaymentMethod);
         return this;
       }
       public RecordExcessPaymentRequest TransactionReferenceNumber(string transactionReferenceNumber) {
-        m_params.AddOpt("transaction[reference_number]", transactionReferenceNumber);
+        _params.AddOpt("transaction[reference_number]", transactionReferenceNumber);
         return this;
       }
     }
@@ -766,7 +766,7 @@ namespace ChargeBee.Models {
       }
 
       public DeleteRequest DeletePaymentMethod(bool deletePaymentMethod) {
-        m_params.AddOpt("delete_payment_method", deletePaymentMethod);
+        _params.AddOpt("delete_payment_method", deletePaymentMethod);
         return this;
       }
     }

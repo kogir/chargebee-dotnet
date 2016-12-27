@@ -117,80 +117,80 @@ namespace ChargeBee.Models {
       }
 
       public CreateRequest Id(string id) {
-        m_params.Add("id", id);
+        _params.Add("id", id);
         return this;
       }
       public CreateRequest Name(string name) {
-        m_params.Add("name", name);
+        _params.Add("name", name);
         return this;
       }
       public CreateRequest InvoiceName(string invoiceName) {
-        m_params.AddOpt("invoice_name", invoiceName);
+        _params.AddOpt("invoice_name", invoiceName);
         return this;
       }
       public CreateRequest DiscountType(DiscountTypeEnum discountType) {
-        m_params.Add("discount_type", discountType);
+        _params.Add("discount_type", discountType);
         return this;
       }
       public CreateRequest DiscountAmount(int discountAmount) {
-        m_params.AddOpt("discount_amount", discountAmount);
+        _params.AddOpt("discount_amount", discountAmount);
         return this;
       }
       public CreateRequest CurrencyCode(string currencyCode) {
-        m_params.AddOpt("currency_code", currencyCode);
+        _params.AddOpt("currency_code", currencyCode);
         return this;
       }
       public CreateRequest DiscountPercentage(double discountPercentage) {
-        m_params.AddOpt("discount_percentage", discountPercentage);
+        _params.AddOpt("discount_percentage", discountPercentage);
         return this;
       }
       [Obsolete]
       public CreateRequest DiscountQuantity(int discountQuantity) {
-        m_params.AddOpt("discount_quantity", discountQuantity);
+        _params.AddOpt("discount_quantity", discountQuantity);
         return this;
       }
       public CreateRequest ApplyOn(ApplyOnEnum applyOn) {
-        m_params.Add("apply_on", applyOn);
+        _params.Add("apply_on", applyOn);
         return this;
       }
       public CreateRequest PlanConstraint(PlanConstraintEnum planConstraint) {
-        m_params.AddOpt("plan_constraint", planConstraint);
+        _params.AddOpt("plan_constraint", planConstraint);
         return this;
       }
       public CreateRequest AddonConstraint(AddonConstraintEnum addonConstraint) {
-        m_params.AddOpt("addon_constraint", addonConstraint);
+        _params.AddOpt("addon_constraint", addonConstraint);
         return this;
       }
       public CreateRequest PlanIds(List<string> planIds) {
-        m_params.AddOpt("plan_ids", planIds);
+        _params.AddOpt("plan_ids", planIds);
         return this;
       }
       public CreateRequest AddonIds(List<string> addonIds) {
-        m_params.AddOpt("addon_ids", addonIds);
+        _params.AddOpt("addon_ids", addonIds);
         return this;
       }
       public CreateRequest DurationType(DurationTypeEnum durationType) {
-        m_params.Add("duration_type", durationType);
+        _params.Add("duration_type", durationType);
         return this;
       }
       public CreateRequest DurationMonth(int durationMonth) {
-        m_params.AddOpt("duration_month", durationMonth);
+        _params.AddOpt("duration_month", durationMonth);
         return this;
       }
       public CreateRequest ValidTill(long validTill) {
-        m_params.AddOpt("valid_till", validTill);
+        _params.AddOpt("valid_till", validTill);
         return this;
       }
       public CreateRequest MaxRedemptions(int maxRedemptions) {
-        m_params.AddOpt("max_redemptions", maxRedemptions);
+        _params.AddOpt("max_redemptions", maxRedemptions);
         return this;
       }
       public CreateRequest InvoiceNotes(string invoiceNotes) {
-        m_params.AddOpt("invoice_notes", invoiceNotes);
+        _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
       }
       public CreateRequest MetaData(JToken metaData) {
-        m_params.AddOpt("meta_data", metaData);
+        _params.AddOpt("meta_data", metaData);
         return this;
       }
     }
@@ -225,7 +225,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<CouponListRequest>("updated_at", this);
       }
       public CouponListRequest SortByCreatedAt(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "created_at");
         return this;
       }
     }
@@ -236,11 +236,11 @@ namespace ChargeBee.Models {
       }
 
       public CopyRequest FromSite(string fromSite) {
-        m_params.Add("from_site", fromSite);
+        _params.Add("fro_site", fromSite);
         return this;
       }
       public CopyRequest IdAtFromSite(string idAtFromSite) {
-        m_params.Add("id_at_from_site", idAtFromSite);
+        _params.Add("id_at_fro_site", idAtFromSite);
         return this;
       }
     }

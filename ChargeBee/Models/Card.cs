@@ -95,73 +95,73 @@ namespace ChargeBee.Models {
       }
 
       public UpdateCardForCustomerRequest Gateway(GatewayEnum gateway) {
-        m_params.AddOpt("gateway", gateway);
+        _params.AddOpt("gateway", gateway);
         return this;
       }
       public UpdateCardForCustomerRequest TmpToken(string tmpToken) {
-        m_params.AddOpt("tmp_token", tmpToken);
+        _params.AddOpt("tmp_token", tmpToken);
         return this;
       }
       public UpdateCardForCustomerRequest FirstName(string firstName) {
-        m_params.AddOpt("first_name", firstName);
+        _params.AddOpt("first_name", firstName);
         return this;
       }
       public UpdateCardForCustomerRequest LastName(string lastName) {
-        m_params.AddOpt("last_name", lastName);
+        _params.AddOpt("last_name", lastName);
         return this;
       }
       public UpdateCardForCustomerRequest Number(string number) {
-        m_params.Add("number", number);
+        _params.Add("number", number);
         return this;
       }
       public UpdateCardForCustomerRequest ExpiryMonth(int expiryMonth) {
-        m_params.Add("expiry_month", expiryMonth);
+        _params.Add("expiry_month", expiryMonth);
         return this;
       }
       public UpdateCardForCustomerRequest ExpiryYear(int expiryYear) {
-        m_params.Add("expiry_year", expiryYear);
+        _params.Add("expiry_year", expiryYear);
         return this;
       }
       public UpdateCardForCustomerRequest Cvv(string cvv) {
-        m_params.AddOpt("cvv", cvv);
+        _params.AddOpt("cvv", cvv);
         return this;
       }
       public UpdateCardForCustomerRequest BillingAddr1(string billingAddr1) {
-        m_params.AddOpt("billing_addr1", billingAddr1);
+        _params.AddOpt("billing_addr1", billingAddr1);
         return this;
       }
       public UpdateCardForCustomerRequest BillingAddr2(string billingAddr2) {
-        m_params.AddOpt("billing_addr2", billingAddr2);
+        _params.AddOpt("billing_addr2", billingAddr2);
         return this;
       }
       public UpdateCardForCustomerRequest BillingCity(string billingCity) {
-        m_params.AddOpt("billing_city", billingCity);
+        _params.AddOpt("billing_city", billingCity);
         return this;
       }
       public UpdateCardForCustomerRequest BillingStateCode(string billingStateCode) {
-        m_params.AddOpt("billing_state_code", billingStateCode);
+        _params.AddOpt("billing_state_code", billingStateCode);
         return this;
       }
       public UpdateCardForCustomerRequest BillingState(string billingState) {
-        m_params.AddOpt("billing_state", billingState);
+        _params.AddOpt("billing_state", billingState);
         return this;
       }
       public UpdateCardForCustomerRequest BillingZip(string billingZip) {
-        m_params.AddOpt("billing_zip", billingZip);
+        _params.AddOpt("billing_zip", billingZip);
         return this;
       }
       public UpdateCardForCustomerRequest BillingCountry(string billingCountry) {
-        m_params.AddOpt("billing_country", billingCountry);
+        _params.AddOpt("billing_country", billingCountry);
         return this;
       }
       [Obsolete]
       public UpdateCardForCustomerRequest IpAddress(string ipAddress) {
-        m_params.AddOpt("ip_address", ipAddress);
+        _params.AddOpt("ip_address", ipAddress);
         return this;
       }
       [Obsolete]
       public UpdateCardForCustomerRequest CustomerVatNumber(string customerVatNumber) {
-        m_params.AddOpt("customer[vat_number]", customerVatNumber);
+        _params.AddOpt("customer[vat_number]", customerVatNumber);
         return this;
       }
     }
@@ -172,7 +172,7 @@ namespace ChargeBee.Models {
       }
 
       public SwitchGatewayForCustomerRequest Gateway(GatewayEnum gateway) {
-        m_params.Add("gateway", gateway);
+        _params.Add("gateway", gateway);
         return this;
       }
     }
@@ -183,7 +183,7 @@ namespace ChargeBee.Models {
       }
 
       public CopyCardForCustomerRequest Gateway(GatewayEnum gateway) {
-        m_params.Add("gateway", gateway);
+        _params.Add("gateway", gateway);
         return this;
       }
     }

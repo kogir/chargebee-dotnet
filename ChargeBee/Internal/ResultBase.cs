@@ -11,7 +11,7 @@ namespace ChargeBee.Internal {
     internal ResultBase(string json) {
       if (!string.IsNullOrEmpty(json)) {
         try {
-          m_jobj = JToken.Parse(json);
+          _jobj = JToken.Parse(json);
         } catch (JsonException e) {
           throw new SystemException("Not in JSON format. Probably not a ChargeBee response. \n " + json, e);
         }
@@ -19,7 +19,7 @@ namespace ChargeBee.Internal {
     }
 
     internal ResultBase(JToken jobj) {
-      m_jobj = jobj;
+      _jobj = jobj;
     }
 
     public Subscription Subscription {
@@ -87,7 +87,7 @@ namespace ChargeBee.Internal {
 
     private List<T> GetResourceList<T>(string property, string propertySingularName) where T : Resource, new() {
       List<T> list = new List<T>();
-      JArray jArr = (JArray)m_jobj.SelectToken(property);
+      JArray jArr = (JArray)_jobj.SelectToken(property);
       if (jArr != null) {
         foreach (JToken jObj in jArr.Children()) {
           T t = new T();
@@ -99,10 +99,10 @@ namespace ChargeBee.Internal {
     }
 
     private T GetResource<T>(string property) where T : Resource, new() {
-      if (m_jobj == null)
+      if (_jobj == null)
         return default(T);
 
-      JToken jobj = m_jobj[property];
+      JToken jobj = _jobj[property];
       if (jobj != null) {
         T t = new T();
         t.JObj = jobj;

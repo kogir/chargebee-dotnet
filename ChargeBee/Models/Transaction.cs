@@ -117,7 +117,7 @@ namespace ChargeBee.Models {
       }
 
       public TransactionListRequest IncludeDeleted(bool includeDeleted) {
-        m_params.AddOpt("include_deleted", includeDeleted);
+        _params.AddOpt("include_deleted", includeDeleted);
         return this;
       }
       public StringFilter<TransactionListRequest> Id() {
@@ -157,7 +157,7 @@ namespace ChargeBee.Models {
         return new TimestampFilter<TransactionListRequest>("updated_at", this);
       }
       public TransactionListRequest SortByDate(SortOrderEnum order) {
-        m_params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "date");
+        _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "date");
         return this;
       }
     }

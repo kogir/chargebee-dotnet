@@ -41,7 +41,7 @@
       ApiKey = apiKey;
     }
 
-    private static volatile ApiConfig m_instance;
+    private static volatile ApiConfig _instance;
 
     public static void Configure(string siteName, string apiKey) {
       if (string.IsNullOrEmpty(siteName))
@@ -50,15 +50,15 @@
       if (string.IsNullOrEmpty(apiKey))
         throw new ArgumentException("Api key can't be empty!");
 
-      m_instance = new ApiConfig(siteName, apiKey);
+      _instance = new ApiConfig(siteName, apiKey);
     }
 
     public static ApiConfig Instance {
       get {
-        if (m_instance == null)
+        if (_instance == null)
           throw new ApplicationException("Not yet configured!");
 
-        return m_instance;
+        return _instance;
       }
     }
   }

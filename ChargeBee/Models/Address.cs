@@ -69,11 +69,11 @@ namespace ChargeBee.Models {
       }
 
       public RetrieveRequest SubscriptionId(string subscriptionId) {
-        m_params.Add("subscription_id", subscriptionId);
+        _params.Add("subscription_id", subscriptionId);
         return this;
       }
       public RetrieveRequest Label(string label) {
-        m_params.Add("label", label);
+        _params.Add("label", label);
         return this;
       }
     }
@@ -84,67 +84,67 @@ namespace ChargeBee.Models {
       }
 
       public UpdateRequest SubscriptionId(string subscriptionId) {
-        m_params.Add("subscription_id", subscriptionId);
+        _params.Add("subscription_id", subscriptionId);
         return this;
       }
       public UpdateRequest Label(string label) {
-        m_params.Add("label", label);
+        _params.Add("label", label);
         return this;
       }
       public UpdateRequest FirstName(string firstName) {
-        m_params.AddOpt("first_name", firstName);
+        _params.AddOpt("first_name", firstName);
         return this;
       }
       public UpdateRequest LastName(string lastName) {
-        m_params.AddOpt("last_name", lastName);
+        _params.AddOpt("last_name", lastName);
         return this;
       }
       public UpdateRequest Email(string email) {
-        m_params.AddOpt("email", email);
+        _params.AddOpt("email", email);
         return this;
       }
       public UpdateRequest Company(string company) {
-        m_params.AddOpt("company", company);
+        _params.AddOpt("company", company);
         return this;
       }
       public UpdateRequest Phone(string phone) {
-        m_params.AddOpt("phone", phone);
+        _params.AddOpt("phone", phone);
         return this;
       }
       public UpdateRequest Addr(string addr) {
-        m_params.AddOpt("addr", addr);
+        _params.AddOpt("addr", addr);
         return this;
       }
       public UpdateRequest ExtendedAddr(string extendedAddr) {
-        m_params.AddOpt("extended_addr", extendedAddr);
+        _params.AddOpt("extended_addr", extendedAddr);
         return this;
       }
       public UpdateRequest ExtendedAddr2(string extendedAddr2) {
-        m_params.AddOpt("extended_addr2", extendedAddr2);
+        _params.AddOpt("extended_addr2", extendedAddr2);
         return this;
       }
       public UpdateRequest City(string city) {
-        m_params.AddOpt("city", city);
+        _params.AddOpt("city", city);
         return this;
       }
       public UpdateRequest StateCode(string stateCode) {
-        m_params.AddOpt("state_code", stateCode);
+        _params.AddOpt("state_code", stateCode);
         return this;
       }
       public UpdateRequest State(string state) {
-        m_params.AddOpt("state", state);
+        _params.AddOpt("state", state);
         return this;
       }
       public UpdateRequest Zip(string zip) {
-        m_params.AddOpt("zip", zip);
+        _params.AddOpt("zip", zip);
         return this;
       }
       public UpdateRequest Country(string country) {
-        m_params.AddOpt("country", country);
+        _params.AddOpt("country", country);
         return this;
       }
       public UpdateRequest ValidationStatus(ValidationStatusEnum validationStatus) {
-        m_params.AddOpt("validation_status", validationStatus);
+        _params.AddOpt("validation_status", validationStatus);
         return this;
       }
     }

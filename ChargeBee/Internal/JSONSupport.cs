@@ -2,11 +2,11 @@ namespace ChargeBee.Internal {
   using Newtonsoft.Json.Linq;
 
   public class JSONSupport {
-    protected JToken m_jobj;
+    protected JToken _jobj;
 
     internal JToken JObj {
-      get { return m_jobj; }
-      set { m_jobj = value; }
+      get { return _jobj; }
+      set { _jobj = value; }
     }
   }
 }
