@@ -6,7 +6,6 @@
   using System.Net.Http;
   using System.Net.Http.Headers;
   using System.Text;
-  using ChargeBee.Exceptions;
   using Newtonsoft.Json;
 
   public static class ApiUtil {
