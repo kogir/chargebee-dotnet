@@ -179,8 +179,8 @@
         Event evnt = new Event(ms);
         Assert.AreEqual("ev_HwqE2wPNy5PuFEcd", evnt.Id);
         Assert.AreEqual(
-            DateTime.ParseExact("2013-02-21 17:30:44", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-            evnt.OccurredAt);
+          new DateTime(2013, 2, 21, 13, 30, 44, DateTimeKind.Utc),
+          evnt.OccurredAt);
       }
     }
 
