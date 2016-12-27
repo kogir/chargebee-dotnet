@@ -1,67 +1,66 @@
-using System.ComponentModel;
+namespace ChargeBee.Models.Enums {
+  using System.ComponentModel;
 
-namespace ChargeBee.Models.Enums
-{
-    public enum EntityCodeEnum
-    {
+  public enum EntityCodeEnum {
+    /// <summary>
+    /// Indicates unexpected value for this enum. You can get this when there is a
+    /// dotnet-client version incompatibility. We suggest you to upgrade to the latest version
+    /// </summary>
+    [Description("Unexpected Value")]
+    Unknown,
 
-        [Description("Unknown Enum")]
-        UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+    [Description("a")]
+    A,
 
-        [Description("a")]
-         A,
+    [Description("b")]
+    B,
 
-        [Description("b")]
-         B,
+    [Description("c")]
+    C,
 
-        [Description("c")]
-         C,
+    [Description("d")]
+    D,
 
-        [Description("d")]
-         D,
+    [Description("e")]
+    E,
 
-        [Description("e")]
-         E,
+    [Description("f")]
+    F,
 
-        [Description("f")]
-         F,
+    [Description("g")]
+    G,
 
-        [Description("g")]
-         G,
+    [Description("h")]
+    H,
 
-        [Description("h")]
-         H,
+    [Description("i")]
+    I,
 
-        [Description("i")]
-         I,
+    [Description("j")]
+    J,
 
-        [Description("j")]
-         J,
+    [Description("k")]
+    K,
 
-        [Description("k")]
-         K,
+    [Description("l")]
+    L,
 
-        [Description("l")]
-         L,
+    [Description("n")]
+    N,
 
-        [Description("n")]
-         N,
+    [Description("p")]
+    P,
 
-        [Description("p")]
-         P,
+    [Description("q")]
+    Q,
 
-        [Description("q")]
-         Q,
+    [Description("r")]
+    R,
 
-        [Description("r")]
-         R,
+    [Description("med1")]
+    Med1,
 
-        [Description("med1")]
-         Med1,
-
-        [Description("med2")]
-         Med2,
-
-    }
+    [Description("med2")]
+    Med2,
+  }
 }

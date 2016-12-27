@@ -1,19 +1,18 @@
-using System.ComponentModel;
+namespace ChargeBee.Models.Enums {
+  using System.ComponentModel;
 
-namespace ChargeBee.Models.Enums
-{
-    public enum AutoCollectionEnum
-    {
+  public enum AutoCollectionEnum {
+    /// <summary>
+    /// Indicates unexpected value for this enum. You can get this when there is a
+    /// dotnet-client version incompatibility. We suggest you to upgrade to the latest version
+    /// </summary>
+    [Description("Unexpected Value")]
+    Unknown,
 
-        [Description("Unknown Enum")]
-        UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+    [Description("on")]
+    On,
 
-        [Description("on")]
-         On,
-
-        [Description("off")]
-         Off,
-
-    }
+    [Description("off")]
+    Off,
+  }
 }

@@ -6,16 +6,16 @@ namespace ChargeBee
 	public class NumberFilter<T,U> where U : ListRequestBase<U>
 	{
 		private U req;
-		private String paramName;
+		private string paramName;
 		private bool supportsPresenceOperator;
 
-		public NumberFilter(String paramName, U req) {
-			this.paramName = paramName;
-			this.req = req;
+		public NumberFilter(string paramName, U req) {
+      this.paramName = paramName;
+      this.req = req;
 		}
 
 		public NumberFilter<T,U> SupportsPresenceOperator(bool supportsPresenceOperator) {
-			this.supportsPresenceOperator = supportsPresenceOperator;
+      this.supportsPresenceOperator = supportsPresenceOperator;
 			return this;
 		}
 

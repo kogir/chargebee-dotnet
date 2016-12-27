@@ -7,38 +7,38 @@ namespace ChargeBee
 	public class StringFilter<U> where U : ListRequestBase<U>
 	{
 		private U req;
-		private String paramName;
+		private string paramName;
 		private bool supportsMultiOperator;
 		private bool supportsPresenceOperator;
 
-		public StringFilter(String paramName, U req) {
-			this.paramName = paramName;
-			this.req = req;
-			this.supportsPresenceOperator = true;
+		public StringFilter(string paramName, U req) {
+      this.paramName = paramName;
+      this.req = req;
+			supportsPresenceOperator = true;
 		}
 
 		public StringFilter<U> SupportsPresenceOperator(bool supportsPresenceOperators) {
-			this.supportsPresenceOperator = supportsPresenceOperators;
+			supportsPresenceOperator = supportsPresenceOperators;
 			return this;
 		}
 
 		public StringFilter<U> SupportsMultiOperators(bool supportsMultiOperators) {
-			this.supportsMultiOperator = supportsMultiOperators;
+			supportsMultiOperator = supportsMultiOperators;
 			return this;
 		}
 
-		public U Is(String value) {
+		public U Is(string value) {
 			req.Params().AddOpt(paramName + "[is]",value);
 			return req;
 		}
 
 
-		public U IsNot(String value) {
+		public U IsNot(string value) {
 			req.Params().AddOpt(paramName + "[is_not]",value);
 			return req;
 		}
 
-		public U StartsWith(String value) {
+		public U StartsWith(string value) {
 			req.Params().AddOpt(paramName + "[starts_with]", value);
 			return req;
 		}
@@ -51,7 +51,7 @@ namespace ChargeBee
 			return req;
 		}
 
-		public U In(params String[] value) {
+		public U In(params string[] value) {
 			if(!supportsMultiOperator) {
 				throw new NotSupportedException("operator '[in]' is not supported for this filter-parameter");
 			}
@@ -60,7 +60,7 @@ namespace ChargeBee
 			return req;
 		}
 
-		public U NotIn(params String[] value) {
+		public U NotIn(params string[] value) {
 			if(!supportsMultiOperator) {
 				throw new NotSupportedException("operator '[not_in]' is not supported for this filter-parameter");
 			}

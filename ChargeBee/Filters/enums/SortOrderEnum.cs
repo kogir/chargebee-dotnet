@@ -1,19 +1,18 @@
-﻿using System.ComponentModel;
+﻿namespace ChargeBee.Filters.Enums {
+  using System.ComponentModel;
 
-namespace ChargeBee.Filters.Enums
-{
-	public enum SortOrderEnum
-	{
+  public enum SortOrderEnum {
+    /// <summary>
+    /// Indicates unexpected value for this enum. You can get this when there is a
+    /// dotnet-client version incompatibility. We suggest you to upgrade to the latest version
+    /// </summary>
+    [Description("Unexpected Value")]
+    Unknown,
 
-		[Description("Unknown Enum")]
-		UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+    [Description("asc")]
+    Asc,
 
-		[Description("asc")]
-		Asc,
-
-		[Description("desc")]
-		Desc,
-
-	}
+    [Description("desc")]
+    Desc,
+  }
 }

@@ -1,31 +1,30 @@
-using System.ComponentModel;
+namespace ChargeBee.Models.Enums {
+  using System.ComponentModel;
 
-namespace ChargeBee.Models.Enums
-{
-    public enum TaxJurisTypeEnum
-    {
+  public enum TaxJurisTypeEnum {
+    /// <summary>
+    /// Indicates unexpected value for this enum. You can get this when there is a
+    /// dotnet-client version incompatibility. We suggest you to upgrade to the latest version
+    /// </summary>
+    [Description("Unexpected Value")]
+    Unknown,
 
-        [Description("Unknown Enum")]
-        UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+    [Description("country")]
+    Country,
 
-        [Description("country")]
-         Country,
+    [Description("state")]
+    State,
 
-        [Description("state")]
-         State,
+    [Description("county")]
+    County,
 
-        [Description("county")]
-         County,
+    [Description("city")]
+    City,
 
-        [Description("city")]
-         City,
+    [Description("special")]
+    Special,
 
-        [Description("special")]
-         Special,
-
-        [Description("other")]
-         Other,
-
-    }
+    [Description("other")]
+    Other,
+  }
 }

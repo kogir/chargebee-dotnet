@@ -1,37 +1,36 @@
+namespace ChargeBee.Models.Enums {
 using System.ComponentModel;
 
-namespace ChargeBee.Models.Enums
-{
-    public enum EntityTypeEnum
-    {
+  public enum EntityTypeEnum {
+    /// <summary>
+    /// Indicates unexpected value for this enum. You can get this when there is a
+    /// dotnet-client version incompatibility. We suggest you to upgrade to the latest version
+    /// </summary>
+    [Description("Unexpected Value")]
+    Unknown,
 
-        [Description("Unknown Enum")]
-        UnKnown, /*Indicates unexpected value for this enum. You can get this when there is a
-                dotnet-client version incompatibility. We suggest you to upgrade to the latest version */
+    [Description("customer")]
+    Customer,
 
-        [Description("customer")]
-         Customer,
+    [Description("subscription")]
+    Subscription,
 
-        [Description("subscription")]
-         Subscription,
+    [Description("invoice")]
+    Invoice,
 
-        [Description("invoice")]
-         Invoice,
+    [Description("credit_note")]
+    CreditNote,
 
-        [Description("credit_note")]
-         CreditNote,
+    [Description("transaction")]
+    Transaction,
 
-        [Description("transaction")]
-         Transaction,
+    [Description("plan")]
+    Plan,
 
-        [Description("plan")]
-         Plan,
+    [Description("addon")]
+    Addon,
 
-        [Description("addon")]
-         Addon,
-
-        [Description("coupon")]
-         Coupon,
-
-    }
+    [Description("coupon")]
+    Coupon,
+  }
 }

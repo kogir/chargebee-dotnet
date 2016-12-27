@@ -6,16 +6,16 @@ namespace ChargeBee
 	public class TimestampFilter<U> where U : ListRequestBase<U> {
 		
 		private U req;
-		private String paramName;
+		private string paramName;
 		private bool supportsPresenceOperator;
 
-		public TimestampFilter(String paramName, U req) {
+		public TimestampFilter(string paramName, U req) {
 			this.paramName = paramName;
-			this.req = req;
+      this.req = req;
 		}
 
 		public TimestampFilter<U> SupportsPresenceOperator(bool supportsPresenceOperator) {
-			this.supportsPresenceOperator = supportsPresenceOperator;
+      this.supportsPresenceOperator = supportsPresenceOperator;
 			return this;
 		}
 
