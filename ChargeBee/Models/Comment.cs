@@ -1,6 +1,7 @@
 namespace ChargeBee.Models {
   using System;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -9,11 +10,11 @@ namespace ChargeBee.Models {
   public class Comment : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("comments");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("comments", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static CommentListRequest List() {
       string url = ApiUtil.BuildUrl("comments");
@@ -21,7 +22,7 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Delete(string id) {
       string url = ApiUtil.BuildUrl("comments", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
 
     public string Id {

@@ -2,6 +2,7 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -10,7 +11,7 @@ namespace ChargeBee.Models {
   public class Coupon : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("coupons");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static CouponListRequest List() {
       string url = ApiUtil.BuildUrl("coupons");
@@ -18,15 +19,15 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("coupons", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> Delete(string id) {
       string url = ApiUtil.BuildUrl("coupons", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
     public static CopyRequest Copy() {
       string url = ApiUtil.BuildUrl("coupons", "copy");
-      return new CopyRequest(url, HttpMethod.POST);
+      return new CopyRequest(url, HttpMethod.Post);
     }
 
     public string Id {

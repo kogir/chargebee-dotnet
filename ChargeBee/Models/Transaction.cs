@@ -2,6 +2,7 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -28,7 +29,7 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("transactions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
 
     public string Id {

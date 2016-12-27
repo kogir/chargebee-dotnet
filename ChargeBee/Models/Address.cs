@@ -1,4 +1,5 @@
 namespace ChargeBee.Models {
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
@@ -6,11 +7,11 @@ namespace ChargeBee.Models {
   public class Address : Resource {
     public static RetrieveRequest Retrieve() {
       string url = ApiUtil.BuildUrl("addresses");
-      return new RetrieveRequest(url, HttpMethod.GET);
+      return new RetrieveRequest(url, HttpMethod.Get);
     }
     public static UpdateRequest Update() {
       string url = ApiUtil.BuildUrl("addresses");
-      return new UpdateRequest(url, HttpMethod.POST);
+      return new UpdateRequest(url, HttpMethod.Post);
     }
 
     public string Label {

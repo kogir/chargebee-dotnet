@@ -3,8 +3,8 @@
   using System.Collections;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net;
   using System.Reflection;
-  using System.Web;
   using Newtonsoft.Json;
   using Newtonsoft.Json.Linq;
 
@@ -32,19 +32,19 @@
       foreach (var pair in m_dict) {
         if (pair.Value is IList) {
           if (IsList) {
-            pairs.Add(string.Format("{0}={1}", HttpUtility.UrlEncode(pair.Key), HttpUtility.UrlEncode(JsonConvert.SerializeObject(pair.Value))));
+            pairs.Add(string.Format("{0}={1}", WebUtility.UrlEncode(pair.Key), WebUtility.UrlEncode(JsonConvert.SerializeObject(pair.Value))));
             continue;
           }
           int idx = 0;
           foreach (object item in (IList)pair.Value) {
             pairs.Add(string.Format("{0}[{1}]={2}",
-              HttpUtility.UrlEncode(pair.Key),
+              WebUtility.UrlEncode(pair.Key),
               idx++,
-              HttpUtility.UrlEncode(item.ToString()))
+              WebUtility.UrlEncode(item.ToString()))
             );
           }
         } else {
-          pairs.Add(string.Format("{0}={1}", HttpUtility.UrlEncode(pair.Key), HttpUtility.UrlEncode(pair.Value.ToString())));
+          pairs.Add(string.Format("{0}={1}", WebUtility.UrlEncode(pair.Key), WebUtility.UrlEncode(pair.Value.ToString())));
         }
       }
       return pairs.ToArray();

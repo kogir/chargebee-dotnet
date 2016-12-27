@@ -1,6 +1,7 @@
 ﻿namespace ChargeBee.Api {
   using System;
   using System.Collections.Generic;
+  using System.Net.Http;
 
   public class EntityRequest<T> {
     string m_url;
@@ -28,15 +29,15 @@
     }
 
     public EntityResult Request(ApiConfig env) {
-      switch (m_method) {
-        case HttpMethod.GET:
+      switch (m_method.Method) {
+        case "GET":
           return ApiUtil.Get(m_url, m_params, headers, env);
-        case HttpMethod.POST:
+        case "POST":
           return ApiUtil.Post(m_url, m_params, headers, env);
         default:
           throw new NotImplementedException(string.Format(
               "HTTP method {0} is not implemented",
-              Enum.GetName(typeof(HttpMethod), m_method)));
+              m_method));
       }
 
     }

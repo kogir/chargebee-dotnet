@@ -1,118 +1,99 @@
 ﻿namespace ChargeBee.Api {
   using System;
   using System.Collections.Generic;
-  using System.IO;
+  using System.Diagnostics.CodeAnalysis;
   using System.Net;
+  using System.Net.Http;
+  using System.Net.Http.Headers;
   using System.Text;
-  using System.Web;
   using ChargeBee.Exceptions;
   using Newtonsoft.Json;
 
   public static class ApiUtil {
-    private static DateTime m_unixTime = new DateTime(1970, 1, 1);
+    public static HttpClient HttpClient { get; set; } = CreateGitHubHttpClient();
+    private static ProductInfoHeaderValue UserAgent { get; } = new ProductInfoHeaderValue("ChargeBee.net", "1.0.0");
 
     public static string BuildUrl(params string[] paths) {
       StringBuilder sb = new StringBuilder(ApiConfig.Instance.ApiBaseUrl);
 
       foreach (var path in paths) {
-        sb.Append('/').Append(HttpUtility.UrlPathEncode(path));
+        sb.Append('/').Append(WebUtility.UrlEncode(path));
       }
 
       return sb.ToString();
     }
 
-    private static HttpWebRequest GetRequest(string url, HttpMethod method, Dictionary<string, string> headers, ApiConfig env) {
-      HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-      request.Method = Enum.GetName(typeof(HttpMethod), method);
-      request.UserAgent = string.Format("ChargeBee-DotNet-Client v{0} on {1} / {2}",
-          ApiConfig.Version,
-          Environment.Version,
-          Environment.OSVersion);
+    private static HttpRequestMessage GetRequest(string url, HttpMethod method, Dictionary<string, string> headers, ApiConfig env) {
+      var uri = new Uri(url);
+      var request = new HttpRequestMessage(method, uri);
 
-      request.Accept = "application/json";
+      request.Headers.UserAgent.Clear();
+      request.Headers.UserAgent.Add(UserAgent);
 
-      AddHeaders(request, env);
-      AddCustomHeaders(request, headers);
+      request.Headers.Accept.Clear();
+      request.Headers.Accept.ParseAdd("application/json");
 
-      request.Timeout = env.ConnectTimeout;
-      request.ReadWriteTimeout = env.ReadTimeout;
+      request.Headers.AcceptCharset.Clear();
+      request.Headers.AcceptCharset.ParseAdd(env.Charset);
+
+      request.Headers.Authorization = AuthenticationHeaderValue.Parse(env.AuthValue);
+
+      foreach (var entry in headers) {
+        request.Headers.Add(entry.Key, entry.Value);
+      }
 
       return request;
     }
 
-    private static void AddHeaders(HttpWebRequest request, ApiConfig env) {
-      request.Headers.Add(HttpRequestHeader.AcceptCharset, env.Charset);
-      request.Headers.Add(HttpRequestHeader.Authorization, env.AuthValue);
-    }
-
-    private static void AddCustomHeaders(HttpWebRequest request, Dictionary<string, string> headers) {
-      foreach (KeyValuePair<string, string> entry in headers) {
-        AddHeader(request, entry.Key, entry.Value);
-      }
-    }
-
-    private static void AddHeader(HttpWebRequest request, string headerName, string value) {
-      request.Headers.Add(headerName, value);
-    }
-
-    private static string SendRequest(HttpWebRequest request, out HttpStatusCode code) {
-      try {
-        using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
-        using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
-          code = response.StatusCode;
-          return reader.ReadToEnd();
+    private static string SendRequest(HttpRequestMessage request, out HttpStatusCode code) {
+      var response = HttpClient.SendAsync(request).GetAwaiter().GetResult();
+      code = response.StatusCode;
+      if (response.IsSuccessStatusCode) {
+        return response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+      } else {
+        // Try to match old error handling for now. Fix later.
+        if (response.Content == null) {
+          // Not a chargebe error response.
+          response.EnsureSuccessStatusCode();
         }
-      } catch (WebException ex) {
-        if (ex.Response == null)
-          throw ex;
-        using (HttpWebResponse response = ex.Response as HttpWebResponse)
-        using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
-          code = response.StatusCode;
-          string content = reader.ReadToEnd();
-          Dictionary<string, string> errorJson = null;
-          try {
-            errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
-          } catch (JsonException e) {
-            throw new SystemException("Not in JSON format. Probably not a ChargeBee response. \n " + content, e);
-          }
-          string type = "";
+        var content = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+        try {
+          var errorJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+          var type = string.Empty;
           errorJson.TryGetValue("type", out type);
-          if ("payment".Equals(type)) {
-            throw new PaymentException(response.StatusCode, errorJson);
-          } else if ("operation_failed".Equals(type)) {
-            throw new OperationFailedException(response.StatusCode, errorJson);
-          } else if ("invalid_request".Equals(type)) {
-            throw new InvalidRequestException(response.StatusCode, errorJson);
-          } else {
-            throw new ApiException(response.StatusCode, errorJson);
+          switch (type) {
+            case "payment":
+              throw new PaymentException(response.StatusCode, errorJson);
+            case "operation_failed":
+              throw new OperationFailedException(response.StatusCode, errorJson);
+            case "invalid_request":
+              throw new InvalidRequestException(response.StatusCode, errorJson);
+            default:
+              throw new ApiException(response.StatusCode, errorJson);
           }
+        } catch (JsonException e) {
+          throw new SystemException("Not in JSON format. Probably not a ChargeBee response. \n " + content, e);
         }
       }
     }
 
     private static string GetJson(string url, Params parameters, ApiConfig env, Dictionary<string, string> headers, out HttpStatusCode code, bool IsList) {
       url = string.Format("{0}?{1}", url, parameters.GetQuery(IsList));
-      HttpWebRequest request = GetRequest(url, HttpMethod.GET, headers, env);
+      var request = GetRequest(url, HttpMethod.Get, headers, env);
       return SendRequest(request, out code);
     }
 
     public static EntityResult Post(string url, Params parameters, Dictionary<string, string> headers, ApiConfig env) {
-      HttpWebRequest request = GetRequest(url, HttpMethod.POST, headers, env);
-      byte[] paramsBytes =
-  Encoding.GetEncoding(env.Charset).GetBytes(parameters.GetQuery(false));
+      var request = GetRequest(url, HttpMethod.Post, headers, env);
+      request.Content = new StringContent(parameters.GetQuery(false), Encoding.GetEncoding(env.Charset));
+      request.Content.Headers.ContentType =
+        MediaTypeHeaderValue.Parse($"application/x-www-form-urlencoded;charset={env.Charset}");
 
-      request.ContentLength = paramsBytes.Length;
-      request.ContentType =
-  string.Format("application/x-www-form-urlencoded;charset={0}", env.Charset);
-      using (Stream stream = request.GetRequestStream()) {
-        stream.Write(paramsBytes, 0, paramsBytes.Length);
+      HttpStatusCode code;
+      string json = SendRequest(request, out code);
 
-        HttpStatusCode code;
-        string json = SendRequest(request, out code);
-
-        EntityResult result = new EntityResult(code, json);
-        return result;
-      }
+      EntityResult result = new EntityResult(code, json);
+      return result;
     }
 
     public static EntityResult Get(string url, Params parameters, Dictionary<string, string> headers, ApiConfig env) {
@@ -131,42 +112,39 @@
       return result;
     }
 
-    public static DateTime ConvertFromTimestamp(long timestamp) {
-      return m_unixTime.AddSeconds(timestamp).ToLocalTime();
+    public static DateTime ConvertFromTimestamp(int timestamp) {
+      return EpochUtility.ToDateTime(timestamp).ToLocalTime();
     }
 
-    public static long? ConvertToTimestamp(DateTime? t) {
+    public static int? ConvertToTimestamp(DateTime? t) {
       if (t == null)
         return null;
 
-      DateTime dtutc = ((DateTime)t).ToUniversalTime();
-
-      if (dtutc < m_unixTime)
-        throw new ArgumentException("Time can't be before 1970, January 1!");
-
-      return (long)(dtutc - m_unixTime).TotalSeconds;
+      return (int?)EpochUtility.ToEpoch(t.Value);
     }
-  }
 
-  /// <summary>
-  /// HTTP method
-  /// </summary>
-  public enum HttpMethod {
-    /// <summary>
-    /// DELETE
-    /// </summary>
-    DELETE,
-    /// <summary>
-    /// GET
-    /// </summary>
-    GET,
-    /// <summary>
-    /// POST
-    /// </summary>
-    POST,
-    /// <summary>
-    /// PUT
-    /// </summary>
-    PUT
+    [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+    private static HttpClient CreateGitHubHttpClient() {
+      var handler = new WinHttpHandler() {
+        AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
+        AutomaticRedirection = false,
+        CookieUsePolicy = CookieUsePolicy.IgnoreCookies,
+      };
+
+      var httpClient = new HttpClient(handler, true);
+
+      var headers = httpClient.DefaultRequestHeaders;
+      headers.AcceptEncoding.Clear();
+      headers.AcceptEncoding.ParseAdd("gzip");
+      headers.AcceptEncoding.ParseAdd("deflate");
+
+      headers.Accept.Clear();
+      headers.Accept.ParseAdd("application/json");
+
+      headers.AcceptCharset.Clear();
+      headers.AcceptCharset.ParseAdd("utf-8");
+
+      return httpClient;
+    }
   }
 }

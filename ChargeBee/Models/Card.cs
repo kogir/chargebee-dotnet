@@ -1,6 +1,7 @@
 namespace ChargeBee.Models {
   using System;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
@@ -8,23 +9,23 @@ namespace ChargeBee.Models {
   public class Card : Resource {
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("cards", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static UpdateCardForCustomerRequest UpdateCardForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "credit_card");
-      return new UpdateCardForCustomerRequest(url, HttpMethod.POST);
+      return new UpdateCardForCustomerRequest(url, HttpMethod.Post);
     }
     public static SwitchGatewayForCustomerRequest SwitchGatewayForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "switch_gateway");
-      return new SwitchGatewayForCustomerRequest(url, HttpMethod.POST);
+      return new SwitchGatewayForCustomerRequest(url, HttpMethod.Post);
     }
     public static CopyCardForCustomerRequest CopyCardForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "copy_card");
-      return new CopyCardForCustomerRequest(url, HttpMethod.POST);
+      return new CopyCardForCustomerRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> DeleteCardForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_card");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
 
     public string CustomerId {

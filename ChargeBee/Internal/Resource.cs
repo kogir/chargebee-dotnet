@@ -31,7 +31,7 @@ namespace ChargeBee.Internal {
       long? ts = GetValue<long?>(key, required);
       if (ts == null)
         return null;
-      return ApiUtil.ConvertFromTimestamp((long)ts);
+      return ApiUtil.ConvertFromTimestamp((int)ts);
     }
 
     public JToken GetJToken(string key, bool required = true) {

@@ -2,6 +2,7 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -11,11 +12,11 @@ namespace ChargeBee.Models {
   public class Subscription : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("subscriptions");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static CreateForCustomerRequest CreateForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
-      return new CreateForCustomerRequest(url, HttpMethod.POST);
+      return new CreateForCustomerRequest(url, HttpMethod.Post);
     }
     public static SubscriptionListRequest List() {
       string url = ApiUtil.BuildUrl("subscriptions");
@@ -28,59 +29,59 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> RetrieveWithScheduledChanges(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "retrieve_with_scheduled_changes");
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> RemoveScheduledChanges(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_changes");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
     public static RemoveScheduledCancellationRequest RemoveScheduledCancellation(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_cancellation");
-      return new RemoveScheduledCancellationRequest(url, HttpMethod.POST);
+      return new RemoveScheduledCancellationRequest(url, HttpMethod.Post);
     }
     public static RemoveCouponsRequest RemoveCoupons(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_coupons");
-      return new RemoveCouponsRequest(url, HttpMethod.POST);
+      return new RemoveCouponsRequest(url, HttpMethod.Post);
     }
     public static UpdateRequest Update(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.POST);
+      return new UpdateRequest(url, HttpMethod.Post);
     }
     public static ChangeTermEndRequest ChangeTermEnd(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "change_term_end");
-      return new ChangeTermEndRequest(url, HttpMethod.POST);
+      return new ChangeTermEndRequest(url, HttpMethod.Post);
     }
     public static CancelRequest Cancel(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "cancel");
-      return new CancelRequest(url, HttpMethod.POST);
+      return new CancelRequest(url, HttpMethod.Post);
     }
     public static ReactivateRequest Reactivate(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "reactivate");
-      return new ReactivateRequest(url, HttpMethod.POST);
+      return new ReactivateRequest(url, HttpMethod.Post);
     }
     public static AddChargeAtTermEndRequest AddChargeAtTermEnd(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "add_charge_at_term_end");
-      return new AddChargeAtTermEndRequest(url, HttpMethod.POST);
+      return new AddChargeAtTermEndRequest(url, HttpMethod.Post);
     }
     public static ChargeAddonAtTermEndRequest ChargeAddonAtTermEnd(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "charge_addon_at_term_end");
-      return new ChargeAddonAtTermEndRequest(url, HttpMethod.POST);
+      return new ChargeAddonAtTermEndRequest(url, HttpMethod.Post);
     }
     public static ImportSubscriptionRequest ImportSubscription() {
       string url = ApiUtil.BuildUrl("subscriptions", "import_subscription");
-      return new ImportSubscriptionRequest(url, HttpMethod.POST);
+      return new ImportSubscriptionRequest(url, HttpMethod.Post);
     }
     public static ImportForCustomerRequest ImportForCustomer(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "import_subscription");
-      return new ImportForCustomerRequest(url, HttpMethod.POST);
+      return new ImportForCustomerRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Delete(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
 
 

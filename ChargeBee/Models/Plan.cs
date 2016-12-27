@@ -1,6 +1,7 @@
 namespace ChargeBee.Models {
   using System;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
   using Newtonsoft.Json.Linq;
@@ -8,11 +9,11 @@ namespace ChargeBee.Models {
   public class Plan : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("plans");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static UpdateRequest Update(string id) {
       string url = ApiUtil.BuildUrl("plans", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.POST);
+      return new UpdateRequest(url, HttpMethod.Post);
     }
     public static PlanListRequest List() {
       string url = ApiUtil.BuildUrl("plans");
@@ -20,15 +21,15 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("plans", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> Delete(string id) {
       string url = ApiUtil.BuildUrl("plans", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
     public static CopyRequest Copy() {
       string url = ApiUtil.BuildUrl("plans", "copy");
-      return new CopyRequest(url, HttpMethod.POST);
+      return new CopyRequest(url, HttpMethod.Post);
     }
 
     public string Id {

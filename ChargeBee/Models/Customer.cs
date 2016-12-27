@@ -2,6 +2,7 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -11,7 +12,7 @@ namespace ChargeBee.Models {
   public class Customer : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("customers");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static CustomerListRequest List() {
       string url = ApiUtil.BuildUrl("customers");
@@ -19,51 +20,51 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static UpdateRequest Update(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.POST);
+      return new UpdateRequest(url, HttpMethod.Post);
     }
     public static UpdatePaymentMethodRequest UpdatePaymentMethod(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_payment_method");
-      return new UpdatePaymentMethodRequest(url, HttpMethod.POST);
+      return new UpdatePaymentMethodRequest(url, HttpMethod.Post);
     }
     public static UpdateBillingInfoRequest UpdateBillingInfo(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_billing_info");
-      return new UpdateBillingInfoRequest(url, HttpMethod.POST);
+      return new UpdateBillingInfoRequest(url, HttpMethod.Post);
     }
     public static AddContactRequest AddContact(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_contact");
-      return new AddContactRequest(url, HttpMethod.POST);
+      return new AddContactRequest(url, HttpMethod.Post);
     }
     public static UpdateContactRequest UpdateContact(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_contact");
-      return new UpdateContactRequest(url, HttpMethod.POST);
+      return new UpdateContactRequest(url, HttpMethod.Post);
     }
     public static DeleteContactRequest DeleteContact(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_contact");
-      return new DeleteContactRequest(url, HttpMethod.POST);
+      return new DeleteContactRequest(url, HttpMethod.Post);
     }
     public static AddPromotionalCreditsRequest AddPromotionalCredits(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_promotional_credits");
-      return new AddPromotionalCreditsRequest(url, HttpMethod.POST);
+      return new AddPromotionalCreditsRequest(url, HttpMethod.Post);
     }
     public static DeductPromotionalCreditsRequest DeductPromotionalCredits(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "deduct_promotional_credits");
-      return new DeductPromotionalCreditsRequest(url, HttpMethod.POST);
+      return new DeductPromotionalCreditsRequest(url, HttpMethod.Post);
     }
     public static SetPromotionalCreditsRequest SetPromotionalCredits(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "set_promotional_credits");
-      return new SetPromotionalCreditsRequest(url, HttpMethod.POST);
+      return new SetPromotionalCreditsRequest(url, HttpMethod.Post);
     }
     public static RecordExcessPaymentRequest RecordExcessPayment(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "record_excess_payment");
-      return new RecordExcessPaymentRequest(url, HttpMethod.POST);
+      return new RecordExcessPaymentRequest(url, HttpMethod.Post);
     }
     public static DeleteRequest Delete(string id) {
       string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete");
-      return new DeleteRequest(url, HttpMethod.POST);
+      return new DeleteRequest(url, HttpMethod.Post);
     }
 
     public string Id {

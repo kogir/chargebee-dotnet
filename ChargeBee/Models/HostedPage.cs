@@ -1,6 +1,7 @@
 namespace ChargeBee.Models {
   using System;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
@@ -9,24 +10,24 @@ namespace ChargeBee.Models {
   public class HostedPage : Resource {
     public static CheckoutNewRequest CheckoutNew() {
       string url = ApiUtil.BuildUrl("hosted_pages", "checkout_new");
-      return new CheckoutNewRequest(url, HttpMethod.POST);
+      return new CheckoutNewRequest(url, HttpMethod.Post);
     }
     public static CheckoutExistingRequest CheckoutExisting() {
       string url = ApiUtil.BuildUrl("hosted_pages", "checkout_existing");
-      return new CheckoutExistingRequest(url, HttpMethod.POST);
+      return new CheckoutExistingRequest(url, HttpMethod.Post);
     }
     [Obsolete]
     public static UpdateCardRequest UpdateCard() {
       string url = ApiUtil.BuildUrl("hosted_pages", "update_card");
-      return new UpdateCardRequest(url, HttpMethod.POST);
+      return new UpdateCardRequest(url, HttpMethod.Post);
     }
     public static UpdatePaymentMethodRequest UpdatePaymentMethod() {
       string url = ApiUtil.BuildUrl("hosted_pages", "update_payment_method");
-      return new UpdatePaymentMethodRequest(url, HttpMethod.POST);
+      return new UpdatePaymentMethodRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("hosted_pages", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
 
     public string Id {

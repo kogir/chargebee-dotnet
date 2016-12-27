@@ -1,17 +1,18 @@
 namespace ChargeBee.Models {
   using System;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
 
   public class CouponCode : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("coupon_codes");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("coupon_codes", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static CouponCodeListRequest List() {
       string url = ApiUtil.BuildUrl("coupon_codes");
@@ -19,7 +20,7 @@ namespace ChargeBee.Models {
     }
     public static EntityRequest<Type> Archive(string id) {
       string url = ApiUtil.BuildUrl("coupon_codes", CheckNull(id), "archive");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
 
     public string Code {

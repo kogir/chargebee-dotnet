@@ -1,9 +1,10 @@
 ﻿namespace ChargeBee.Api {
   using System.Collections.Generic;
+  using System.Net.Http;
 
   public class ListRequestBase<U> where U : ListRequestBase<U> {
     string m_url;
-    protected HttpMethod m_method = HttpMethod.GET;
+    protected HttpMethod m_method = HttpMethod.Get;
     protected Params m_params = new Params();
     protected Dictionary<string, string> headers = new Dictionary<string, string>();
 

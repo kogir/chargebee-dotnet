@@ -2,6 +2,7 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
@@ -10,15 +11,15 @@ namespace ChargeBee.Models {
   public class CreditNote : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("credit_notes");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("credit_notes", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> Pdf(string id) {
       string url = ApiUtil.BuildUrl("credit_notes", CheckNull(id), "pdf");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
     public static CreditNoteListRequest List() {
       string url = ApiUtil.BuildUrl("credit_notes");

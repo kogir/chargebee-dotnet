@@ -1,6 +1,7 @@
 namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
@@ -8,15 +9,15 @@ namespace ChargeBee.Models {
   public class Estimate : Resource {
     public static CreateSubscriptionRequest CreateSubscription() {
       string url = ApiUtil.BuildUrl("estimates", "create_subscription");
-      return new CreateSubscriptionRequest(url, HttpMethod.POST);
+      return new CreateSubscriptionRequest(url, HttpMethod.Post);
     }
     public static UpdateSubscriptionRequest UpdateSubscription() {
       string url = ApiUtil.BuildUrl("estimates", "update_subscription");
-      return new UpdateSubscriptionRequest(url, HttpMethod.POST);
+      return new UpdateSubscriptionRequest(url, HttpMethod.Post);
     }
     public static RenewalEstimateRequest RenewalEstimate(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "renewal_estimate");
-      return new RenewalEstimateRequest(url, HttpMethod.GET);
+      return new RenewalEstimateRequest(url, HttpMethod.Get);
     }
 
     public DateTime CreatedAt {

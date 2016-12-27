@@ -2,25 +2,26 @@ namespace ChargeBee.Models {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Net.Http;
   using ChargeBee.Api;
   using ChargeBee.Internal;
 
   public class PortalSession : Resource {
     public static CreateRequest Create() {
       string url = ApiUtil.BuildUrl("portal_sessions");
-      return new CreateRequest(url, HttpMethod.POST);
+      return new CreateRequest(url, HttpMethod.Post);
     }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.GET);
+      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
     public static EntityRequest<Type> Logout(string id) {
       string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id), "logout");
-      return new EntityRequest<Type>(url, HttpMethod.POST);
+      return new EntityRequest<Type>(url, HttpMethod.Post);
     }
     public static ActivateRequest Activate(string id) {
       string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id), "activate");
-      return new ActivateRequest(url, HttpMethod.POST);
+      return new ActivateRequest(url, HttpMethod.Post);
     }
 
     public string Id {
