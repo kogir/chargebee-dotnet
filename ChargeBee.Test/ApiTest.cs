@@ -165,10 +165,10 @@
       Subscription subs = result.Subscription;
       result = Subscription.Cancel(subs.Id).Request();
       Assert.Throws<ApiException>(() => {
-         result = Subscription.Reactivate(subs.Id)
-        .TrialEnd((long)(DateTime.Now.AddDays(5) - new DateTime(1970, 1, 1)).TotalSeconds)
-        .Request();
-       }, "Cannot re-activate subscription as there is no active credit card on file");
+        result = Subscription.Reactivate(subs.Id)
+       .TrialEnd((long)(DateTime.Now.AddDays(5) - new DateTime(1970, 1, 1)).TotalSeconds)
+       .Request();
+      }, "Cannot re-activate subscription as there is no active credit card on file");
     }
 
     [Test]
