@@ -14,7 +14,7 @@
       _method = method;
     }
 
-    public T Param(string paramName, Object value) {
+    public T Param(string paramName, object value) {
       _params.Add(paramName, value);
       return (T)Convert.ChangeType(this, typeof(T));
     }

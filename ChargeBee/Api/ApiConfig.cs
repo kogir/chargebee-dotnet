@@ -1,62 +1,41 @@
 ﻿namespace ChargeBee.Api {
   using System;
+  using System.Net.Http.Headers;
   using System.Text;
 
   public sealed class ApiConfig {
-    public static string DomainSuffix = "chargebee.com";
-    public static string Proto = "https";
-    public static string Version = "2.2.1";
-    public static readonly string API_VERSION = "v2";
+    public const string Version = "2.2.1";
+    public const string ApiVersion = "v2";
 
-    public string ApiKey { get; set; }
-    public string SiteName { get; set; }
-    public string Charset { get; set; }
-    public int ConnectTimeout { get; set; }
-    public int ReadTimeout { get; set; }
+    private static ApiConfig _instance;
 
-    public string ApiBaseUrl {
-      get {
-        return string.Format("{0}://{1}.{2}/api/{3}",
-                    Proto,
-                    SiteName,
-                    DomainSuffix,
-          API_VERSION);
-      }
-    }
-
-    public string AuthValue {
-      get {
-        return string.Format("Basic {0}",
-            Convert.ToBase64String(Encoding.ASCII.GetBytes(
-            string.Format("{0}:", ApiKey))));
-      }
-    }
+    public Uri ApiBase { get; set; }
+    public AuthenticationHeaderValue AuthenticationHeader { get; set; }
 
     private ApiConfig(string siteName, string apiKey) {
-      Charset = Encoding.UTF8.WebName;
-      ConnectTimeout = 15000;
-      ReadTimeout = 60000;
+      if (string.IsNullOrEmpty(siteName)) {
+        throw new ArgumentException("Site name can't be empty!");
+      }
 
-      SiteName = siteName;
-      ApiKey = apiKey;
+      if (string.IsNullOrEmpty(apiKey)) {
+        throw new ArgumentException("Api key can't be empty!");
+      }
+
+      ApiBase = new Uri($"https://{siteName}.chargebee.com/api/{ApiVersion}");
+      AuthenticationHeader = new AuthenticationHeaderValue(
+        "Basic",
+        Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiKey}:")));
     }
 
-    private static volatile ApiConfig _instance;
-
     public static void Configure(string siteName, string apiKey) {
-      if (string.IsNullOrEmpty(siteName))
-        throw new ArgumentException("Site name can't be empty!");
-
-      if (string.IsNullOrEmpty(apiKey))
-        throw new ArgumentException("Api key can't be empty!");
-
       _instance = new ApiConfig(siteName, apiKey);
     }
 
     public static ApiConfig Instance {
       get {
-        if (_instance == null)
+        if (_instance == null) {
           throw new ApplicationException("Not yet configured!");
+        }
 
         return _instance;
       }

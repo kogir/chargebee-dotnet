@@ -132,9 +132,9 @@ namespace ChargeBee.Internal {
         return;
       }
       string apiVersion = jObj["api_version"].ToString().ToUpper();
-      if (!apiVersion.Equals(ApiConfig.API_VERSION, StringComparison.OrdinalIgnoreCase)) {
+      if (!apiVersion.Equals(ApiConfig.ApiVersion, StringComparison.OrdinalIgnoreCase)) {
         throw new ArgumentException("API version [" + apiVersion + "] in response does not match "
-          + "with client library API version [" + ApiConfig.API_VERSION.ToUpper() + "]");
+          + "with client library API version [" + ApiConfig.ApiVersion.ToUpper() + "]");
       }
     }
 

@@ -1,7 +1,6 @@
 ﻿namespace ChargeBee.Test {
   using System;
   using System.Collections.Generic;
-  using System.Globalization;
   using System.IO;
   using System.Net;
   using System.Text;
@@ -14,8 +13,7 @@
   public class ApiTest {
     [SetUp]
     public void Configure() {
-      ApiConfig.Proto = "http";
-      ApiConfig.DomainSuffix = "localcb.com:8080";
+      ApiConfig.Instance.ApiBase = new Uri("http://localcb.com:8080/api/v2");
       ApiConfig.Configure("mannar-test", "__dev__FhJgi9KugVCv9yO8zosAFC11lYCEAufI");
     }
 

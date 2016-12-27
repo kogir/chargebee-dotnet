@@ -2,6 +2,7 @@
   using System;
   using System.Collections.Generic;
   using System.Diagnostics.CodeAnalysis;
+  using System.Linq;
   using System.Net;
   using System.Net.Http;
   using System.Net.Http.Headers;
@@ -13,17 +14,11 @@
     private static ProductInfoHeaderValue UserAgent { get; } = new ProductInfoHeaderValue("ChargeBee.net", "1.0.0");
 
     public static string BuildUrl(params string[] paths) {
-      StringBuilder sb = new StringBuilder(ApiConfig.Instance.ApiBaseUrl);
-
-      foreach (var path in paths) {
-        sb.Append('/').Append(WebUtility.UrlEncode(path));
-      }
-
-      return sb.ToString();
+      return string.Join("/", paths.Select(x => WebUtility.UrlEncode(x)));
     }
 
     private static HttpRequestMessage GetRequest(string url, HttpMethod method, Dictionary<string, string> headers, ApiConfig env) {
-      var uri = new Uri(url);
+      var uri = new Uri(env.ApiBase, url);
       var request = new HttpRequestMessage(method, uri);
 
       request.Headers.UserAgent.Clear();
@@ -33,9 +28,9 @@
       request.Headers.Accept.ParseAdd("application/json");
 
       request.Headers.AcceptCharset.Clear();
-      request.Headers.AcceptCharset.ParseAdd(env.Charset);
+      request.Headers.AcceptCharset.ParseAdd(Encoding.UTF8.WebName);
 
-      request.Headers.Authorization = AuthenticationHeaderValue.Parse(env.AuthValue);
+      request.Headers.Authorization = env.AuthenticationHeader;
 
       foreach (var entry in headers) {
         request.Headers.Add(entry.Key, entry.Value);
@@ -84,9 +79,11 @@
 
     public static EntityResult Post(string url, Params parameters, Dictionary<string, string> headers, ApiConfig env) {
       var request = GetRequest(url, HttpMethod.Post, headers, env);
-      request.Content = new StringContent(parameters.GetQuery(false), Encoding.GetEncoding(env.Charset));
+      request.Content = new StringContent(parameters.GetQuery(false), Encoding.UTF8);
       request.Content.Headers.ContentType =
-        MediaTypeHeaderValue.Parse($"application/x-www-form-urlencoded;charset={env.Charset}");
+        new MediaTypeHeaderValue("application/x-www-form-urlencoded") {
+          CharSet = Encoding.UTF8.WebName,
+        };
 
       HttpStatusCode code;
       string json = SendRequest(request, out code);
