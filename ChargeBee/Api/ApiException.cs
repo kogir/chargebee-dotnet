@@ -17,8 +17,10 @@
       errorResp.TryGetValue("param", out ErrorParam);
 
       //Deprecated fields.
+#pragma warning disable CS0618
       ApiCode = errorResp["error_code"];
       ApiMessage = errorResp["error_msg"];
+#pragma warning restore CS0618
     }
 
     public HttpStatusCode HttpStatusCode { get; set; }

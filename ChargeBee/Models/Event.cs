@@ -90,6 +90,7 @@ namespace ChargeBee.Models {
       public StringFilter<EventListRequest> Id() {
         return new StringFilter<EventListRequest>("id", this).SupportsMultiOperators(true);
       }
+      [Obsolete]
       public EnumFilter<WebhookStatusEnum, EventListRequest> WebhookStatus() {
         return new EnumFilter<WebhookStatusEnum, EventListRequest>("webhook_status", this);
       }
