@@ -69,11 +69,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("subscription[trial_end]", subscriptionTrialEnd);
         return this;
       }
-      [Obsolete]
-      public CreateSubscriptionRequest SubscriptionCoupon(string subscriptionCoupon) {
-        _params.AddOpt("subscription[coupon]", subscriptionCoupon);
-        return this;
-      }
       public CreateSubscriptionRequest BillingAddressLine1(string billingAddressLine1) {
         _params.AddOpt("billing_address[line1]", billingAddressLine1);
         return this;
@@ -225,11 +220,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("subscription[trial_end]", subscriptionTrialEnd);
         return this;
       }
-      [Obsolete]
-      public UpdateSubscriptionRequest SubscriptionCoupon(string subscriptionCoupon) {
-        _params.AddOpt("subscription[coupon]", subscriptionCoupon);
-        return this;
-      }
       public UpdateSubscriptionRequest BillingAddressLine1(string billingAddressLine1) {
         _params.AddOpt("billing_address[line1]", billingAddressLine1);
         return this;
@@ -296,11 +286,6 @@ namespace ChargeBee.Models {
       }
       public UpdateSubscriptionRequest CustomerVatNumber(string customerVatNumber) {
         _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
-      [Obsolete]
-      public UpdateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) {
-        _params.AddOpt("customer[taxability]", customerTaxability);
         return this;
       }
       public UpdateSubscriptionRequest AddonId(int index, string addonId) {

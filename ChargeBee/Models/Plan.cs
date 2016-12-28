@@ -188,11 +188,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("free_quantity", freeQuantity);
         return this;
       }
-      [Obsolete]
-      public CreateRequest DowngradePenalty(double downgradePenalty) {
-        _params.AddOpt("downgrade_penalty", downgradePenalty);
-        return this;
-      }
       public CreateRequest RedirectUrl(string redirectUrl) {
         _params.AddOpt("redirect_url", redirectUrl);
         return this;
@@ -302,11 +297,6 @@ namespace ChargeBee.Models {
       }
       public UpdateRequest FreeQuantity(int freeQuantity) {
         _params.AddOpt("free_quantity", freeQuantity);
-        return this;
-      }
-      [Obsolete]
-      public UpdateRequest DowngradePenalty(double downgradePenalty) {
-        _params.AddOpt("downgrade_penalty", downgradePenalty);
         return this;
       }
       public UpdateRequest RedirectUrl(string redirectUrl) {

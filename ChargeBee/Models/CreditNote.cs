@@ -25,11 +25,6 @@ namespace ChargeBee.Models {
       string url = ApiUtil.BuildUrl("credit_notes");
       return new CreditNoteListRequest(url);
     }
-    [Obsolete]
-    public static ListRequest CreditNotesForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "credit_notes");
-      return new ListRequest(url);
-    }
 
     public string Id {
       get { return GetValue<string>("id", true); }

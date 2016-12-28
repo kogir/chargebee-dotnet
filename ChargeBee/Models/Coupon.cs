@@ -48,10 +48,6 @@ namespace ChargeBee.Models {
     public int? DiscountAmount {
       get { return GetValue<int?>("discount_amount", false); }
     }
-    [Obsolete]
-    public int? DiscountQuantity {
-      get { return GetValue<int?>("discount_quantity", false); }
-    }
     public string CurrencyCode {
       get { return GetValue<string>("currency_code", false); }
     }
@@ -69,10 +65,6 @@ namespace ChargeBee.Models {
     }
     public StatusEnum? Status {
       get { return GetEnum<StatusEnum>("status", false); }
-    }
-    [Obsolete]
-    public ApplyDiscountOnEnum ApplyDiscountOn {
-      get { return GetEnum<ApplyDiscountOnEnum>("apply_discount_on", true); }
     }
     public ApplyOnEnum ApplyOn {
       get { return GetEnum<ApplyOnEnum>("apply_on", true); }
@@ -142,11 +134,6 @@ namespace ChargeBee.Models {
       }
       public CreateRequest DiscountPercentage(double discountPercentage) {
         _params.AddOpt("discount_percentage", discountPercentage);
-        return this;
-      }
-      [Obsolete]
-      public CreateRequest DiscountQuantity(int discountQuantity) {
-        _params.AddOpt("discount_quantity", discountQuantity);
         return this;
       }
       public CreateRequest ApplyOn(ApplyOnEnum applyOn) {
@@ -251,9 +238,6 @@ namespace ChargeBee.Models {
       FixedAmount,
       [Description("percentage")]
       Percentage,
-      [Description("offer_quantity")]
-      [Obsolete]
-      OfferQuantity,
     }
     public enum DurationTypeEnum {
       Unknown,
@@ -276,31 +260,12 @@ namespace ChargeBee.Models {
       Deleted,
     }
 
-    [Obsolete]
-    public enum ApplyDiscountOnEnum {
-      Unknown,
-      [Description("plans")]
-      Plans,
-      [Description("plans_and_addons")]
-      PlansAndAddons,
-      [Description("plans_with_quantity")]
-      PlansWithQuantity,
-      [Description("not_applicable")]
-      NotApplicable,
-    }
-
     public enum ApplyOnEnum {
       Unknown,
       [Description("invoice_amount")]
       InvoiceAmount,
-      [Description("specified_items_total")]
-      [Obsolete]
-      SpecifiedItemsTotal,
       [Description("each_specified_item")]
       EachSpecifiedItem,
-      [Description("each_unit_of_specified_items")]
-      [Obsolete]
-      EachUnitOfSpecifiedItems,
     }
 
     public enum PlanConstraintEnum {

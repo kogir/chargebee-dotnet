@@ -22,11 +22,7 @@ namespace ChargeBee.Models {
       string url = ApiUtil.BuildUrl("subscriptions");
       return new SubscriptionListRequest(url);
     }
-    [Obsolete]
-    public static ListRequest SubscriptionsForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
-      return new ListRequest(url);
-    }
+
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
       return new EntityRequest<Type>(url, HttpMethod.Get);
@@ -175,10 +171,6 @@ namespace ChargeBee.Models {
     public List<SubscriptionAddon> Addons {
       get { return GetResourceList<SubscriptionAddon>("addons"); }
     }
-    [Obsolete]
-    public string Coupon {
-      get { return GetValue<string>("coupon", false); }
-    }
     public List<SubscriptionCoupon> Coupons {
       get { return GetResourceList<SubscriptionCoupon>("coupons"); }
     }
@@ -225,11 +217,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
-      [Obsolete]
-      public CreateRequest Coupon(string coupon) {
-        _params.AddOpt("coupon", coupon);
-        return this;
-      }
       public CreateRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
@@ -240,11 +227,6 @@ namespace ChargeBee.Models {
       }
       public CreateRequest AffiliateToken(string affiliateToken) {
         _params.AddOpt("affiliate_token", affiliateToken);
-        return this;
-      }
-      [Obsolete]
-      public CreateRequest CreatedFromIp(string createdFromIp) {
-        _params.AddOpt("created_fro_ip", createdFromIp);
         return this;
       }
       public CreateRequest InvoiceNotes(string invoiceNotes) {
@@ -377,11 +359,6 @@ namespace ChargeBee.Models {
       }
       public CreateRequest CardBillingCountry(string cardBillingCountry) {
         _params.AddOpt("card[billing_country]", cardBillingCountry);
-        return this;
-      }
-      [Obsolete]
-      public CreateRequest CardIpAddress(string cardIpAddress) {
-        _params.AddOpt("card[ip_address]", cardIpAddress);
         return this;
       }
       public CreateRequest BillingAddressFirstName(string billingAddressFirstName) {
@@ -536,11 +513,6 @@ namespace ChargeBee.Models {
       }
       public CreateForCustomerRequest BillingCycles(int billingCycles) {
         _params.AddOpt("billing_cycles", billingCycles);
-        return this;
-      }
-      [Obsolete]
-      public CreateForCustomerRequest Coupon(string coupon) {
-        _params.AddOpt("coupon", coupon);
         return this;
       }
       public CreateForCustomerRequest PoNumber(string poNumber) {
@@ -717,11 +689,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("replace_addon_list", replaceAddonList);
         return this;
       }
-      [Obsolete]
-      public UpdateRequest Coupon(string coupon) {
-        _params.AddOpt("coupon", coupon);
-        return this;
-      }
       public UpdateRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
@@ -828,11 +795,6 @@ namespace ChargeBee.Models {
       }
       public UpdateRequest CardBillingCountry(string cardBillingCountry) {
         _params.AddOpt("card[billing_country]", cardBillingCountry);
-        return this;
-      }
-      [Obsolete]
-      public UpdateRequest CardIpAddress(string cardIpAddress) {
-        _params.AddOpt("card[ip_address]", cardIpAddress);
         return this;
       }
       public UpdateRequest BillingAddressFirstName(string billingAddressFirstName) {
@@ -991,11 +953,6 @@ namespace ChargeBee.Models {
       }
       public ReactivateRequest BillingCycles(int billingCycles) {
         _params.AddOpt("billing_cycles", billingCycles);
-        return this;
-      }
-      [Obsolete]
-      public ReactivateRequest TrialPeriodDays(int trialPeriodDays) {
-        _params.AddOpt("trial_period_days", trialPeriodDays);
         return this;
       }
     }

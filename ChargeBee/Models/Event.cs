@@ -51,14 +51,6 @@ namespace ChargeBee.Models {
     public string User {
       get { return GetValue<string>("user", false); }
     }
-    [Obsolete]
-    public WebhookStatusEnum WebhookStatus {
-      get { return GetEnum<WebhookStatusEnum>("webhook_status", true); }
-    }
-    [Obsolete]
-    public string WebhookFailureReason {
-      get { return GetValue<string>("webhook_failure_reason", false); }
-    }
     public List<EventWebhook> Webhooks {
       get { return GetResourceList<EventWebhook>("webhooks"); }
     }
@@ -77,35 +69,11 @@ namespace ChargeBee.Models {
               : base(url) {
       }
 
-      [Obsolete]
-      public EventListRequest StartTime(long startTime) {
-        _params.AddOpt("start_time", startTime);
-        return this;
-      }
-      [Obsolete]
-      public EventListRequest EndTime(long endTime) {
-        _params.AddOpt("end_time", endTime);
-        return this;
-      }
       public StringFilter<EventListRequest> Id() {
         return new StringFilter<EventListRequest>("id", this).SupportsMultiOperators(true);
       }
-      [Obsolete]
-      public EnumFilter<WebhookStatusEnum, EventListRequest> WebhookStatus() {
-        return new EnumFilter<WebhookStatusEnum, EventListRequest>("webhook_status", this);
-      }
-      [Obsolete]
-      public EventListRequest WebhookStatus(WebhookStatusEnum webhookStatus) {
-        _params.AddOpt("webhook_status", webhookStatus);
-        return this;
-      }
       public EnumFilter<EventTypeEnum, EventListRequest> EventType() {
         return new EnumFilter<EventTypeEnum, EventListRequest>("event_type", this);
-      }
-      [Obsolete]
-      public EventListRequest EventType(EventTypeEnum eventType) {
-        _params.AddOpt("event_type", eventType);
-        return this;
       }
       public EnumFilter<SourceEnum, EventListRequest> Source() {
         return new EnumFilter<SourceEnum, EventListRequest>("source", this);
@@ -117,25 +85,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "occurred_at");
         return this;
       }
-    }
-
-    [Obsolete]
-    public enum WebhookStatusEnum {
-      Unknown,
-      [Description("not_configured")]
-      NotConfigured,
-      [Description("scheduled")]
-      Scheduled,
-      [Description("succeeded")]
-      Succeeded,
-      [Description("re_scheduled")]
-      ReScheduled,
-      [Description("failed")]
-      Failed,
-      [Description("skipped")]
-      Skipped,
-      [Description("not_applicable")]
-      NotApplicable,
     }
 
     public class EventWebhook : Resource {

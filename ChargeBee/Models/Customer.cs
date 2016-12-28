@@ -121,10 +121,6 @@ namespace ChargeBee.Models {
     public string Locale {
       get { return GetValue<string>("locale", false); }
     }
-    [Obsolete]
-    public CardStatusEnum? CardStatus {
-      get { return GetEnum<CardStatusEnum>("card_status", false); }
-    }
     public FraudFlagEnum? FraudFlag {
       get { return GetEnum<FraudFlagEnum>("fraud_flag", false); }
     }
@@ -228,11 +224,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("meta_data", metaData);
         return this;
       }
-      [Obsolete]
-      public CreateRequest CreatedFromIp(string createdFromIp) {
-        _params.AddOpt("created_fro_ip", createdFromIp);
-        return this;
-      }
       public CreateRequest InvoiceNotes(string invoiceNotes) {
         _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
@@ -311,11 +302,6 @@ namespace ChargeBee.Models {
       }
       public CreateRequest CardBillingCountry(string cardBillingCountry) {
         _params.AddOpt("card[billing_country]", cardBillingCountry);
-        return this;
-      }
-      [Obsolete]
-      public CreateRequest CardIpAddress(string cardIpAddress) {
-        _params.AddOpt("card[ip_address]", cardIpAddress);
         return this;
       }
       public CreateRequest BillingAddressFirstName(string billingAddressFirstName) {
@@ -769,19 +755,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("delete_payment_method", deletePaymentMethod);
         return this;
       }
-    }
-
-    [Obsolete]
-    public enum CardStatusEnum {
-      Unknown,
-      [Description("no_card")]
-      NoCard,
-      [Description("valid")]
-      Valid,
-      [Description("expiring")]
-      Expiring,
-      [Description("expired")]
-      Expired,
     }
 
     public enum FraudFlagEnum {

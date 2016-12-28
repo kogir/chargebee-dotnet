@@ -154,16 +154,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("billing_country", billingCountry);
         return this;
       }
-      [Obsolete]
-      public UpdateCardForCustomerRequest IpAddress(string ipAddress) {
-        _params.AddOpt("ip_address", ipAddress);
-        return this;
-      }
-      [Obsolete]
-      public UpdateCardForCustomerRequest CustomerVatNumber(string customerVatNumber) {
-        _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
     }
 
     public class SwitchGatewayForCustomerRequest : EntityRequest<SwitchGatewayForCustomerRequest> {

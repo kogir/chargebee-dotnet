@@ -16,11 +16,6 @@ namespace ChargeBee.Models {
       string url = ApiUtil.BuildUrl("hosted_pages", "checkout_existing");
       return new CheckoutExistingRequest(url, HttpMethod.Post);
     }
-    [Obsolete]
-    public static UpdateCardRequest UpdateCard() {
-      string url = ApiUtil.BuildUrl("hosted_pages", "update_card");
-      return new UpdateCardRequest(url, HttpMethod.Post);
-    }
     public static UpdatePaymentMethodRequest UpdatePaymentMethod() {
       string url = ApiUtil.BuildUrl("hosted_pages", "update_payment_method");
       return new UpdatePaymentMethodRequest(url, HttpMethod.Post);
@@ -159,11 +154,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("card[gateway]", cardGateway);
         return this;
       }
-      [Obsolete]
-      public CheckoutNewRequest CustomerVatNumber(string customerVatNumber) {
-        _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
       public CheckoutNewRequest AddonId(int index, string addonId) {
         _params.AddOpt("addons[id][" + index + "]", addonId);
         return this;
@@ -235,11 +225,6 @@ namespace ChargeBee.Models {
         _params.AddOpt("subscription[invoice_notes]", subscriptionInvoiceNotes);
         return this;
       }
-      [Obsolete]
-      public CheckoutExistingRequest CustomerVatNumber(string customerVatNumber) {
-        _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
       public CheckoutExistingRequest CardGateway(GatewayEnum cardGateway) {
         _params.AddOpt("card[gateway]", cardGateway);
         return this;
@@ -283,11 +268,6 @@ namespace ChargeBee.Models {
         _params.Add("customer[id]", customerId);
         return this;
       }
-      [Obsolete]
-      public UpdateCardRequest CustomerVatNumber(string customerVatNumber) {
-        _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
       public UpdateCardRequest CardGateway(GatewayEnum cardGateway) {
         _params.AddOpt("card[gateway]", cardGateway);
         return this;
@@ -323,11 +303,6 @@ namespace ChargeBee.Models {
         _params.Add("customer[id]", customerId);
         return this;
       }
-      [Obsolete]
-      public UpdatePaymentMethodRequest CustomerVatNumber(string customerVatNumber) {
-        _params.AddOpt("customer[vat_number]", customerVatNumber);
-        return this;
-      }
       public UpdatePaymentMethodRequest CardGateway(GatewayEnum cardGateway) {
         _params.AddOpt("card[gateway]", cardGateway);
         return this;
@@ -340,9 +315,6 @@ namespace ChargeBee.Models {
       CheckoutNew,
       [Description("checkout_existing")]
       CheckoutExisting,
-      [Description("update_card")]
-      [Obsolete]
-      UpdateCard,
       [Description("update_payment_method")]
       UpdatePaymentMethod,
     }

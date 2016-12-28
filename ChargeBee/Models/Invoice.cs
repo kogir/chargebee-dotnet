@@ -33,16 +33,6 @@ namespace ChargeBee.Models {
       string url = ApiUtil.BuildUrl("invoices");
       return new InvoiceListRequest(url);
     }
-    [Obsolete]
-    public static ListRequest InvoicesForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "invoices");
-      return new ListRequest(url);
-    }
-    [Obsolete]
-    public static ListRequest InvoicesForSubscription(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "invoices");
-      return new ListRequest(url);
-    }
     public static EntityRequest<Type> Retrieve(string id) {
       string url = ApiUtil.BuildUrl("invoices", CheckNull(id));
       return new EntityRequest<Type>(url, HttpMethod.Get);
@@ -710,11 +700,6 @@ namespace ChargeBee.Models {
               : base(url) {
       }
 
-      [Obsolete]
-      public InvoiceListRequest PaidOnAfter(long paidOnAfter) {
-        _params.AddOpt("paid_on_after", paidOnAfter);
-        return this;
-      }
       public InvoiceListRequest IncludeDeleted(bool includeDeleted) {
         _params.AddOpt("include_deleted", includeDeleted);
         return this;
