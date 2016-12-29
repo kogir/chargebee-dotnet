@@ -7,24 +7,31 @@ namespace ChargeBee.Models {
   using ChargeBee.Models.Enums;
   using Newtonsoft.Json.Linq;
 
-  public class HostedPage : Resource {
-    public static CheckoutNewRequest CheckoutNew() {
-      string url = ApiUtil.BuildUrl("hosted_pages", "checkout_new");
-      return new CheckoutNewRequest(url, HttpMethod.Post);
-    }
-    public static CheckoutExistingRequest CheckoutExisting() {
-      string url = ApiUtil.BuildUrl("hosted_pages", "checkout_existing");
-      return new CheckoutExistingRequest(url, HttpMethod.Post);
-    }
-    public static UpdatePaymentMethodRequest UpdatePaymentMethod() {
-      string url = ApiUtil.BuildUrl("hosted_pages", "update_payment_method");
-      return new UpdatePaymentMethodRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("hosted_pages", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
+  public class HostedPageActions : ApiResourceActions {
+    public HostedPageActions(ChargeBeeApi api) : base(api) { }
+
+    public HostedPage.CheckoutNewRequest CheckoutNew() {
+      string url = BuildUrl("hosted_pages", "checkout_new");
+      return new HostedPage.CheckoutNewRequest(Api, url, HttpMethod.Post);
     }
 
+    public HostedPage.CheckoutExistingRequest CheckoutExisting() {
+      string url = BuildUrl("hosted_pages", "checkout_existing");
+      return new HostedPage.CheckoutExistingRequest(Api, url, HttpMethod.Post);
+    }
+
+    public HostedPage.UpdatePaymentMethodRequest UpdatePaymentMethod() {
+      string url = BuildUrl("hosted_pages", "update_payment_method");
+      return new HostedPage.UpdatePaymentMethodRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("hosted_pages", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+  }
+
+  public class HostedPage : Resource {
     public string Id {
       get { return GetValue<string>("id", false); }
     }
@@ -62,8 +69,8 @@ namespace ChargeBee.Models {
     }
 
     public class CheckoutNewRequest : EntityRequest<CheckoutNewRequest> {
-      public CheckoutNewRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CheckoutNewRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CheckoutNewRequest BillingCycles(int billingCycles) {
@@ -165,8 +172,8 @@ namespace ChargeBee.Models {
     }
 
     public class CheckoutExistingRequest : EntityRequest<CheckoutExistingRequest> {
-      public CheckoutExistingRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CheckoutExistingRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CheckoutExistingRequest BillingCycles(int billingCycles) {
@@ -240,8 +247,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateCardRequest : EntityRequest<UpdateCardRequest> {
-      public UpdateCardRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateCardRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateCardRequest RedirectUrl(string redirectUrl) {
@@ -275,8 +282,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdatePaymentMethodRequest : EntityRequest<UpdatePaymentMethodRequest> {
-      public UpdatePaymentMethodRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdatePaymentMethodRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdatePaymentMethodRequest RedirectUrl(string redirectUrl) {

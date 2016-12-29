@@ -8,24 +8,32 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class CreditNote : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("credit_notes");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("credit_notes", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Pdf(string id) {
-      string url = ApiUtil.BuildUrl("credit_notes", CheckNull(id), "pdf");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static CreditNoteListRequest List() {
-      string url = ApiUtil.BuildUrl("credit_notes");
-      return new CreditNoteListRequest(url);
+  public class CreditNoteActions : ApiResourceActions {
+    public CreditNoteActions(ChargeBeeApi api) : base(api) {
     }
 
+    public CreditNote.CreateRequest Create() {
+      string url = BuildUrl("credit_notes");
+      return new CreditNote.CreateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("credit_notes", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> Pdf(string id) {
+      string url = BuildUrl("credit_notes", id, "pdf");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public CreditNote.CreditNoteListRequest List() {
+      string url = BuildUrl("credit_notes");
+      return new CreditNote.CreditNoteListRequest(Api, url);
+    }
+  }
+
+  public class CreditNote : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -109,8 +117,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest ReferenceInvoiceId(string referenceInvoiceId) {
@@ -156,8 +164,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreditNoteListRequest : ListRequestBase<CreditNoteListRequest> {
-      public CreditNoteListRequest(string url)
-              : base(url) {
+      public CreditNoteListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public CreditNoteListRequest IncludeDeleted(bool includeDeleted) {

@@ -2,6 +2,8 @@ namespace ChargeBee.Internal {
   using System;
   using System.Collections.Generic;
   using System.ComponentModel;
+  using System.Linq;
+  using System.Net;
   using ChargeBee.Api;
   using Newtonsoft.Json.Linq;
 
@@ -74,13 +76,6 @@ namespace ChargeBee.Internal {
         throw new ArgumentException(string.Format("The property {0} is not present!", key));
     }
 
-    protected static string CheckNull(string id) {
-      if (string.IsNullOrEmpty(id))
-        throw new ArgumentException("ID can't be null or emtpy!");
-
-      return id;
-    }
-
     protected List<T> GetResourceList<T>(string property) where T : Resource, new() {
       if (_jobj == null)
         return null;
@@ -91,8 +86,9 @@ namespace ChargeBee.Internal {
 
       List<T> list = new List<T>();
       foreach (var item in jobj.Children()) {
-        T t = new T();
-        t.JObj = item;
+        T t = new T() {
+          JObj = item
+        };
         list.Add(t);
       }
 
@@ -122,8 +118,9 @@ namespace ChargeBee.Internal {
       JToken jobj = _jobj[property];
       if (jobj == null)
         return null;
-      T t = new T();
-      t.JObj = jobj;
+      T t = new T() {
+        JObj = jobj
+      };
       return t;
     }
 
@@ -132,9 +129,9 @@ namespace ChargeBee.Internal {
         return;
       }
       string apiVersion = jObj["api_version"].ToString().ToUpper();
-      if (!apiVersion.Equals(ApiConfig.ApiVersion, StringComparison.OrdinalIgnoreCase)) {
+      if (!apiVersion.Equals(ChargeBeeApi.Version, StringComparison.OrdinalIgnoreCase)) {
         throw new ArgumentException("API version [" + apiVersion + "] in response does not match "
-          + "with client library API version [" + ApiConfig.ApiVersion.ToUpper() + "]");
+          + "with client library API version [" + ChargeBeeApi.Version.ToUpper() + "]");
       }
     }
 

@@ -74,9 +74,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargeBeeApi.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
-    <Compile Include="Api\ApiConfig.cs" />
-    <Compile Include="Api\ApiUtil.cs" />
     <Compile Include="Api\EpochUtility.cs" />
     <Compile Include="Api\ListRequest.cs" />
     <Compile Include="Api\ListResult.cs" />
@@ -133,6 +132,7 @@
     <Compile Include="Models\ThirdPartyPaymentMethod.cs" />
     <Compile Include="Models\Enums\ValidationStatusEnum.cs" />
     <Compile Include="Models\Enums\TaxOverrideReasonEnum.cs" />
+    <Compile Include="ApiResourceActions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

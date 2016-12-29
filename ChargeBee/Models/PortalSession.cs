@@ -6,24 +6,31 @@ namespace ChargeBee.Models {
   using ChargeBee.Api;
   using ChargeBee.Internal;
 
-  public class PortalSession : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("portal_sessions");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Logout(string id) {
-      string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id), "logout");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static ActivateRequest Activate(string id) {
-      string url = ApiUtil.BuildUrl("portal_sessions", CheckNull(id), "activate");
-      return new ActivateRequest(url, HttpMethod.Post);
+  public class PortalSessionActions : ApiResourceActions {
+    public PortalSessionActions(ChargeBeeApi api) : base(api) { }
+
+    public PortalSession.CreateRequest Create() {
+      string url = BuildUrl("portal_sessions");
+      return new PortalSession.CreateRequest(Api, url, HttpMethod.Post);
     }
 
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("portal_sessions", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> Logout(string id) {
+      string url = BuildUrl("portal_sessions", id, "logout");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public PortalSession.ActivateRequest Activate(string id) {
+      string url = BuildUrl("portal_sessions", id, "activate");
+      return new PortalSession.ActivateRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class PortalSession : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -65,8 +72,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest RedirectUrl(string redirectUrl) {
@@ -84,8 +91,8 @@ namespace ChargeBee.Models {
     }
 
     public class ActivateRequest : EntityRequest<ActivateRequest> {
-      public ActivateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ActivateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ActivateRequest Token(string token) {

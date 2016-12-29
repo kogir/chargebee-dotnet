@@ -6,32 +6,41 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using Newtonsoft.Json.Linq;
 
-  public class Plan : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("plans");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static UpdateRequest Update(string id) {
-      string url = ApiUtil.BuildUrl("plans", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.Post);
-    }
-    public static PlanListRequest List() {
-      string url = ApiUtil.BuildUrl("plans");
-      return new PlanListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("plans", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Delete(string id) {
-      string url = ApiUtil.BuildUrl("plans", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static CopyRequest Copy() {
-      string url = ApiUtil.BuildUrl("plans", "copy");
-      return new CopyRequest(url, HttpMethod.Post);
+  public class PlanActions : ApiResourceActions {
+    public PlanActions(ChargeBeeApi api) : base(api) { }
+
+    public Plan.CreateRequest Create() {
+      string url = BuildUrl("plans");
+      return new Plan.CreateRequest(Api, url, HttpMethod.Post);
     }
 
+    public Plan.UpdateRequest Update(string id) {
+      string url = BuildUrl("plans", id);
+      return new Plan.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Plan.PlanListRequest List() {
+      string url = BuildUrl("plans");
+      return new Plan.PlanListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("plans", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> Delete(string id) {
+      string url = BuildUrl("plans", id, "delete");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public Plan.CopyRequest Copy() {
+      string url = BuildUrl("plans", "copy");
+      return new Plan.CopyRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Plan : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -70,10 +79,6 @@ namespace ChargeBee.Models {
     }
     public int? SetupCost {
       get { return GetValue<int?>("setup_cost", false); }
-    }
-    [Obsolete]
-    public double? DowngradePenalty {
-      get { return GetValue<double?>("downgrade_penalty", false); }
     }
     public StatusEnum Status {
       get { return GetEnum<StatusEnum>("status", true); }
@@ -128,8 +133,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest Id(string id) {
@@ -239,8 +244,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest Id(string id) {
@@ -350,8 +355,8 @@ namespace ChargeBee.Models {
     }
 
     public class PlanListRequest : ListRequestBase<PlanListRequest> {
-      public PlanListRequest(string url)
-              : base(url) {
+      public PlanListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<PlanListRequest> Id() {
@@ -387,8 +392,8 @@ namespace ChargeBee.Models {
     }
 
     public class CopyRequest : EntityRequest<CopyRequest> {
-      public CopyRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CopyRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CopyRequest FromSite(string fromSite) {

@@ -10,6 +10,20 @@ namespace ChargeBee.Models {
   using ChargeBee.Models.Enums;
   using Newtonsoft.Json.Linq;
 
+  public class EventActions : ApiResourceActions {
+    public EventActions(ChargeBeeApi api) : base(api) { }
+
+    public Event.EventListRequest List() {
+      string url = BuildUrl("events");
+      return new Event.EventListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("events", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+  }
+
   public class Event : Resource {
     public Event() { }
 
@@ -28,15 +42,6 @@ namespace ChargeBee.Models {
     public Event(string jsonString) {
       JObj = JToken.Parse(jsonString);
       apiVersionCheck(JObj);
-    }
-
-    public static EventListRequest List() {
-      string url = ApiUtil.BuildUrl("events");
-      return new EventListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("events", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
     }
 
     public string Id {
@@ -65,8 +70,8 @@ namespace ChargeBee.Models {
     }
 
     public class EventListRequest : ListRequestBase<EventListRequest> {
-      public EventListRequest(string url)
-              : base(url) {
+      public EventListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<EventListRequest> Id() {

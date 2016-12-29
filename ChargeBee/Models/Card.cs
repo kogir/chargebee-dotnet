@@ -6,28 +6,36 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Card : Resource {
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("cards", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static UpdateCardForCustomerRequest UpdateCardForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "credit_card");
-      return new UpdateCardForCustomerRequest(url, HttpMethod.Post);
-    }
-    public static SwitchGatewayForCustomerRequest SwitchGatewayForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "switch_gateway");
-      return new SwitchGatewayForCustomerRequest(url, HttpMethod.Post);
-    }
-    public static CopyCardForCustomerRequest CopyCardForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "copy_card");
-      return new CopyCardForCustomerRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> DeleteCardForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_card");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
+  public class CardActions : ApiResourceActions {
+    public CardActions(ChargeBeeApi api) : base(api) { }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("cards", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
     }
 
+    public Card.UpdateCardForCustomerRequest UpdateCardForCustomer(string id) {
+      string url = BuildUrl("customers", id, "credit_card");
+      return new Card.UpdateCardForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Card.SwitchGatewayForCustomerRequest SwitchGatewayForCustomer(string id) {
+      string url = BuildUrl("customers", id, "switch_gateway");
+      return new Card.SwitchGatewayForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Card.CopyCardForCustomerRequest CopyCardForCustomer(string id) {
+      string url = BuildUrl("customers", id, "copy_card");
+      return new Card.CopyCardForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> DeleteCardForCustomer(string id) {
+      string url = BuildUrl("customers", id, "delete_card");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Card : Resource {
     public string CustomerId {
       get { return GetValue<string>("customer_id", true); }
     }
@@ -90,8 +98,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateCardForCustomerRequest : EntityRequest<UpdateCardForCustomerRequest> {
-      public UpdateCardForCustomerRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateCardForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateCardForCustomerRequest Gateway(GatewayEnum gateway) {
@@ -157,8 +165,8 @@ namespace ChargeBee.Models {
     }
 
     public class SwitchGatewayForCustomerRequest : EntityRequest<SwitchGatewayForCustomerRequest> {
-      public SwitchGatewayForCustomerRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public SwitchGatewayForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public SwitchGatewayForCustomerRequest Gateway(GatewayEnum gateway) {
@@ -168,8 +176,8 @@ namespace ChargeBee.Models {
     }
 
     public class CopyCardForCustomerRequest : EntityRequest<CopyCardForCustomerRequest> {
-      public CopyCardForCustomerRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CopyCardForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CopyCardForCustomerRequest Gateway(GatewayEnum gateway) {

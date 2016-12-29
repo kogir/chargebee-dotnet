@@ -6,20 +6,24 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Estimate : Resource {
-    public static CreateSubscriptionRequest CreateSubscription() {
-      string url = ApiUtil.BuildUrl("estimates", "create_subscription");
-      return new CreateSubscriptionRequest(url, HttpMethod.Post);
-    }
-    public static UpdateSubscriptionRequest UpdateSubscription() {
-      string url = ApiUtil.BuildUrl("estimates", "update_subscription");
-      return new UpdateSubscriptionRequest(url, HttpMethod.Post);
-    }
-    public static RenewalEstimateRequest RenewalEstimate(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "renewal_estimate");
-      return new RenewalEstimateRequest(url, HttpMethod.Get);
-    }
+  public class EstimateActions : ApiResourceActions {
+    public EstimateActions(ChargeBeeApi api) : base(api) { }
 
+    public Estimate.CreateSubscriptionRequest CreateSubscription() {
+      string url = BuildUrl("estimates", "create_subscription");
+      return new Estimate.CreateSubscriptionRequest(Api, url, HttpMethod.Post);
+    }
+    public Estimate.UpdateSubscriptionRequest UpdateSubscription() {
+      string url = BuildUrl("estimates", "update_subscription");
+      return new Estimate.UpdateSubscriptionRequest(Api, url, HttpMethod.Post);
+    }
+    public Estimate.RenewalEstimateRequest RenewalEstimate(string id) {
+      string url = BuildUrl("subscriptions", id, "renewal_estimate");
+      return new Estimate.RenewalEstimateRequest(Api, url, HttpMethod.Get);
+    }
+  }
+
+  public class Estimate : Resource {
     public DateTime CreatedAt {
       get { return (DateTime)GetDateTime("created_at", true); }
     }
@@ -37,8 +41,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateSubscriptionRequest : EntityRequest<CreateSubscriptionRequest> {
-      public CreateSubscriptionRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateSubscriptionRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateSubscriptionRequest BillingCycles(int billingCycles) {
@@ -160,8 +164,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateSubscriptionRequest : EntityRequest<UpdateSubscriptionRequest> {
-      public UpdateSubscriptionRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateSubscriptionRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateSubscriptionRequest BillingCycles(int billingCycles) {
@@ -299,8 +303,8 @@ namespace ChargeBee.Models {
     }
 
     public class RenewalEstimateRequest : EntityRequest<RenewalEstimateRequest> {
-      public RenewalEstimateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RenewalEstimateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RenewalEstimateRequest IncludeDelayedCharges(bool includeDelayedCharges) {

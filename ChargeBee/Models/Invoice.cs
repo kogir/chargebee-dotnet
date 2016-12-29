@@ -8,80 +8,84 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Invoice : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("invoices");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static ChargeRequest Charge() {
-      string url = ApiUtil.BuildUrl("invoices", "charge");
-      return new ChargeRequest(url, HttpMethod.Post);
-    }
-    public static ChargeAddonRequest ChargeAddon() {
-      string url = ApiUtil.BuildUrl("invoices", "charge_addon");
-      return new ChargeAddonRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> StopDunning(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "stop_dunning");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static ImportInvoiceRequest ImportInvoice() {
-      string url = ApiUtil.BuildUrl("invoices", "import_invoice");
-      return new ImportInvoiceRequest(url, HttpMethod.Post);
-    }
-    public static InvoiceListRequest List() {
-      string url = ApiUtil.BuildUrl("invoices");
-      return new InvoiceListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Pdf(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "pdf");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static AddChargeRequest AddCharge(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "add_charge");
-      return new AddChargeRequest(url, HttpMethod.Post);
-    }
-    public static AddAddonChargeRequest AddAddonCharge(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "add_addon_charge");
-      return new AddAddonChargeRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Close(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "close");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static CollectPaymentRequest CollectPayment(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "collect_payment");
-      return new CollectPaymentRequest(url, HttpMethod.Post);
-    }
-    public static RecordPaymentRequest RecordPayment(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "record_payment");
-      return new RecordPaymentRequest(url, HttpMethod.Post);
-    }
-    public static RefundRequest Refund(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "refund");
-      return new RefundRequest(url, HttpMethod.Post);
-    }
-    public static RecordRefundRequest RecordRefund(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "record_refund");
-      return new RecordRefundRequest(url, HttpMethod.Post);
-    }
-    public static VoidInvoiceRequest VoidInvoice(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "void");
-      return new VoidInvoiceRequest(url, HttpMethod.Post);
-    }
-    public static WriteOffRequest WriteOff(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "write_off");
-      return new WriteOffRequest(url, HttpMethod.Post);
-    }
-    public static DeleteRequest Delete(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "delete");
-      return new DeleteRequest(url, HttpMethod.Post);
-    }
+  public class InvoiceActions : ApiResourceActions {
+    public InvoiceActions(ChargeBeeApi api) : base(api) { }
 
+    public Invoice.CreateRequest Create() {
+      string url = BuildUrl("invoices");
+      return new Invoice.CreateRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.ChargeRequest Charge() {
+      string url = BuildUrl("invoices", "charge");
+      return new Invoice.ChargeRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.ChargeAddonRequest ChargeAddon() {
+      string url = BuildUrl("invoices", "charge_addon");
+      return new Invoice.ChargeAddonRequest(Api, url, HttpMethod.Post);
+    }
+    public EntityRequest<Type> StopDunning(string id) {
+      string url = BuildUrl("invoices", id, "stop_dunning");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+    public Invoice.ImportInvoiceRequest ImportInvoice() {
+      string url = BuildUrl("invoices", "import_invoice");
+      return new Invoice.ImportInvoiceRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.InvoiceListRequest List() {
+      string url = BuildUrl("invoices");
+      return new Invoice.InvoiceListRequest(Api, url);
+    }
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("invoices", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+    public EntityRequest<Type> Pdf(string id) {
+      string url = BuildUrl("invoices", id, "pdf");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+    public Invoice.AddChargeRequest AddCharge(string id) {
+      string url = BuildUrl("invoices", id, "add_charge");
+      return new Invoice.AddChargeRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.AddAddonChargeRequest AddAddonCharge(string id) {
+      string url = BuildUrl("invoices", id, "add_addon_charge");
+      return new Invoice.AddAddonChargeRequest(Api, url, HttpMethod.Post);
+    }
+    public EntityRequest<Type> Close(string id) {
+      string url = BuildUrl("invoices", id, "close");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+    public Invoice.CollectPaymentRequest CollectPayment(string id) {
+      string url = BuildUrl("invoices", id, "collect_payment");
+      return new Invoice.CollectPaymentRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.RecordPaymentRequest RecordPayment(string id) {
+      string url = BuildUrl("invoices", id, "record_payment");
+      return new Invoice.RecordPaymentRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.RefundRequest Refund(string id) {
+      string url = BuildUrl("invoices", id, "refund");
+      return new Invoice.RefundRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.RecordRefundRequest RecordRefund(string id) {
+      string url = BuildUrl("invoices", id, "record_refund");
+      return new Invoice.RecordRefundRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.VoidInvoiceRequest VoidInvoice(string id) {
+      string url = BuildUrl("invoices", id, "void");
+      return new Invoice.VoidInvoiceRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.WriteOffRequest WriteOff(string id) {
+      string url = BuildUrl("invoices", id, "write_off");
+      return new Invoice.WriteOffRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.DeleteRequest Delete(string id) {
+      string url = BuildUrl("invoices", id, "delete");
+      return new Invoice.DeleteRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Invoice : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -204,8 +208,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest CustomerId(string customerId) {
@@ -299,8 +303,8 @@ namespace ChargeBee.Models {
     }
 
     public class ChargeRequest : EntityRequest<ChargeRequest> {
-      public ChargeRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ChargeRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ChargeRequest CustomerId(string customerId) {
@@ -334,8 +338,8 @@ namespace ChargeBee.Models {
     }
 
     public class ChargeAddonRequest : EntityRequest<ChargeAddonRequest> {
-      public ChargeAddonRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ChargeAddonRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ChargeAddonRequest CustomerId(string customerId) {
@@ -365,8 +369,8 @@ namespace ChargeBee.Models {
     }
 
     public class ImportInvoiceRequest : EntityRequest<ImportInvoiceRequest> {
-      public ImportInvoiceRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ImportInvoiceRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ImportInvoiceRequest Id(string id) {
@@ -696,8 +700,8 @@ namespace ChargeBee.Models {
     }
 
     public class InvoiceListRequest : ListRequestBase<InvoiceListRequest> {
-      public InvoiceListRequest(string url)
-              : base(url) {
+      public InvoiceListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public InvoiceListRequest IncludeDeleted(bool includeDeleted) {
@@ -759,8 +763,8 @@ namespace ChargeBee.Models {
     }
 
     public class AddChargeRequest : EntityRequest<AddChargeRequest> {
-      public AddChargeRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public AddChargeRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public AddChargeRequest Amount(int amount) {
@@ -774,8 +778,8 @@ namespace ChargeBee.Models {
     }
 
     public class AddAddonChargeRequest : EntityRequest<AddAddonChargeRequest> {
-      public AddAddonChargeRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public AddAddonChargeRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public AddAddonChargeRequest AddonId(string addonId) {
@@ -789,8 +793,8 @@ namespace ChargeBee.Models {
     }
 
     public class CollectPaymentRequest : EntityRequest<CollectPaymentRequest> {
-      public CollectPaymentRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CollectPaymentRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CollectPaymentRequest Amount(int amount) {
@@ -800,8 +804,8 @@ namespace ChargeBee.Models {
     }
 
     public class RecordPaymentRequest : EntityRequest<RecordPaymentRequest> {
-      public RecordPaymentRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RecordPaymentRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RecordPaymentRequest Comment(string comment) {
@@ -843,8 +847,8 @@ namespace ChargeBee.Models {
     }
 
     public class RefundRequest : EntityRequest<RefundRequest> {
-      public RefundRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RefundRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RefundRequest RefundAmount(int refundAmount) {
@@ -866,8 +870,8 @@ namespace ChargeBee.Models {
     }
 
     public class RecordRefundRequest : EntityRequest<RecordRefundRequest> {
-      public RecordRefundRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RecordRefundRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RecordRefundRequest Comment(string comment) {
@@ -901,8 +905,8 @@ namespace ChargeBee.Models {
     }
 
     public class VoidInvoiceRequest : EntityRequest<VoidInvoiceRequest> {
-      public VoidInvoiceRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public VoidInvoiceRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public VoidInvoiceRequest Comment(string comment) {
@@ -912,8 +916,8 @@ namespace ChargeBee.Models {
     }
 
     public class WriteOffRequest : EntityRequest<WriteOffRequest> {
-      public WriteOffRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public WriteOffRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public WriteOffRequest Comment(string comment) {
@@ -923,8 +927,8 @@ namespace ChargeBee.Models {
     }
 
     public class DeleteRequest : EntityRequest<DeleteRequest> {
-      public DeleteRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public DeleteRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public DeleteRequest Comment(string comment) {

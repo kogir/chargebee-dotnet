@@ -2,44 +2,43 @@
   using System;
   using System.Collections.Generic;
   using System.Net.Http;
+  using System.Threading.Tasks;
 
   public class EntityRequest<T> {
-    string _url;
+    private ChargeBeeApi _api;
+    private string _url;
+
     protected HttpMethod _method;
     protected Params _params = new Params();
-    protected Dictionary<string, string> headers = new Dictionary<string, string>();
+    protected Dictionary<string, string> _headers = new Dictionary<string, string>();
 
-    public EntityRequest(string url, HttpMethod method) {
+    public EntityRequest(ChargeBeeApi api, string url, HttpMethod method) {
+      _api = api;
       _url = url;
       _method = method;
     }
 
-    public T Param(string paramName, object value) {
+    public T AddParam(string paramName, object value) {
       _params.Add(paramName, value);
       return (T)Convert.ChangeType(this, typeof(T));
     }
 
-    public T Header(string headerName, string headerValue) {
-      headers.Add(headerName, headerValue);
+    public T AddHeader(string headerName, string headerValue) {
+      _headers.Add(headerName, headerValue);
       return (T)Convert.ChangeType(this, typeof(T));
     }
 
-    public EntityResult Request() {
-      return Request(ApiConfig.Instance);
-    }
-
-    public EntityResult Request(ApiConfig env) {
+    public Task<EntityResult> Request() {
       switch (_method.Method) {
         case "GET":
-          return ApiUtil.Get(_url, _params, headers, env);
+          return _api.Get(_url, _params, _headers);
         case "POST":
-          return ApiUtil.Post(_url, _params, headers, env);
+          return _api.Post(_url, _params, _headers);
         default:
           throw new NotImplementedException(string.Format(
               "HTTP method {0} is not implemented",
               _method));
       }
-
     }
   }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ChargeBee.Api {
   public class ListRequest : ListRequestBase<ListRequest> {
-    public ListRequest(string url) : base(url) {
+    public ListRequest(ChargeBeeApi api, string url) : base(api, url) {
     }
   }
 }

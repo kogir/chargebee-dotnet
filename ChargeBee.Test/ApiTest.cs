@@ -4,6 +4,7 @@
   using System.IO;
   using System.Net;
   using System.Text;
+  using System.Threading.Tasks;
   using ChargeBee.Api;
   using ChargeBee.Models;
   using ChargeBee.Models.Enums;
@@ -11,27 +12,30 @@
 
   [TestFixture]
   public class ApiTest {
+    private ChargeBeeApi Api;
+
     [SetUp]
     public void Configure() {
-      ApiConfig.Instance.ApiBase = new Uri("http://localcb.com:8080/api/v2");
-      ApiConfig.Configure("mannar-test", "__dev__FhJgi9KugVCv9yO8zosAFC11lYCEAufI");
+      var apiBase = new Uri("http://mannar-test.localcb.com:8080/api/v2");
+      Api = new ChargeBeeApi(apiBase, "__dev__FhJgi9KugVCv9yO8zosAFC11lYCEAufI");
     }
 
     /*[Test]
-    public void TestConfig()
+    public async Task TestConfig()
     {
         Assert.AreEqual("https://guidebot-test.chargebee.com/api/v2", ApiConfig.Instance.ApiBaseUrl);
     }*/
 
     [Test]
-    public void TestStatusCode() {
-      ListResult result = Event.List().Request();
+    public async Task TestStatusCode() {
+      
+      ListResult result = await Api.Event.List().Request();
       Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
     }
 
     [Test]
-    public void TestListEvents() {
-      ListResult result = Event.List().Request();
+    public async Task TestListEvents() {
+      ListResult result = await Api.Event.List().Request();
 
       foreach (var item in result.List) {
         Event evnt = item.Event;
@@ -47,19 +51,19 @@
     }
 
     [Test]
-    public void TestListEventsOffset() {
-      ListResult result1 = Event.List().Limit(1).Request();
+    public async Task TestListEventsOffset() {
+      ListResult result1 = await Api.Event.List().Limit(1).Request();
       Assert.AreEqual(1, result1.List.Count);
 
-      ListResult result2 = Event.List().Limit(1).Offset(result1.NextOffset).Request();
+      ListResult result2 = await Api.Event.List().Limit(1).Offset(result1.NextOffset).Request();
       Assert.AreEqual(1, result2.List.Count);
 
       Assert.AreNotEqual(result1.List[0].Event.Id, result2.List[0].Event.Id);
     }
 
     [Test]
-    public void TestRetrieveEvent() {
-      ListResult list = Event.List().Limit(1).Request();
+    public async Task TestRetrieveEvent() {
+      ListResult list = await Api.Event.List().Limit(1).Request();
       Assert.AreEqual(1, list.List.Count);
 
       Event eventFromList = list.List[0].Event;
@@ -67,7 +71,7 @@
       EventTypeEnum? type = eventFromList.EventType;
       Assert.NotNull(type);
 
-      EntityResult result = Event.Retrieve(eventFromList.Id).Request();
+      EntityResult result = await Api.Event.Retrieve(eventFromList.Id).Request();
       Event retrievedEvent = result.Event;
       Assert.AreEqual(eventFromList.Id, retrievedEvent.Id);
       Assert.AreEqual(eventFromList.OccurredAt, retrievedEvent.OccurredAt);
@@ -77,15 +81,15 @@
     [Test]
     public void TestRetrieveEventNotFound() {
       Assert.Throws<ApiException>(
-        () => Event.Retrieve("not_existent_id").Request(),
+        () => Api.Event.Retrieve("not_existent_id").Request().GetAwaiter().GetResult(),
         "Sorry, we couldn't find that resource");
     }
 
     [Test]
-    public void TestCreateSubscription() {
+    public async Task TestCreateSubscription() {
       string planId = "enterprise_half_yearly";
 
-      EntityResult result = Subscription.Create()
+      EntityResult result = await Api.Subscription.Create()
                         .PlanId(planId)
                         .CustomerEmail("john@user.com")
                         .CustomerFirstName("John")
@@ -98,8 +102,8 @@
     }
 
     [Test]
-    public void TestListSubscriptions() {
-      ListResult result = Subscription.List().Request();
+    public async Task TestListSubscriptions() {
+      ListResult result = await Api.Subscription.List().Request();
 
       foreach (var item in result.List) {
         Subscription subs = item.Subscription;
@@ -110,12 +114,12 @@
     }
 
     [Test]
-    public void TestRetrieveSubscriptions() {
-      EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
+    public async Task TestRetrieveSubscriptions() {
+      EntityResult result = await Api.Subscription.Create().PlanId("enterprise_half_yearly").Request();
       Subscription subs1 = result.Subscription;
       Assert.NotNull(subs1);
 
-      result = Subscription.Retrieve(subs1.Id).Request();
+      result = await Api.Subscription.Retrieve(subs1.Id).Request();
       Subscription subs2 = result.Subscription;
       Assert.NotNull(subs2);
 
@@ -123,13 +127,13 @@
     }
 
     [Test]
-    public void TestUpdateSubscription() {
-      EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
+    public async Task TestUpdateSubscription() {
+      EntityResult result = await Api.Subscription.Create().PlanId("enterprise_half_yearly").Request();
       Subscription subs1 = result.Subscription;
       Assert.NotNull(subs1);
       Assert.AreNotEqual("basic", subs1.PlanId);
 
-      result = Subscription.Update(subs1.Id)
+      result = await Api.Subscription.Update(subs1.Id)
           .PlanId("basic")
           .AddonId(1, "on_call_support")
           .CardGateway(GatewayEnum.PaypalPro)
@@ -144,12 +148,12 @@
     }
 
     [Test]
-    public void TestCancelSubscription() {
-      EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
+    public async Task TestCancelSubscription() {
+      EntityResult result = await Api.Subscription.Create().PlanId("enterprise_half_yearly").Request();
       Subscription subs1 = result.Subscription;
       Assert.NotNull(subs1);
 
-      result = Subscription.Cancel(subs1.Id).Request();
+      result = await Api.Subscription.Cancel(subs1.Id).Request();
 
       Subscription subs2 = result.Subscription;
       Assert.NotNull(subs2);
@@ -158,14 +162,14 @@
     }
 
     [Test]
-    public void TestReactivateSubscriptionError() {
-      EntityResult result = Subscription.Create().PlanId("enterprise_half_yearly").Request();
+    public async Task TestReactivateSubscriptionError() {
+      EntityResult result = await Api.Subscription.Create().PlanId("enterprise_half_yearly").Request();
       Subscription subs = result.Subscription;
-      result = Subscription.Cancel(subs.Id).Request();
+      result = await Api.Subscription.Cancel(subs.Id).Request();
       Assert.Throws<ApiException>(() => {
-        result = Subscription.Reactivate(subs.Id)
+        result = Api.Subscription.Reactivate(subs.Id)
        .TrialEnd((long)(DateTime.Now.AddDays(5) - new DateTime(1970, 1, 1)).TotalSeconds)
-       .Request();
+       .Request().GetAwaiter().GetResult();
       }, "Cannot re-activate subscription as there is no active credit card on file");
     }
 
@@ -183,8 +187,8 @@
     }
 
     [Test]
-    public void TestHostedPageCheckoutNew() {
-      EntityResult result = HostedPage.CheckoutNew()
+    public async Task TestHostedPageCheckoutNew() {
+      EntityResult result = await Api.HostedPage.CheckoutNew()
                         .CustomerEmail("john@user.com")
                         .CustomerFirstName("John")
                         .CustomerLastName("Wayne")
@@ -196,8 +200,8 @@
     }
 
     [Test]
-    public void TestHostedPageCheckoutExisting() {
-      EntityResult result = HostedPage.CheckoutExisting()
+    public async Task TestHostedPageCheckoutExisting() {
+      EntityResult result = await Api.HostedPage.CheckoutExisting()
             .SubscriptionId("HoR7OsYNy5YBOlyn")
             .SubscriptionPlanId("enterprise_half_yearly")
             .AddonId(1, "on_call_support").Request();
@@ -207,8 +211,8 @@
     }
 
     [Test]
-    public void TestRetrieveHostedPage() {
-      EntityResult result = HostedPage.CheckoutNew()
+    public async Task TestRetrieveHostedPage() {
+      EntityResult result = await Api.HostedPage.CheckoutNew()
                         .CustomerEmail("john@user.com")
                         .CustomerFirstName("John")
                         .CustomerLastName("Wayne")
@@ -218,7 +222,7 @@
       HostedPage hostedPage1 = result.HostedPage;
       Assert.NotNull(hostedPage1);
 
-      result = HostedPage.Retrieve(hostedPage1.Id).Request();
+      result = await Api.HostedPage.Retrieve(hostedPage1.Id).Request();
 
       HostedPage hostedPage2 = result.HostedPage;
       Assert.NotNull(hostedPage2);

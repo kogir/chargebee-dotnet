@@ -8,20 +8,26 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Transaction : Resource {
-    public static TransactionListRequest List() {
-      string url = ApiUtil.BuildUrl("transactions");
-      return new TransactionListRequest(url);
-    }
-    public static ListRequest PaymentsForInvoice(string id) {
-      string url = ApiUtil.BuildUrl("invoices", CheckNull(id), "payments");
-      return new ListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("transactions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
+  public class TransactionActions : ApiResourceActions {
+    public TransactionActions(ChargeBeeApi api) : base(api) { }
+
+    public Transaction.TransactionListRequest List() {
+      string url = BuildUrl("transactions");
+      return new Transaction.TransactionListRequest(Api, url);
     }
 
+    public ListRequest PaymentsForInvoice(string id) {
+      string url = BuildUrl("invoices", id, "payments");
+      return new ListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("transactions", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+  }
+
+  public class Transaction : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -102,8 +108,8 @@ namespace ChargeBee.Models {
     }
 
     public class TransactionListRequest : ListRequestBase<TransactionListRequest> {
-      public TransactionListRequest(string url)
-              : base(url) {
+      public TransactionListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public TransactionListRequest IncludeDeleted(bool includeDeleted) {

@@ -9,64 +9,68 @@ namespace ChargeBee.Models {
   using ChargeBee.Models.Enums;
   using Newtonsoft.Json.Linq;
 
-  public class Customer : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("customers");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static CustomerListRequest List() {
-      string url = ApiUtil.BuildUrl("customers");
-      return new CustomerListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static UpdateRequest Update(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.Post);
-    }
-    public static UpdatePaymentMethodRequest UpdatePaymentMethod(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_payment_method");
-      return new UpdatePaymentMethodRequest(url, HttpMethod.Post);
-    }
-    public static UpdateBillingInfoRequest UpdateBillingInfo(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_billing_info");
-      return new UpdateBillingInfoRequest(url, HttpMethod.Post);
-    }
-    public static AddContactRequest AddContact(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_contact");
-      return new AddContactRequest(url, HttpMethod.Post);
-    }
-    public static UpdateContactRequest UpdateContact(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "update_contact");
-      return new UpdateContactRequest(url, HttpMethod.Post);
-    }
-    public static DeleteContactRequest DeleteContact(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete_contact");
-      return new DeleteContactRequest(url, HttpMethod.Post);
-    }
-    public static AddPromotionalCreditsRequest AddPromotionalCredits(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "add_promotional_credits");
-      return new AddPromotionalCreditsRequest(url, HttpMethod.Post);
-    }
-    public static DeductPromotionalCreditsRequest DeductPromotionalCredits(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "deduct_promotional_credits");
-      return new DeductPromotionalCreditsRequest(url, HttpMethod.Post);
-    }
-    public static SetPromotionalCreditsRequest SetPromotionalCredits(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "set_promotional_credits");
-      return new SetPromotionalCreditsRequest(url, HttpMethod.Post);
-    }
-    public static RecordExcessPaymentRequest RecordExcessPayment(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "record_excess_payment");
-      return new RecordExcessPaymentRequest(url, HttpMethod.Post);
-    }
-    public static DeleteRequest Delete(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "delete");
-      return new DeleteRequest(url, HttpMethod.Post);
-    }
+  public class CustomerActions : ApiResourceActions {
+    public CustomerActions(ChargeBeeApi api) : base(api) { }
 
+    public Customer.CreateRequest Create() {
+      string url = BuildUrl("customers");
+      return new Customer.CreateRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.CustomerListRequest List() {
+      string url = BuildUrl("customers");
+      return new Customer.CustomerListRequest(Api, url);
+    }
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("customers", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+    public Customer.UpdateRequest Update(string id) {
+      string url = BuildUrl("customers", id);
+      return new Customer.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.UpdatePaymentMethodRequest UpdatePaymentMethod(string id) {
+      string url = BuildUrl("customers", id, "update_payment_method");
+      return new Customer.UpdatePaymentMethodRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.UpdateBillingInfoRequest UpdateBillingInfo(string id) {
+      string url = BuildUrl("customers", id, "update_billing_info");
+      return new Customer.UpdateBillingInfoRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.AddContactRequest AddContact(string id) {
+      string url = BuildUrl("customers", id, "add_contact");
+      return new Customer.AddContactRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.UpdateContactRequest UpdateContact(string id) {
+      string url = BuildUrl("customers", id, "update_contact");
+      return new Customer.UpdateContactRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.DeleteContactRequest DeleteContact(string id) {
+      string url = BuildUrl("customers", id, "delete_contact");
+      return new Customer.DeleteContactRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.AddPromotionalCreditsRequest AddPromotionalCredits(string id) {
+      string url = BuildUrl("customers", id, "add_promotional_credits");
+      return new Customer.AddPromotionalCreditsRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.DeductPromotionalCreditsRequest DeductPromotionalCredits(string id) {
+      string url = BuildUrl("customers", id, "deduct_promotional_credits");
+      return new Customer.DeductPromotionalCreditsRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.SetPromotionalCreditsRequest SetPromotionalCredits(string id) {
+      string url = BuildUrl("customers", id, "set_promotional_credits");
+      return new Customer.SetPromotionalCreditsRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.RecordExcessPaymentRequest RecordExcessPayment(string id) {
+      string url = BuildUrl("customers", id, "record_excess_payment");
+      return new Customer.RecordExcessPaymentRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.DeleteRequest Delete(string id) {
+      string url = BuildUrl("customers", id, "delete");
+      return new Customer.DeleteRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Customer : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -156,8 +160,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest Id(string id) {
@@ -363,8 +367,8 @@ namespace ChargeBee.Models {
     }
 
     public class CustomerListRequest : ListRequestBase<CustomerListRequest> {
-      public CustomerListRequest(string url)
-              : base(url) {
+      public CustomerListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public CustomerListRequest IncludeDeleted(bool includeDeleted) {
@@ -405,8 +409,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest FirstName(string firstName) {
@@ -472,8 +476,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdatePaymentMethodRequest : EntityRequest<UpdatePaymentMethodRequest> {
-      public UpdatePaymentMethodRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdatePaymentMethodRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdatePaymentMethodRequest PaymentMethodType(TypeEnum paymentMethodType) {
@@ -495,8 +499,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateBillingInfoRequest : EntityRequest<UpdateBillingInfoRequest> {
-      public UpdateBillingInfoRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateBillingInfoRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateBillingInfoRequest VatNumber(string vatNumber) {
@@ -562,8 +566,8 @@ namespace ChargeBee.Models {
     }
 
     public class AddContactRequest : EntityRequest<AddContactRequest> {
-      public AddContactRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public AddContactRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public AddContactRequest ContactId(string contactId) {
@@ -605,8 +609,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateContactRequest : EntityRequest<UpdateContactRequest> {
-      public UpdateContactRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateContactRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateContactRequest ContactId(string contactId) {
@@ -648,8 +652,8 @@ namespace ChargeBee.Models {
     }
 
     public class DeleteContactRequest : EntityRequest<DeleteContactRequest> {
-      public DeleteContactRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public DeleteContactRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public DeleteContactRequest ContactId(string contactId) {
@@ -659,8 +663,8 @@ namespace ChargeBee.Models {
     }
 
     public class AddPromotionalCreditsRequest : EntityRequest<AddPromotionalCreditsRequest> {
-      public AddPromotionalCreditsRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public AddPromotionalCreditsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public AddPromotionalCreditsRequest Amount(int amount) {
@@ -678,8 +682,8 @@ namespace ChargeBee.Models {
     }
 
     public class DeductPromotionalCreditsRequest : EntityRequest<DeductPromotionalCreditsRequest> {
-      public DeductPromotionalCreditsRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public DeductPromotionalCreditsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public DeductPromotionalCreditsRequest Amount(int amount) {
@@ -697,8 +701,8 @@ namespace ChargeBee.Models {
     }
 
     public class SetPromotionalCreditsRequest : EntityRequest<SetPromotionalCreditsRequest> {
-      public SetPromotionalCreditsRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public SetPromotionalCreditsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public SetPromotionalCreditsRequest Amount(int amount) {
@@ -716,8 +720,8 @@ namespace ChargeBee.Models {
     }
 
     public class RecordExcessPaymentRequest : EntityRequest<RecordExcessPaymentRequest> {
-      public RecordExcessPaymentRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RecordExcessPaymentRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RecordExcessPaymentRequest Comment(string comment) {
@@ -747,8 +751,8 @@ namespace ChargeBee.Models {
     }
 
     public class DeleteRequest : EntityRequest<DeleteRequest> {
-      public DeleteRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public DeleteRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public DeleteRequest DeletePaymentMethod(bool deletePaymentMethod) {

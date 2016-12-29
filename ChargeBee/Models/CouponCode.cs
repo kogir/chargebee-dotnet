@@ -5,24 +5,28 @@ namespace ChargeBee.Models {
   using ChargeBee.Api;
   using ChargeBee.Internal;
 
-  public class CouponCode : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("coupon_codes");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("coupon_codes", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static CouponCodeListRequest List() {
-      string url = ApiUtil.BuildUrl("coupon_codes");
-      return new CouponCodeListRequest(url);
-    }
-    public static EntityRequest<Type> Archive(string id) {
-      string url = ApiUtil.BuildUrl("coupon_codes", CheckNull(id), "archive");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
+  public class CouponCodeActions : ApiResourceActions {
+    public CouponCodeActions(ChargeBeeApi api) : base(api) { }
 
+    public CouponCode.CreateRequest Create() {
+      string url = BuildUrl("coupon_codes");
+      return new CouponCode.CreateRequest(Api, url, HttpMethod.Post);
+    }
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("coupon_codes", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+    public CouponCode.CouponCodeListRequest List() {
+      string url = BuildUrl("coupon_codes");
+      return new CouponCode.CouponCodeListRequest(Api, url);
+    }
+    public EntityRequest<Type> Archive(string id) {
+      string url = BuildUrl("coupon_codes", id, "archive");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class CouponCode : Resource {
     public string Code {
       get { return GetValue<string>("code", true); }
     }
@@ -37,8 +41,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest CouponId(string couponId) {
@@ -56,8 +60,8 @@ namespace ChargeBee.Models {
     }
 
     public class CouponCodeListRequest : ListRequestBase<CouponCodeListRequest> {
-      public CouponCodeListRequest(string url)
-              : base(url) {
+      public CouponCodeListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<CouponCodeListRequest> Code() {

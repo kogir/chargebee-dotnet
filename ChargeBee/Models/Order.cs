@@ -6,24 +6,28 @@ namespace ChargeBee.Models {
   using ChargeBee.Filters.Enums;
   using ChargeBee.Internal;
 
-  public class Order : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("orders");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static UpdateRequest Update(string id) {
-      string url = ApiUtil.BuildUrl("orders", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("orders", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static OrderListRequest List() {
-      string url = ApiUtil.BuildUrl("orders");
-      return new OrderListRequest(url);
-    }
+  public class OrderActions : ApiResourceActions {
+    public OrderActions(ChargeBeeApi api) : base(api) { }
 
+    public Order.CreateRequest Create() {
+      string url = BuildUrl("orders");
+      return new Order.CreateRequest(Api, url, HttpMethod.Post);
+    }
+    public Order.UpdateRequest Update(string id) {
+      string url = BuildUrl("orders", id);
+      return new Order.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("orders", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+    public Order.OrderListRequest List() {
+      string url = BuildUrl("orders");
+      return new Order.OrderListRequest(Api, url);
+    }
+  }
+
+  public class Order : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -59,8 +63,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest Id(string id) {
@@ -98,8 +102,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest Status(StatusEnum status) {
@@ -129,8 +133,8 @@ namespace ChargeBee.Models {
     }
 
     public class OrderListRequest : ListRequestBase<OrderListRequest> {
-      public OrderListRequest(string url)
-              : base(url) {
+      public OrderListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<OrderListRequest> Id() {

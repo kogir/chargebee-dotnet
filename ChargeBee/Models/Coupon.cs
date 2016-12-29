@@ -8,28 +8,36 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using Newtonsoft.Json.Linq;
 
-  public class Coupon : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("coupons");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static CouponListRequest List() {
-      string url = ApiUtil.BuildUrl("coupons");
-      return new CouponListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("coupons", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Delete(string id) {
-      string url = ApiUtil.BuildUrl("coupons", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static CopyRequest Copy() {
-      string url = ApiUtil.BuildUrl("coupons", "copy");
-      return new CopyRequest(url, HttpMethod.Post);
+  public class CouponActions : ApiResourceActions {
+    public CouponActions(ChargeBeeApi api) : base(api) { }
+
+    public Coupon.CreateRequest Create() {
+      string url = BuildUrl("coupons");
+      return new Coupon.CreateRequest(Api, url, HttpMethod.Post);
     }
 
+    public Coupon.CouponListRequest List() {
+      string url = BuildUrl("coupons");
+      return new Coupon.CouponListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("coupons", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> Delete(string id) {
+      string url = BuildUrl("coupons", id, "delete");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public Coupon.CopyRequest Copy() {
+      string url = BuildUrl("coupons", "copy");
+      return new Coupon.CopyRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Coupon : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -104,8 +112,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest Id(string id) {
@@ -183,8 +191,8 @@ namespace ChargeBee.Models {
     }
 
     public class CouponListRequest : ListRequestBase<CouponListRequest> {
-      public CouponListRequest(string url)
-              : base(url) {
+      public CouponListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<CouponListRequest> Id() {
@@ -218,8 +226,8 @@ namespace ChargeBee.Models {
     }
 
     public class CopyRequest : EntityRequest<CopyRequest> {
-      public CopyRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CopyRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CopyRequest FromSite(string fromSite) {
@@ -239,6 +247,7 @@ namespace ChargeBee.Models {
       [Description("percentage")]
       Percentage,
     }
+
     public enum DurationTypeEnum {
       Unknown,
       [Description("one_time")]
@@ -248,6 +257,7 @@ namespace ChargeBee.Models {
       [Description("limited_period")]
       LimitedPeriod,
     }
+
     public enum StatusEnum {
       Unknown,
       [Description("active")]

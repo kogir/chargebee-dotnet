@@ -4,16 +4,21 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Address : Resource {
-    public static RetrieveRequest Retrieve() {
-      string url = ApiUtil.BuildUrl("addresses");
-      return new RetrieveRequest(url, HttpMethod.Get);
-    }
-    public static UpdateRequest Update() {
-      string url = ApiUtil.BuildUrl("addresses");
-      return new UpdateRequest(url, HttpMethod.Post);
+  public class AddressActions : ApiResourceActions {
+    public AddressActions(ChargeBeeApi api) : base(api) { }
+
+    public Address.RetrieveRequest Retrieve() {
+      string url = BuildUrl("addresses");
+      return new Address.RetrieveRequest(Api, url, HttpMethod.Get);
     }
 
+    public Address.UpdateRequest Update() {
+      string url = BuildUrl("addresses");
+      return new Address.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Address : Resource {
     public string Label {
       get { return GetValue<string>("label", true); }
     }
@@ -64,8 +69,8 @@ namespace ChargeBee.Models {
     }
 
     public class RetrieveRequest : EntityRequest<RetrieveRequest> {
-      public RetrieveRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RetrieveRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RetrieveRequest SubscriptionId(string subscriptionId) {
@@ -79,8 +84,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest SubscriptionId(string subscriptionId) {

@@ -1,14 +1,18 @@
 ﻿namespace ChargeBee.Api {
   using System.Collections.Generic;
   using System.Net.Http;
+  using System.Threading.Tasks;
 
   public class ListRequestBase<U> where U : ListRequestBase<U> {
-    string _url;
+    private ChargeBeeApi _api;
+    private string _url;
+
     protected HttpMethod _method = HttpMethod.Get;
     protected Params _params = new Params();
-    protected Dictionary<string, string> headers = new Dictionary<string, string>();
+    protected Dictionary<string, string> _headers = new Dictionary<string, string>();
 
-    public ListRequestBase(string url) {
+    public ListRequestBase(ChargeBeeApi api, string url) {
+      _api = api;
       _url = url;
     }
 
@@ -23,16 +27,12 @@
     }
 
     public U Header(string headerName, string headerValue) {
-      headers.Add(headerName, headerValue);
+      _headers.Add(headerName, headerValue);
       return (U)this;
     }
 
-    public ListResult Request(ApiConfig env) {
-      return ApiUtil.GetList(_url, _params, headers, ApiConfig.Instance);
-    }
-
-    public ListResult Request() {
-      return Request(ApiConfig.Instance);
+    public Task<ListResult> Request() {
+      return _api.GetList(_url, _params, _headers);
     }
 
     public Params Params() {

@@ -6,32 +6,41 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using Newtonsoft.Json.Linq;
 
-  public class Addon : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("addons");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static UpdateRequest Update(string id) {
-      string url = ApiUtil.BuildUrl("addons", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.Post);
-    }
-    public static AddonListRequest List() {
-      string url = ApiUtil.BuildUrl("addons");
-      return new AddonListRequest(url);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("addons", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> Delete(string id) {
-      string url = ApiUtil.BuildUrl("addons", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static CopyRequest Copy() {
-      string url = ApiUtil.BuildUrl("addons", "copy");
-      return new CopyRequest(url, HttpMethod.Post);
+  public class AddonActions : ApiResourceActions {
+    public AddonActions(ChargeBeeApi api) : base(api) { }
+
+    public Addon.CreateRequest Create() {
+      string url = BuildUrl("addons");
+      return new Addon.CreateRequest(Api, url, HttpMethod.Post);
     }
 
+    public Addon.UpdateRequest Update(string id) {
+      string url = BuildUrl("addons", id);
+      return new Addon.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Addon.AddonListRequest List() {
+      string url = BuildUrl("addons");
+      return new Addon.AddonListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("addons", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> Delete(string id) {
+      string url = BuildUrl("addons", id, "delete");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public Addon.CopyRequest Copy() {
+      string url = BuildUrl("addons", "copy");
+      return new Addon.CopyRequest(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Addon : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -109,9 +118,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
-      }
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+        : base(api, url, method) { }
 
       public CreateRequest Id(string id) {
         _params.Add("id", id);
@@ -200,8 +208,8 @@ namespace ChargeBee.Models {
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest Id(string id) {
@@ -291,8 +299,8 @@ namespace ChargeBee.Models {
     }
 
     public class AddonListRequest : ListRequestBase<AddonListRequest> {
-      public AddonListRequest(string url)
-              : base(url) {
+      public AddonListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public StringFilter<AddonListRequest> Id() {
@@ -325,8 +333,8 @@ namespace ChargeBee.Models {
     }
 
     public class CopyRequest : EntityRequest<CopyRequest> {
-      public CopyRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CopyRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CopyRequest FromSite(string fromSite) {

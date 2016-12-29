@@ -7,24 +7,31 @@ namespace ChargeBee.Models {
   using ChargeBee.Internal;
   using ChargeBee.Models.Enums;
 
-  public class Comment : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("comments");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("comments", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static CommentListRequest List() {
-      string url = ApiUtil.BuildUrl("comments");
-      return new CommentListRequest(url);
-    }
-    public static EntityRequest<Type> Delete(string id) {
-      string url = ApiUtil.BuildUrl("comments", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
+  public class CommentActions : ApiResourceActions {
+    public CommentActions(ChargeBeeApi api) : base(api) { }
+
+    public Comment.CreateRequest Create() {
+      string url = BuildUrl("comments");
+      return new Comment.CreateRequest(Api, url, HttpMethod.Post);
     }
 
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("comments", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public Comment.CommentListRequest List() {
+      string url = BuildUrl("comments");
+      return new Comment.CommentListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Delete(string id) {
+      string url = BuildUrl("comments", id, "delete");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+  }
+
+  public class Comment : Resource {
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -48,8 +55,8 @@ namespace ChargeBee.Models {
     }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest EntityType(EntityTypeEnum entityType) {
@@ -71,8 +78,8 @@ namespace ChargeBee.Models {
     }
 
     public class CommentListRequest : ListRequestBase<CommentListRequest> {
-      public CommentListRequest(string url)
-              : base(url) {
+      public CommentListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public CommentListRequest EntityType(EntityTypeEnum entityType) {

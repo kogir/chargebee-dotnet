@@ -9,78 +9,96 @@ namespace ChargeBee.Models {
   using ChargeBee.Models.Enums;
   using Newtonsoft.Json.Linq;
 
+  public class SubScriptionActions : ApiResourceActions {
+    public SubScriptionActions(ChargeBeeApi api) : base(api) { }
+
+    public Subscription.CreateRequest Create() {
+      string url = BuildUrl("subscriptions");
+      return new Subscription.CreateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.CreateForCustomerRequest CreateForCustomer(string id) {
+      string url = BuildUrl("customers", id, "subscriptions");
+      return new Subscription.CreateForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.SubscriptionListRequest List() {
+      string url = BuildUrl("subscriptions");
+      return new Subscription.SubscriptionListRequest(Api, url);
+    }
+
+    public EntityRequest<Type> Retrieve(string id) {
+      string url = BuildUrl("subscriptions", id);
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> RetrieveWithScheduledChanges(string id) {
+      string url = BuildUrl("subscriptions", id, "retrieve_with_scheduled_changes");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public EntityRequest<Type> RemoveScheduledChanges(string id) {
+      string url = BuildUrl("subscriptions", id, "remove_scheduled_changes");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.RemoveScheduledCancellationRequest RemoveScheduledCancellation(string id) {
+      string url = BuildUrl("subscriptions", id, "remove_scheduled_cancellation");
+      return new Subscription.RemoveScheduledCancellationRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.RemoveCouponsRequest RemoveCoupons(string id) {
+      string url = BuildUrl("subscriptions", id, "remove_coupons");
+      return new Subscription.RemoveCouponsRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.UpdateRequest Update(string id) {
+      string url = BuildUrl("subscriptions", id);
+      return new Subscription.UpdateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.ChangeTermEndRequest ChangeTermEnd(string id) {
+      string url = BuildUrl("subscriptions", id, "change_ter_end");
+      return new Subscription.ChangeTermEndRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.CancelRequest Cancel(string id) {
+      string url = BuildUrl("subscriptions", id, "cancel");
+      return new Subscription.CancelRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.ReactivateRequest Reactivate(string id) {
+      string url = BuildUrl("subscriptions", id, "reactivate");
+      return new Subscription.ReactivateRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.AddChargeAtTermEndRequest AddChargeAtTermEnd(string id) {
+      string url = BuildUrl("subscriptions", id, "add_charge_at_ter_end");
+      return new Subscription.AddChargeAtTermEndRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.ChargeAddonAtTermEndRequest ChargeAddonAtTermEnd(string id) {
+      string url = BuildUrl("subscriptions", id, "charge_addon_at_ter_end");
+      return new Subscription.ChargeAddonAtTermEndRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.ImportSubscriptionRequest ImportSubscription() {
+      string url = BuildUrl("subscriptions", "import_subscription");
+      return new Subscription.ImportSubscriptionRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.ImportForCustomerRequest ImportForCustomer(string id) {
+      string url = BuildUrl("customers", id, "import_subscription");
+      return new Subscription.ImportForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> Delete(string id) {
+      string url = BuildUrl("subscriptions", id, "delete");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+  }
+
   public class Subscription : Resource {
-    public static CreateRequest Create() {
-      string url = ApiUtil.BuildUrl("subscriptions");
-      return new CreateRequest(url, HttpMethod.Post);
-    }
-    public static CreateForCustomerRequest CreateForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "subscriptions");
-      return new CreateForCustomerRequest(url, HttpMethod.Post);
-    }
-    public static SubscriptionListRequest List() {
-      string url = ApiUtil.BuildUrl("subscriptions");
-      return new SubscriptionListRequest(url);
-    }
-
-    public static EntityRequest<Type> Retrieve(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> RetrieveWithScheduledChanges(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "retrieve_with_scheduled_changes");
-      return new EntityRequest<Type>(url, HttpMethod.Get);
-    }
-    public static EntityRequest<Type> RemoveScheduledChanges(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_changes");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-    public static RemoveScheduledCancellationRequest RemoveScheduledCancellation(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_scheduled_cancellation");
-      return new RemoveScheduledCancellationRequest(url, HttpMethod.Post);
-    }
-    public static RemoveCouponsRequest RemoveCoupons(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "remove_coupons");
-      return new RemoveCouponsRequest(url, HttpMethod.Post);
-    }
-    public static UpdateRequest Update(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id));
-      return new UpdateRequest(url, HttpMethod.Post);
-    }
-    public static ChangeTermEndRequest ChangeTermEnd(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "change_ter_end");
-      return new ChangeTermEndRequest(url, HttpMethod.Post);
-    }
-    public static CancelRequest Cancel(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "cancel");
-      return new CancelRequest(url, HttpMethod.Post);
-    }
-    public static ReactivateRequest Reactivate(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "reactivate");
-      return new ReactivateRequest(url, HttpMethod.Post);
-    }
-    public static AddChargeAtTermEndRequest AddChargeAtTermEnd(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "add_charge_at_ter_end");
-      return new AddChargeAtTermEndRequest(url, HttpMethod.Post);
-    }
-    public static ChargeAddonAtTermEndRequest ChargeAddonAtTermEnd(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "charge_addon_at_ter_end");
-      return new ChargeAddonAtTermEndRequest(url, HttpMethod.Post);
-    }
-    public static ImportSubscriptionRequest ImportSubscription() {
-      string url = ApiUtil.BuildUrl("subscriptions", "import_subscription");
-      return new ImportSubscriptionRequest(url, HttpMethod.Post);
-    }
-    public static ImportForCustomerRequest ImportForCustomer(string id) {
-      string url = ApiUtil.BuildUrl("customers", CheckNull(id), "import_subscription");
-      return new ImportForCustomerRequest(url, HttpMethod.Post);
-    }
-    public static EntityRequest<Type> Delete(string id) {
-      string url = ApiUtil.BuildUrl("subscriptions", CheckNull(id), "delete");
-      return new EntityRequest<Type>(url, HttpMethod.Post);
-    }
-
-
     public string Id {
       get { return GetValue<string>("id", true); }
     }
@@ -189,8 +207,8 @@ namespace ChargeBee.Models {
 
 
     public class CreateRequest : EntityRequest<CreateRequest> {
-      public CreateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateRequest Id(string id) {
@@ -487,8 +505,8 @@ namespace ChargeBee.Models {
       }
     }
     public class CreateForCustomerRequest : EntityRequest<CreateForCustomerRequest> {
-      public CreateForCustomerRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CreateForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CreateForCustomerRequest Id(string id) {
@@ -597,8 +615,8 @@ namespace ChargeBee.Models {
       }
     }
     public class SubscriptionListRequest : ListRequestBase<SubscriptionListRequest> {
-      public SubscriptionListRequest(string url)
-              : base(url) {
+      public SubscriptionListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
       }
 
       public SubscriptionListRequest IncludeDeleted(bool includeDeleted) {
@@ -641,8 +659,8 @@ namespace ChargeBee.Models {
       }
     }
     public class RemoveScheduledCancellationRequest : EntityRequest<RemoveScheduledCancellationRequest> {
-      public RemoveScheduledCancellationRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RemoveScheduledCancellationRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RemoveScheduledCancellationRequest BillingCycles(int billingCycles) {
@@ -651,8 +669,8 @@ namespace ChargeBee.Models {
       }
     }
     public class RemoveCouponsRequest : EntityRequest<RemoveCouponsRequest> {
-      public RemoveCouponsRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public RemoveCouponsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public RemoveCouponsRequest CouponIds(List<string> couponIds) {
@@ -661,8 +679,8 @@ namespace ChargeBee.Models {
       }
     }
     public class UpdateRequest : EntityRequest<UpdateRequest> {
-      public UpdateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public UpdateRequest PlanId(string planId) {
@@ -923,8 +941,8 @@ namespace ChargeBee.Models {
       }
     }
     public class ChangeTermEndRequest : EntityRequest<ChangeTermEndRequest> {
-      public ChangeTermEndRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ChangeTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ChangeTermEndRequest TermEndsAt(long termEndsAt) {
@@ -933,8 +951,8 @@ namespace ChargeBee.Models {
       }
     }
     public class CancelRequest : EntityRequest<CancelRequest> {
-      public CancelRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public CancelRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public CancelRequest EndOfTerm(bool endOfTerm) {
@@ -943,8 +961,8 @@ namespace ChargeBee.Models {
       }
     }
     public class ReactivateRequest : EntityRequest<ReactivateRequest> {
-      public ReactivateRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ReactivateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ReactivateRequest TrialEnd(long trialEnd) {
@@ -957,8 +975,8 @@ namespace ChargeBee.Models {
       }
     }
     public class AddChargeAtTermEndRequest : EntityRequest<AddChargeAtTermEndRequest> {
-      public AddChargeAtTermEndRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public AddChargeAtTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public AddChargeAtTermEndRequest Amount(int amount) {
@@ -971,8 +989,8 @@ namespace ChargeBee.Models {
       }
     }
     public class ChargeAddonAtTermEndRequest : EntityRequest<ChargeAddonAtTermEndRequest> {
-      public ChargeAddonAtTermEndRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ChargeAddonAtTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ChargeAddonAtTermEndRequest AddonId(string addonId) {
@@ -985,8 +1003,8 @@ namespace ChargeBee.Models {
       }
     }
     public class ImportSubscriptionRequest : EntityRequest<ImportSubscriptionRequest> {
-      public ImportSubscriptionRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ImportSubscriptionRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ImportSubscriptionRequest Id(string id) {
@@ -1307,8 +1325,8 @@ namespace ChargeBee.Models {
       }
     }
     public class ImportForCustomerRequest : EntityRequest<ImportForCustomerRequest> {
-      public ImportForCustomerRequest(string url, HttpMethod method)
-              : base(url, method) {
+      public ImportForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
       }
 
       public ImportForCustomerRequest Id(string id) {
