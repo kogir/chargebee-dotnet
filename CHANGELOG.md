@@ -1,3 +1,11 @@
+###v0.1.1-alpha (2016-12-28)
+* * *
+
+** Changes:
+* Add async suport.
+* Add (gross) hooks for testing.
+* Remove global static configuration.
+
 ###v2.2.1 (2016-12-09)
 * * * 
 
