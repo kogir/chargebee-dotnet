@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$-alpha</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.github.com/kogir/chargebee-dotnet/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kogir/chargebee-dotnet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Added async and non-static configuration support.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>ChargeBee</tags>
+  </metadata>
+</package>
