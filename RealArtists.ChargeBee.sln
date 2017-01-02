@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26014.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealArtists.ChargeBee", "RealArtists.ChargeBee\RealArtists.ChargeBee.csproj", "{8F827C3F-DA3E-4C85-96E7-2F4DF5DD1928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealArtists.ChargeBee", "ChargeBee\ChargeBee.csproj", "{8F827C3F-DA3E-4C85-96E7-2F4DF5DD1928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealArtists.ChargeBee.Test", "RealArtists.ChargeBee.Test\RealArtists.ChargeBee.Test.csproj", "{21540081-4259-47CF-8BAC-33F45A5A95CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealArtists.ChargeBee.Test", "ChargeBee.Test\ChargeBee.Test.csproj", "{21540081-4259-47CF-8BAC-33F45A5A95CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A06D9B85-459F-4B56-91C0-9246A17E7614}"
 	ProjectSection(SolutionItems) = preProject

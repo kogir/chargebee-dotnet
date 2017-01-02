@@ -80,7 +80,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RealArtists.ChargeBee\RealArtists.ChargeBee.csproj">
+    <ProjectReference Include="..\ChargeBee\ChargeBee.csproj">
       <Project>{8f827c3f-da3e-4c85-96e7-2f4df5dd1928}</Project>
       <Name>RealArtists.ChargeBee</Name>
     </ProjectReference>

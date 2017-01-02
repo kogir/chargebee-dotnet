@@ -145,7 +145,7 @@
   -->
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ChargeBee.nuspec" />
     <None Include="packages.config" />
-    <None Include="RealArtists.ChargeBee.nuspec" />
   </ItemGroup>
 </Project>
