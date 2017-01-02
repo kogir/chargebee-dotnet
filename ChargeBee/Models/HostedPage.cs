@@ -141,6 +141,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[plan_quantity]", subscriptionPlanQuantity);
         return this;
       }
+      public CheckoutNewRequest SubscriptionPlanUnitPrice(int subscriptionPlanUnitPrice) {
+        _params.AddOpt("subscription[plan_unit_price]", subscriptionPlanUnitPrice);
+        return this;
+      }
+      public CheckoutNewRequest SubscriptionSetupFee(int subscriptionSetupFee) {
+        _params.AddOpt("subscription[setup_fee]", subscriptionSetupFee);
+        return this;
+      }
       public CheckoutNewRequest SubscriptionStartDate(long subscriptionStartDate) {
         _params.AddOpt("subscription[start_date]", subscriptionStartDate);
         return this;
@@ -167,6 +175,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CheckoutNewRequest AddonQuantity(int index, int addonQuantity) {
         _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+        return this;
+      }
+      public CheckoutNewRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
     }
@@ -216,6 +228,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[plan_quantity]", subscriptionPlanQuantity);
         return this;
       }
+      public CheckoutExistingRequest SubscriptionPlanUnitPrice(int subscriptionPlanUnitPrice) {
+        _params.AddOpt("subscription[plan_unit_price]", subscriptionPlanUnitPrice);
+        return this;
+      }
+      public CheckoutExistingRequest SubscriptionSetupFee(int subscriptionSetupFee) {
+        _params.AddOpt("subscription[setup_fee]", subscriptionSetupFee);
+        return this;
+      }
       public CheckoutExistingRequest SubscriptionStartDate(long subscriptionStartDate) {
         _params.AddOpt("subscription[start_date]", subscriptionStartDate);
         return this;
@@ -242,6 +262,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CheckoutExistingRequest AddonQuantity(int index, int addonQuantity) {
         _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+        return this;
+      }
+      public CheckoutExistingRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
     }

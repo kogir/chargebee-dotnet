@@ -65,6 +65,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[plan_quantity]", subscriptionPlanQuantity);
         return this;
       }
+      public CreateSubscriptionRequest SubscriptionPlanUnitPrice(int subscriptionPlanUnitPrice) {
+        _params.AddOpt("subscription[plan_unit_price]", subscriptionPlanUnitPrice);
+        return this;
+      }
+      public CreateSubscriptionRequest SubscriptionSetupFee(int subscriptionSetupFee) {
+        _params.AddOpt("subscription[setup_fee]", subscriptionSetupFee);
+        return this;
+      }
       public CreateSubscriptionRequest SubscriptionStartDate(long subscriptionStartDate) {
         _params.AddOpt("subscription[start_date]", subscriptionStartDate);
         return this;
@@ -161,6 +169,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
         return this;
       }
+      public CreateSubscriptionRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
+        return this;
+      }
     }
 
     public class UpdateSubscriptionRequest : EntityRequest<UpdateSubscriptionRequest> {
@@ -214,6 +226,14 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateSubscriptionRequest SubscriptionPlanQuantity(int subscriptionPlanQuantity) {
         _params.AddOpt("subscription[plan_quantity]", subscriptionPlanQuantity);
+        return this;
+      }
+      public UpdateSubscriptionRequest SubscriptionPlanUnitPrice(int subscriptionPlanUnitPrice) {
+        _params.AddOpt("subscription[plan_unit_price]", subscriptionPlanUnitPrice);
+        return this;
+      }
+      public UpdateSubscriptionRequest SubscriptionSetupFee(int subscriptionSetupFee) {
+        _params.AddOpt("subscription[setup_fee]", subscriptionSetupFee);
         return this;
       }
       public UpdateSubscriptionRequest SubscriptionStartDate(long subscriptionStartDate) {
@@ -298,6 +318,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateSubscriptionRequest AddonQuantity(int index, int addonQuantity) {
         _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+        return this;
+      }
+      public UpdateSubscriptionRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
     }

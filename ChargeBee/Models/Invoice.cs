@@ -292,6 +292,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
         return this;
       }
+      public CreateRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
+        return this;
+      }
       public CreateRequest ChargeAmount(int index, int chargeAmount) {
         _params.AddOpt("charges[amount][" + index + "]", chargeAmount);
         return this;
@@ -356,6 +360,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ChargeAddonRequest AddonQuantity(int addonQuantity) {
         _params.AddOpt("addon_quantity", addonQuantity);
+        return this;
+      }
+      public ChargeAddonRequest AddonUnitPrice(int addonUnitPrice) {
+        _params.AddOpt("addon_unit_price", addonUnitPrice);
         return this;
       }
       public ChargeAddonRequest Coupon(string coupon) {
@@ -790,6 +798,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addon_quantity", addonQuantity);
         return this;
       }
+      public AddAddonChargeRequest AddonUnitPrice(int addonUnitPrice) {
+        _params.AddOpt("addon_unit_price", addonUnitPrice);
+        return this;
+      }
     }
 
     public class CollectPaymentRequest : EntityRequest<CollectPaymentRequest> {
@@ -1027,6 +1039,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public EntityTypeEnum EntityType() {
         return GetEnum<EntityTypeEnum>("entity_type", true);
+      }
+
+      public TaxExemptReasonEnum? TaxExemptReason() {
+        return GetEnum<TaxExemptReasonEnum>("tax_exempt_reason", false);
       }
 
       public string EntityId() {
