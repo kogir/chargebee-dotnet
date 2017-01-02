@@ -12,12 +12,12 @@
   using Newtonsoft.Json;
 
   public class ChargeBeeApi {
-    public const string Version = "2.2.1";
+    public const string Version = "2.2.2";
+    public const string ApiVersion = "v2";
 
     private static HttpClient DefaultHttpClient { get; set; } = CreateHttpClient();
 
     public Uri ApiBase { get; }
-    public string ApiVersion { get; } = "v2";
     public AuthenticationHeaderValue AuthenticationHeader { get; }
     public HttpClient HttpClient { get; }
 
@@ -67,7 +67,7 @@
         throw new ArgumentException($"{nameof(apiKey)} is required.");
       }
 
-      ApiBase = new Uri($"https://{siteName}.chargebee.com/api/{ApiVersion}");
+      ApiBase = new Uri($"https://{siteName}.chargebee.com/api/{ApiVersion}/");
       AuthenticationHeader = new AuthenticationHeaderValue(
         "Basic",
         Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiKey}:")));
@@ -172,6 +172,10 @@
         AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
         AutomaticRedirection = false,
         CookieUsePolicy = CookieUsePolicy.IgnoreCookies,
+//#if DEBUG
+//        WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy,
+//        Proxy = new WebProxy("http://127.0.0.1:8888", false),
+//#endif
       };
 
       return CreateHttpClient(handler, true);
@@ -193,7 +197,7 @@
       headers.AcceptCharset.ParseAdd(Encoding.UTF8.WebName);
 
       headers.UserAgent.Clear();
-      headers.UserAgent.Add(new ProductInfoHeaderValue("ChargeBee.NET", Version));
+      headers.UserAgent.Add(new ProductInfoHeaderValue("RealArtists.ChargeBee", Version));
 
       return httpClient;
     }
