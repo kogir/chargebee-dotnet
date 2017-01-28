@@ -2,10 +2,10 @@ namespace RealArtists.ChargeBee.Models {
   using System;
   using System.ComponentModel;
   using System.Net.Http;
+  using Newtonsoft.Json.Linq;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Internal;
   using RealArtists.ChargeBee.Models.Enums;
-  using Newtonsoft.Json.Linq;
 
   public class HostedPageActions : ApiResourceActions {
     public HostedPageActions(ChargeBeeApi api) : base(api) { }
@@ -165,8 +165,120 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[invoice_notes]", subscriptionInvoiceNotes);
         return this;
       }
-      public CheckoutNewRequest CardGateway(GatewayEnum cardGateway) {
-        _params.AddOpt("card[gateway]", cardGateway);
+      public CheckoutNewRequest CardGatewayAccountId(string cardGatewayAccountId) {
+        _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressFirstName(string billingAddressFirstName) {
+        _params.AddOpt("billing_address[first_name]", billingAddressFirstName);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressLastName(string billingAddressLastName) {
+        _params.AddOpt("billing_address[last_name]", billingAddressLastName);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressEmail(string billingAddressEmail) {
+        _params.AddOpt("billing_address[email]", billingAddressEmail);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressCompany(string billingAddressCompany) {
+        _params.AddOpt("billing_address[company]", billingAddressCompany);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressPhone(string billingAddressPhone) {
+        _params.AddOpt("billing_address[phone]", billingAddressPhone);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressLine1(string billingAddressLine1) {
+        _params.AddOpt("billing_address[line1]", billingAddressLine1);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressLine2(string billingAddressLine2) {
+        _params.AddOpt("billing_address[line2]", billingAddressLine2);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressLine3(string billingAddressLine3) {
+        _params.AddOpt("billing_address[line3]", billingAddressLine3);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressCity(string billingAddressCity) {
+        _params.AddOpt("billing_address[city]", billingAddressCity);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressStateCode(string billingAddressStateCode) {
+        _params.AddOpt("billing_address[state_code]", billingAddressStateCode);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressState(string billingAddressState) {
+        _params.AddOpt("billing_address[state]", billingAddressState);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressZip(string billingAddressZip) {
+        _params.AddOpt("billing_address[zip]", billingAddressZip);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressCountry(string billingAddressCountry) {
+        _params.AddOpt("billing_address[country]", billingAddressCountry);
+        return this;
+      }
+      public CheckoutNewRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) {
+        _params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressFirstName(string shippingAddressFirstName) {
+        _params.AddOpt("shipping_address[first_name]", shippingAddressFirstName);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressLastName(string shippingAddressLastName) {
+        _params.AddOpt("shipping_address[last_name]", shippingAddressLastName);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressEmail(string shippingAddressEmail) {
+        _params.AddOpt("shipping_address[email]", shippingAddressEmail);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressCompany(string shippingAddressCompany) {
+        _params.AddOpt("shipping_address[company]", shippingAddressCompany);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressPhone(string shippingAddressPhone) {
+        _params.AddOpt("shipping_address[phone]", shippingAddressPhone);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressLine1(string shippingAddressLine1) {
+        _params.AddOpt("shipping_address[line1]", shippingAddressLine1);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressLine2(string shippingAddressLine2) {
+        _params.AddOpt("shipping_address[line2]", shippingAddressLine2);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressLine3(string shippingAddressLine3) {
+        _params.AddOpt("shipping_address[line3]", shippingAddressLine3);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressCity(string shippingAddressCity) {
+        _params.AddOpt("shipping_address[city]", shippingAddressCity);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressStateCode(string shippingAddressStateCode) {
+        _params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressState(string shippingAddressState) {
+        _params.AddOpt("shipping_address[state]", shippingAddressState);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressZip(string shippingAddressZip) {
+        _params.AddOpt("shipping_address[zip]", shippingAddressZip);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressCountry(string shippingAddressCountry) {
+        _params.AddOpt("shipping_address[country]", shippingAddressCountry);
+        return this;
+      }
+      public CheckoutNewRequest ShippingAddressValidationStatus(ValidationStatusEnum shippingAddressValidationStatus) {
+        _params.AddOpt("shipping_address[validation_status]", shippingAddressValidationStatus);
         return this;
       }
       public CheckoutNewRequest AddonId(int index, string addonId) {
@@ -252,8 +364,8 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[invoice_notes]", subscriptionInvoiceNotes);
         return this;
       }
-      public CheckoutExistingRequest CardGateway(GatewayEnum cardGateway) {
-        _params.AddOpt("card[gateway]", cardGateway);
+      public CheckoutExistingRequest CardGatewayAccountId(string cardGatewayAccountId) {
+        _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
       public CheckoutExistingRequest AddonId(int index, string addonId) {
@@ -299,8 +411,8 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("customer[id]", customerId);
         return this;
       }
-      public UpdateCardRequest CardGateway(GatewayEnum cardGateway) {
-        _params.AddOpt("card[gateway]", cardGateway);
+      public UpdateCardRequest CardGatewayAccountId(string cardGatewayAccountId) {
+        _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
     }
@@ -334,8 +446,8 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("customer[id]", customerId);
         return this;
       }
-      public UpdatePaymentMethodRequest CardGateway(GatewayEnum cardGateway) {
-        _params.AddOpt("card[gateway]", cardGateway);
+      public UpdatePaymentMethodRequest CardGatewayAccountId(string cardGatewayAccountId) {
+        _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
     }

@@ -2,9 +2,9 @@ namespace RealArtists.ChargeBee.Models {
   using System;
   using System.ComponentModel;
   using System.Net.Http;
+  using Newtonsoft.Json.Linq;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Internal;
-  using Newtonsoft.Json.Linq;
 
   public class PlanActions : ApiResourceActions {
     public PlanActions(ChargeBeeApi api) : base(api) { }
@@ -37,6 +37,11 @@ namespace RealArtists.ChargeBee.Models {
     public Plan.CopyRequest Copy() {
       string url = BuildUrl("plans", "copy");
       return new Plan.CopyRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> Unarchive(string id) {
+      string url = BuildUrl("plans", id, "unarchive");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
     }
   }
 

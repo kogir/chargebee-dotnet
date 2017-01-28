@@ -3,11 +3,11 @@ namespace RealArtists.ChargeBee.Models {
   using System.Collections.Generic;
   using System.ComponentModel;
   using System.Net.Http;
+  using Newtonsoft.Json.Linq;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Filters.Enums;
   using RealArtists.ChargeBee.Internal;
   using RealArtists.ChargeBee.Models.Enums;
-  using Newtonsoft.Json.Linq;
 
   public class CustomerActions : ApiResourceActions {
     public CustomerActions(ChargeBeeApi api) : base(api) { }
@@ -232,8 +232,8 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
       }
-      public CreateRequest CardGateway(GatewayEnum cardGateway) {
-        _params.AddOpt("card[gateway]", cardGateway);
+      public CreateRequest CardGatewayAccountId(string cardGatewayAccountId) {
+        _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
       public CreateRequest CardTmpToken(string cardTmpToken) {
@@ -244,8 +244,8 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
       }
-      public CreateRequest PaymentMethodGateway(GatewayEnum paymentMethodGateway) {
-        _params.AddOpt("payment_method[gateway]", paymentMethodGateway);
+      public CreateRequest PaymentMethodGatewayAccountId(string paymentMethodGatewayAccountId) {
+        _params.AddOpt("payment_method[gateway_account_id]", paymentMethodGatewayAccountId);
         return this;
       }
       public CreateRequest PaymentMethodReferenceId(string paymentMethodReferenceId) {
@@ -473,19 +473,22 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("meta_data", metaData);
         return this;
       }
+      public UpdateRequest FraudFlag(FraudFlagEnum fraudFlag) {
+        _params.AddOpt("fraud_flag", fraudFlag);
+        return this;
+      }
     }
 
     public class UpdatePaymentMethodRequest : EntityRequest<UpdatePaymentMethodRequest> {
       public UpdatePaymentMethodRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
       }
-
       public UpdatePaymentMethodRequest PaymentMethodType(TypeEnum paymentMethodType) {
         _params.Add("payment_method[type]", paymentMethodType);
         return this;
       }
-      public UpdatePaymentMethodRequest PaymentMethodGateway(GatewayEnum paymentMethodGateway) {
-        _params.AddOpt("payment_method[gateway]", paymentMethodGateway);
+      public UpdatePaymentMethodRequest PaymentMethodGatewayAccountId(string paymentMethodGatewayAccountId) {
+        _params.AddOpt("payment_method[gateway_account_id]", paymentMethodGatewayAccountId);
         return this;
       }
       public UpdatePaymentMethodRequest PaymentMethodReferenceId(string paymentMethodReferenceId) {
@@ -900,6 +903,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public GatewayEnum Gateway() {
         return GetEnum<GatewayEnum>("gateway", true);
+      }
+
+      public string GatewayAccountId() {
+        return GetValue<string>("gateway_account_id", false);
       }
 
       public StatusEnum Status() {

@@ -45,6 +45,9 @@ namespace RealArtists.ChargeBee.Models {
     public GatewayEnum Gateway {
       get { return GetEnum<GatewayEnum>("gateway", true); }
     }
+    public string GatewayAccountId {
+      get { return GetValue<string>("gateway_account_id", false); }
+    }
     public string FirstName {
       get { return GetValue<string>("first_name", false); }
     }
@@ -101,9 +104,8 @@ namespace RealArtists.ChargeBee.Models {
       public UpdateCardForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
       }
-
-      public UpdateCardForCustomerRequest Gateway(GatewayEnum gateway) {
-        _params.AddOpt("gateway", gateway);
+      public UpdateCardForCustomerRequest GatewayAccountId(string gatewayAccountId) {
+        _params.AddOpt("gateway_account_id", gatewayAccountId);
         return this;
       }
       public UpdateCardForCustomerRequest TmpToken(string tmpToken) {
@@ -169,8 +171,8 @@ namespace RealArtists.ChargeBee.Models {
               : base(api, url, method) {
       }
 
-      public SwitchGatewayForCustomerRequest Gateway(GatewayEnum gateway) {
-        _params.Add("gateway", gateway);
+      public SwitchGatewayForCustomerRequest GatewayAccountId(string gatewayAccountId) {
+        _params.Add("gateway_account_id", gatewayAccountId);
         return this;
       }
     }
@@ -180,8 +182,8 @@ namespace RealArtists.ChargeBee.Models {
               : base(api, url, method) {
       }
 
-      public CopyCardForCustomerRequest Gateway(GatewayEnum gateway) {
-        _params.Add("gateway", gateway);
+      public CopyCardForCustomerRequest GatewayAccountId(string gatewayAccountId) {
+        _params.Add("gateway_account_id", gatewayAccountId);
         return this;
       }
     }

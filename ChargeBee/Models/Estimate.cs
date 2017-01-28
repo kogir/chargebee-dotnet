@@ -13,10 +13,17 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("estimates", "create_subscription");
       return new Estimate.CreateSubscriptionRequest(Api, url, HttpMethod.Post);
     }
+
+    public Estimate.CreateSubForCustomerEstimateRequest CreateSubForCustomerEstimate(string id) {
+      string url = BuildUrl("customers", id, "create_subscription_estimate");
+      return new Estimate.CreateSubForCustomerEstimateRequest(Api, url, HttpMethod.Get);
+    }
+
     public Estimate.UpdateSubscriptionRequest UpdateSubscription() {
       string url = BuildUrl("estimates", "update_subscription");
       return new Estimate.UpdateSubscriptionRequest(Api, url, HttpMethod.Post);
     }
+
     public Estimate.RenewalEstimateRequest RenewalEstimate(string id) {
       string url = BuildUrl("subscriptions", id, "renewal_estimate");
       return new Estimate.RenewalEstimateRequest(Api, url, HttpMethod.Get);
@@ -170,6 +177,97 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
       public CreateSubscriptionRequest AddonUnitPrice(int index, int addonUnitPrice) {
+        _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
+        return this;
+      }
+    }
+
+    public class CreateSubForCustomerEstimateRequest : EntityRequest<CreateSubForCustomerEstimateRequest> {
+      public CreateSubForCustomerEstimateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public CreateSubForCustomerEstimateRequest UseExistingBalances(bool useExistingBalances) {
+        _params.AddOpt("use_existing_balances", useExistingBalances);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest BillingCycles(int billingCycles) {
+        _params.AddOpt("billing_cycles", billingCycles);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest CouponIds(List<string> couponIds) {
+        _params.AddOpt("coupon_ids", couponIds);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionId(string subscriptionId) {
+        _params.AddOpt("subscription[id]", subscriptionId);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionPlanId(string subscriptionPlanId) {
+        _params.Add("subscription[plan_id]", subscriptionPlanId);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionPlanQuantity(int subscriptionPlanQuantity) {
+        _params.AddOpt("subscription[plan_quantity]", subscriptionPlanQuantity);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionPlanUnitPrice(int subscriptionPlanUnitPrice) {
+        _params.AddOpt("subscription[plan_unit_price]", subscriptionPlanUnitPrice);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionSetupFee(int subscriptionSetupFee) {
+        _params.AddOpt("subscription[setup_fee]", subscriptionSetupFee);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionStartDate(long subscriptionStartDate) {
+        _params.AddOpt("subscription[start_date]", subscriptionStartDate);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest SubscriptionTrialEnd(long subscriptionTrialEnd) {
+        _params.AddOpt("subscription[trial_end]", subscriptionTrialEnd);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressLine1(string shippingAddressLine1) {
+        _params.AddOpt("shipping_address[line1]", shippingAddressLine1);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressLine2(string shippingAddressLine2) {
+        _params.AddOpt("shipping_address[line2]", shippingAddressLine2);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressLine3(string shippingAddressLine3) {
+        _params.AddOpt("shipping_address[line3]", shippingAddressLine3);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressCity(string shippingAddressCity) {
+        _params.AddOpt("shipping_address[city]", shippingAddressCity);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressStateCode(string shippingAddressStateCode) {
+        _params.AddOpt("shipping_address[state_code]", shippingAddressStateCode);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressZip(string shippingAddressZip) {
+        _params.AddOpt("shipping_address[zip]", shippingAddressZip);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressCountry(string shippingAddressCountry) {
+        _params.AddOpt("shipping_address[country]", shippingAddressCountry);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest ShippingAddressValidationStatus(ValidationStatusEnum shippingAddressValidationStatus) {
+        _params.AddOpt("shipping_address[validation_status]", shippingAddressValidationStatus);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest AddonId(int index, string addonId) {
+        _params.AddOpt("addons[id][" + index + "]", addonId);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest AddonQuantity(int index, int addonQuantity) {
+        _params.AddOpt("addons[quantity][" + index + "]", addonQuantity);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest AddonUnitPrice(int index, int addonUnitPrice) {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }

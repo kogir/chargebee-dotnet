@@ -12,7 +12,7 @@
   using Newtonsoft.Json;
 
   public class ChargeBeeApi {
-    public const string Version = "2.2.2";
+    public const string Version = "2.2.4";
     public const string ApiVersion = "v2";
 
     private static HttpClient DefaultHttpClient { get; set; } = CreateHttpClient();

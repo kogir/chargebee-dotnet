@@ -3,10 +3,10 @@ namespace RealArtists.ChargeBee.Models {
   using System.Collections.Generic;
   using System.ComponentModel;
   using System.Net.Http;
+  using Newtonsoft.Json.Linq;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Filters.Enums;
   using RealArtists.ChargeBee.Internal;
-  using Newtonsoft.Json.Linq;
 
   public class CouponActions : ApiResourceActions {
     public CouponActions(ChargeBeeApi api) : base(api) { }
@@ -34,6 +34,11 @@ namespace RealArtists.ChargeBee.Models {
     public Coupon.CopyRequest Copy() {
       string url = BuildUrl("coupons", "copy");
       return new Coupon.CopyRequest(Api, url, HttpMethod.Post);
+    }
+
+    public EntityRequest<Type> Unarchive(string id) {
+      string url = BuildUrl("coupons", id, "unarchive");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
     }
   }
 

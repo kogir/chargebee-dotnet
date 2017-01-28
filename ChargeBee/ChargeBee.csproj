@@ -7,7 +7,7 @@
     <ProjectGuid>{8F827C3F-DA3E-4C85-96E7-2F4DF5DD1928}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChargeBee</RootNamespace>
+    <RootNamespace>RealArtists.ChargeBee</RootNamespace>
     <AssemblyName>RealArtists.ChargeBee</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
