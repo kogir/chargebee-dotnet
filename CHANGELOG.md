@@ -1,3 +1,8 @@
+###v2.2.4-alpha (2017-01-28)
+* * * 
+
+Abandoned WinHttpHandler. It's much stricter than the older handler and thus fails more often.
+
 ###v2.2.4 (2017-01-27)
 * * * 
 

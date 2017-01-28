@@ -72,6 +72,7 @@
         "Basic",
         Convert.ToBase64String(Encoding.ASCII.GetBytes($"{apiKey}:")));
       HttpClient = DefaultHttpClient;
+      SetupServicePoint(ApiBase);
     }
 
     public ChargeBeeApi(Uri apiBase, string apiKey)
@@ -86,6 +87,13 @@
       ApiBase = apiBase;
       AuthenticationHeader = authHeader;
       HttpClient = client;
+      SetupServicePoint(ApiBase);
+    }
+
+    private static void SetupServicePoint(Uri address) {
+      // Also lift ServicePoint restrictions
+      var sp = ServicePointManager.FindServicePoint(address);
+      sp.ConnectionLimit = int.MaxValue;
     }
 
     private HttpRequestMessage GetRequest(string url, HttpMethod method, Dictionary<string, string> headers) {
@@ -168,14 +176,12 @@
 
     [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
     public static HttpClient CreateHttpClient() {
-      var handler = new WinHttpHandler() {
+      var handler = new HttpClientHandler() {
+        AllowAutoRedirect = false,
         AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
-        AutomaticRedirection = false,
-        CookieUsePolicy = CookieUsePolicy.IgnoreCookies,
-//#if DEBUG
-//        WindowsProxyUsePolicy = WindowsProxyUsePolicy.UseCustomProxy,
-//        Proxy = new WebProxy("http://127.0.0.1:8888", false),
-//#endif
+        UseCookies = false,
+        UseDefaultCredentials = false,
+        UseProxy = false,
       };
 
       return CreateHttpClient(handler, true);
