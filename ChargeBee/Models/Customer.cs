@@ -68,6 +68,10 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("customers", id, "delete");
       return new Customer.DeleteRequest(Api, url, HttpMethod.Post);
     }
+    public Customer.MoveRequest Move() {
+      string url = BuildUrl("customers", "move");
+      return new Customer.MoveRequest(Api, url, HttpMethod.Post);
+    }
   }
 
   public class Customer : Resource {
@@ -760,6 +764,22 @@ namespace RealArtists.ChargeBee.Models {
 
       public DeleteRequest DeletePaymentMethod(bool deletePaymentMethod) {
         _params.AddOpt("delete_payment_method", deletePaymentMethod);
+        return this;
+      }
+    }
+
+    public class MoveRequest : EntityRequest<MoveRequest> {
+      public MoveRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public MoveRequest IdAtFromSite(string idAtFromSite) {
+        _params.Add("id_at_from_site", idAtFromSite);
+        return this;
+      }
+
+      public MoveRequest FromSite(string fromSite) {
+        _params.Add("from_site", fromSite);
         return this;
       }
     }

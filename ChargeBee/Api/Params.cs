@@ -1,4 +1,4 @@
-﻿namespace RealArtists.ChargeBee.Api {
+namespace RealArtists.ChargeBee.Api {
   using System;
   using System.Collections;
   using System.Collections.Generic;
@@ -12,14 +12,19 @@
     Dictionary<string, object> _dict = new Dictionary<string, object>();
 
     public void Add(string key, object value) {
-      if (value == null || string.IsNullOrEmpty(value.ToString()))
+      if (value == null || string.IsNullOrEmpty(value.ToString())) {
         throw new ArgumentException(string.Format("Value for {0} can't be empty or null!", key));
+      }
 
       AddOpt(key, value);
     }
 
     public void AddOpt(string key, object value) {
-      _dict.Add(key, value == null ? string.Empty : ConvertValue(value));
+      _dict.Add(key, value == null ? string.Empty : ConvertValue(value, false));
+    }
+
+    public void AddOpt(string key, object value, bool isDate) {
+      _dict.Add(key, value == null ? string.Empty : ConvertValue(value, isDate));
     }
 
     public string GetQuery(bool IsList) {
@@ -50,7 +55,7 @@
       return pairs.ToArray();
     }
 
-    private static object ConvertValue(object value) {
+    private static object ConvertValue(object value, bool isDate) {
       if (value is string || value is int || value is long
           || value is double) {
         return value.ToString();
@@ -71,11 +76,13 @@
         IList origList = (IList)value;
         List<string> l = new List<string>();
         foreach (object item in origList) {
-          l.Add((string)ConvertValue(item));
+          l.Add((string)ConvertValue(item, isDate));
         }
         return l;
       } else if (value is DateTime) {
-        return EpochUtility.ToEpoch((DateTime)value);
+        return isDate ?
+          ((DateTime)value).ToString("yyyy-MM-dd") 
+          : EpochUtility.ToEpoch((DateTime)value).ToString();
       } else {
         throw new SystemException("Type [" + value.GetType().ToString() + "] not handled");
       }

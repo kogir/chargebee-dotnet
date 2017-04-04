@@ -1,9 +1,9 @@
 namespace RealArtists.ChargeBee.Internal {
   using System;
   using System.Collections.Generic;
-  using RealArtists.ChargeBee.Models;
   using Newtonsoft.Json;
   using Newtonsoft.Json.Linq;
+  using RealArtists.ChargeBee.Models;
 
   public class ResultBase : JSONSupport {
     public ResultBase() { }
@@ -78,6 +78,12 @@ namespace RealArtists.ChargeBee.Internal {
     }
     public PortalSession PortalSession {
       get { return GetResource<PortalSession>("portal_session"); }
+    }
+    public SiteMigrationDetail SiteMigrationDetail {
+      get { return GetResource<SiteMigrationDetail>("site_migration_detail"); }
+    }
+    public ResourceMigration ResourceMigration {
+      get { return GetResource<ResourceMigration>("resource_migration"); }
     }
 
     public List<CreditNote> CreditNotes {

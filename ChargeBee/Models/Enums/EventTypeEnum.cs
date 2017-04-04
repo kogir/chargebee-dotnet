@@ -46,6 +46,12 @@ namespace RealArtists.ChargeBee.Models.Enums {
     [Description("customer_deleted")]
     CustomerDeleted,
 
+    [Description("customer_moved_out")]
+    CustomerMovedOut,
+
+    [Description("customer_moved_in")]
+    CustomerMovedIn,
+
     [Description("subscription_created")]
     SubscriptionCreated,
 

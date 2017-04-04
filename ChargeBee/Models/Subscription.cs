@@ -82,6 +82,11 @@ namespace RealArtists.ChargeBee.Models {
       return new Subscription.ChargeAddonAtTermEndRequest(Api, url, HttpMethod.Post);
     }
 
+    public Subscription.ChargeFutureRenewalsRequest ChargeFutureRenewals(string id) {
+      string url = BuildUrl("subscriptions", id, "charge_future_renewals");
+      return new Subscription.ChargeFutureRenewalsRequest(Api, url, HttpMethod.Post);
+    }
+
     public Subscription.ImportSubscriptionRequest ImportSubscription() {
       string url = BuildUrl("subscriptions", "import_subscription");
       return new Subscription.ImportSubscriptionRequest(Api, url, HttpMethod.Post);
@@ -146,6 +151,9 @@ namespace RealArtists.ChargeBee.Models {
     }
     public DateTime? CurrentTermEnd {
       get { return GetDateTime("current_ter_end", false); }
+    }
+    public DateTime? NextBillingAt {
+      get { return GetDateTime("next_billing_at", false); }
     }
     public int? RemainingBillingCycles {
       get { return GetValue<int?>("remaining_billing_cycles", false); }
@@ -256,6 +264,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest BillingCycles(int billingCycles) {
         _params.AddOpt("billing_cycles", billingCycles);
+        return this;
+      }
+      public CreateRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
         return this;
       }
       public CreateRequest PoNumber(string poNumber) {
@@ -568,6 +580,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CreateForCustomerRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
       public CreateForCustomerRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
@@ -683,6 +699,9 @@ namespace RealArtists.ChargeBee.Models {
       public TimestampFilter<SubscriptionListRequest> CreatedAt() {
         return new TimestampFilter<SubscriptionListRequest>("created_at", this);
       }
+      public TimestampFilter<SubscriptionListRequest> NextBillingAt() {
+        return new TimestampFilter<SubscriptionListRequest>("next_billing_at", this);
+      }
       public TimestampFilter<SubscriptionListRequest> CancelledAt() {
         return new TimestampFilter<SubscriptionListRequest>("cancelled_at", this);
       }
@@ -754,6 +773,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("replace_addon_list", replaceAddonList);
         return this;
       }
+      public UpdateRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public UpdateRequest ReactivateFrom(long reactivateFrom) {
+        _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
       public UpdateRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
@@ -776,6 +803,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateRequest ForceTermReset(bool forceTermReset) {
         _params.AddOpt("force_ter_reset", forceTermReset);
+        return this;
+      }
+      public UpdateRequest Reactivate(bool reactivate) {
+        _params.AddOpt("reactivate", reactivate);
         return this;
       }
       public UpdateRequest InvoiceNotes(string invoiceNotes) {
@@ -1024,6 +1055,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public ReactivateRequest ReactivateFrom(long reactivateFrom) {
+        _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
+      public ReactivateRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
     }
     public class AddChargeAtTermEndRequest : EntityRequest<AddChargeAtTermEndRequest> {
       public AddChargeAtTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
@@ -1054,6 +1093,16 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ChargeAddonAtTermEndRequest AddonUnitPrice(int addonUnitPrice) {
         _params.AddOpt("addon_unit_price", addonUnitPrice);
+        return this;
+      }
+    }
+    public class ChargeFutureRenewalsRequest : EntityRequest<ChargeFutureRenewalsRequest> {
+      public ChargeFutureRenewalsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public ChargeFutureRenewalsRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
         return this;
       }
     }

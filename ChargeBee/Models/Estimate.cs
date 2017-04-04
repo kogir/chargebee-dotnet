@@ -56,6 +56,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CreateSubscriptionRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
       public CreateSubscriptionRequest CouponIds(List<string> couponIds) {
         _params.AddOpt("coupon_ids", couponIds);
         return this;
@@ -195,6 +199,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CreateSubForCustomerEstimateRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
       public CreateSubForCustomerEstimateRequest CouponIds(List<string> couponIds) {
         _params.AddOpt("coupon_ids", couponIds);
         return this;
@@ -286,6 +294,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("replace_addon_list", replaceAddonList);
         return this;
       }
+      public UpdateSubscriptionRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public UpdateSubscriptionRequest ReactivateFrom(long reactivateFrom) {
+        _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
       public UpdateSubscriptionRequest CouponIds(List<string> couponIds) {
         _params.AddOpt("coupon_ids", couponIds);
         return this;
@@ -304,6 +320,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateSubscriptionRequest ForceTermReset(bool forceTermReset) {
         _params.AddOpt("force_ter_reset", forceTermReset);
+        return this;
+      }
+      public UpdateSubscriptionRequest Reactivate(bool reactivate) {
+        _params.AddOpt("reactivate", reactivate);
         return this;
       }
       public UpdateSubscriptionRequest IncludeDelayedCharges(bool includeDelayedCharges) {
@@ -436,6 +456,14 @@ namespace RealArtists.ChargeBee.Models {
 
       public RenewalEstimateRequest UseExistingBalances(bool useExistingBalances) {
         _params.AddOpt("use_existing_balances", useExistingBalances);
+        return this;
+      }
+      public RenewalEstimateRequest IgnoreScheduledCancellation(bool ignoreScheduledCancellation) {
+        _params.AddOpt("ignore_scheduled_cancellation", ignoreScheduledCancellation);
+        return this;
+      }
+      public RenewalEstimateRequest IgnoreScheduledChanges(bool ignoreScheduledChanges) {
+        _params.AddOpt("ignore_scheduled_changes", ignoreScheduledChanges);
         return this;
       }
     }

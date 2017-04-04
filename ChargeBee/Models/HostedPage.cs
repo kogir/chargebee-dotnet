@@ -77,6 +77,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CheckoutNewRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
       public CheckoutNewRequest RedirectUrl(string redirectUrl) {
         _params.AddOpt("redirect_url", redirectUrl);
         return this;
@@ -306,6 +310,22 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CheckoutExistingRequest ReplaceAddonList(bool replaceAddonList) {
         _params.AddOpt("replace_addon_list", replaceAddonList);
+        return this;
+      }
+      public CheckoutExistingRequest TermsToCharge(int termsToCharge) {
+        _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public CheckoutExistingRequest ReactivateFrom(long reactivateFrom) {
+        _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
+      public CheckoutExistingRequest Reactivate(bool reactivate) {
+        _params.AddOpt("reactivate", reactivate);
+        return this;
+      }
+      public CheckoutExistingRequest ForceTermReset(bool forceTermReset) {
+        _params.AddOpt("force_term_reset", forceTermReset);
         return this;
       }
       public CheckoutExistingRequest RedirectUrl(string redirectUrl) {

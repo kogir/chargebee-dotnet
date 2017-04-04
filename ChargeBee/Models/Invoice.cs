@@ -167,6 +167,9 @@ namespace RealArtists.ChargeBee.Models {
     public bool? FirstInvoice {
       get { return GetValue<bool?>("first_invoice", false); }
     }
+    public bool? HasAdvanceCharges {
+      get { return GetValue<bool?>("has_advance_charges", false); }
+    }
     public List<InvoiceLineItem> LineItems {
       get { return GetResourceList<InvoiceLineItem>("line_items"); }
     }

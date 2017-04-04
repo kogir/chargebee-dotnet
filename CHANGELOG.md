@@ -1,5 +1,74 @@
-###v2.2.4-alpha (2017-01-28)
+###v2.2.8 (2017-03-16)
 * * * 
+
+** APIs updated**:
+The input parameter 'id' have been removed in Update a Plan and Update an addon resources.
+See: https://apidocs.chargebee.com/docs/api/plans#update_a_plan
+
+The input parameter 'terms_to_charge' have been added in Create a subscription,Create subscription for a customer, Create subscription estimate, create subscription for customer estimate, Reactivate a subscription and Checkout new hosted pages APIs.
+See : https://apidocs.chargebee.com/docs/api/subscriptions#create_subscription_for_customer
+
+The filter input parameter 'next_billing_at' have been added in List Subscriptions API.
+See : https://apidocs.chargebee.com/docs/api/subscriptions#list_subscriptions
+
+The input parameter 'force_term_reset' have been added to Checkout existing hosted pages API.
+See : https://apidocs.chargebee.com/docs/api/hosted_pages#checkout_existing_subscription
+
+A new attribute 'has_advance_charges' have been added to the Invoice resource.
+See : https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+
+###v2.2.7 (2017-03-07)
+* * * 
+	
+In the List methods, additional methods have been introduced for filtering of resources based on custom fields.
+
+###v2.2.6 (2017-02-24)
+* * * 
+
+** APIs added**:
+New resources 'Site Migration Details' and 'Resource Migrations' have been added.
+See : https://apidocs.chargebee.com/docs/api/site_migration_details
+
+A new endpoint 'Move a customer' has been added.
+See : https://apidocs.chargebee.com/docs/api/customers#move_a_customer
+
+** APIs updated**:
+The attributes 'id' and 'for_site_merging' have been added to Copy an addon, Copy a coupon and Copy a plan API.
+See : https://apidocs.chargebee.com/docs/api/plans#copy_a_plan
+
+The event types 'customer_moved_out' and 'customer_moved_in' have been added.
+See : https://apidocs.chargebee.com/docs/api/events#event_types
+
+The input parameters 'ignore_scheduled_cancellation' and 'ignore_scheduled_changes' have been added to the Subscription renewal estimate API.
+See : https://apidocs.chargebee.com/docs/api/estimates#subscription_renewal_estimate
+
+
+###v2.2.5 (2017-01-30)
+* * * 
+
+** APIs updated**:
+A new reason code 'Subscription cancellation' has been added to the Credit note resource.
+See : https://apidocs.chargebee.com/docs/api/credit_notes#credit_note_attributes
+
+A attribute 'has_advance_charges' has been added to the Invoice resource and the input filter parameter 'has_advance_charges' has been added to List Invoice API.
+See : https://apidocs.chargebee.com/docs/api/invoices#invoice_attributes
+
+A new attribute 'next_billing_at' has been added to the Subscription resource.
+See : https://apidocs.chargebee.com/docs/api/subscriptions#subscription_attributes
+
+The input parameters 'terms_to_charge', 'reactivate', 'reactivate_from' have been added to Update a Subscription, Update a subscription estimate and Checkout existing hosted page APIs. 
+See : https://apidocs.chargebee.com/docs/api/subscriptions#update_a_subscription
+
+The input parameter 'reactivate_from' has been added to Reactivate a subscription API.
+See : https://apidocs.chargebee.com/docs/api/subscriptions#reactivate_a_subscription
+
+** APIs added**:
+A new endpoint 'Charge Future Renewals' has been added to the Subscription API.
+https://apidocs.chargebee.com/docs/api/subscriptions#charge_future_renewals
+
+###v2.2.4-alpha (2017-01-28)
+* * *
 
 Abandoned WinHttpHandler. It's much stricter than the older handler and thus fails more often.
 

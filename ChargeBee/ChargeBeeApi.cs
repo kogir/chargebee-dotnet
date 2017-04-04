@@ -7,12 +7,12 @@
   using System.Net.Http.Headers;
   using System.Text;
   using System.Threading.Tasks;
+  using Newtonsoft.Json;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Models;
-  using Newtonsoft.Json;
 
   public class ChargeBeeApi {
-    public const string Version = "2.2.4";
+    public const string Version = "2.2.8";
     public const string ApiVersion = "v2";
 
     private static HttpClient DefaultHttpClient { get; set; } = CreateHttpClient();
@@ -36,6 +36,8 @@
     public InvoiceActions Invoice { get; }
     public PlanActions Plan { get; }
     public PortalSessionActions PortalSession { get; }
+    public ResourceMigrationActions ResourceMigration { get; }
+    public SiteMigrationDetailActions SiteMigrationDetail { get; }
     public SubScriptionActions Subscription { get; }
     public TransactionActions Transaction { get; }
 
@@ -54,6 +56,8 @@
       Invoice = new InvoiceActions(this);
       Plan = new PlanActions(this);
       PortalSession = new PortalSessionActions(this);
+      ResourceMigration = new ResourceMigrationActions(this);
+      SiteMigrationDetail = new SiteMigrationDetailActions(this);
       Subscription = new SubScriptionActions(this);
       Transaction = new TransactionActions(this);
     }

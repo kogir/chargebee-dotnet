@@ -253,10 +253,6 @@ namespace RealArtists.ChargeBee.Models {
               : base(api, url, method) {
       }
 
-      public UpdateRequest Id(string id) {
-        _params.AddOpt("id", id);
-        return this;
-      }
       public UpdateRequest Name(string name) {
         _params.AddOpt("name", name);
         return this;
@@ -407,6 +403,14 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CopyRequest IdAtFromSite(string idAtFromSite) {
         _params.Add("id_at_fro_site", idAtFromSite);
+        return this;
+      }
+      public CopyRequest Id(string id) {
+        _params.AddOpt("id", id);
+        return this;
+      }
+      public CopyRequest ForSiteMerging(bool forSiteMerging) {
+        _params.AddOpt("for_site_merging", forSiteMerging);
         return this;
       }
     }

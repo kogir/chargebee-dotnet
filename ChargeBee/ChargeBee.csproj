@@ -108,6 +108,9 @@
     <Compile Include="Models\Enums\ValidationStatusEnum.cs" />
     <Compile Include="Models\Enums\TaxOverrideReasonEnum.cs" />
     <Compile Include="Models\Enums\TaxExemptReasonEnum.cs" />
+    <Compile Include="Models\SiteMigrationDetail.cs" />
+    <Compile Include="Models\ResourceMigration.cs" />
+    <Compile Include="Filters\DateFilter.cs" />
     <Compile Include="ApiResourceActions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

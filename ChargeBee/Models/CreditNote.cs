@@ -237,6 +237,8 @@ namespace RealArtists.ChargeBee.Models {
       WriteOff,
       [Description("subscription_change")]
       SubscriptionChange,
+      [Description("subscription_cancellation")]
+      SubscriptionCancellation,
       [Description("chargeback")]
       Chargeback,
       [Description("product_unsatisfactory")]

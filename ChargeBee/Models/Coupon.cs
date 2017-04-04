@@ -243,6 +243,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("id_at_fro_site", idAtFromSite);
         return this;
       }
+      public CopyRequest Id(string id) {
+        _params.AddOpt("id", id);
+        return this;
+      }
+      public CopyRequest ForSiteMerging(bool forSiteMerging) {
+        _params.AddOpt("for_site_merging", forSiteMerging);
+        return this;
+      }
     }
 
     public enum DiscountTypeEnum {
