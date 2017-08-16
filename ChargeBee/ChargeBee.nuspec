@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Added async and non-static configuration support.</releaseNotes>
-    <copyright>Copyright 2016 ChargeBee, Inc. and Real Artists, Inc.</copyright>
+    <copyright>Copyright 2017 ChargeBee, Inc. and Real Artists, Inc.</copyright>
     <tags>ChargeBee</tags>
   </metadata>
 </package>
