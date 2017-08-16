@@ -111,6 +111,19 @@
     <Compile Include="Models\SiteMigrationDetail.cs" />
     <Compile Include="Models\ResourceMigration.cs" />
     <Compile Include="Filters\DateFilter.cs" />
+    <Compile Include="Models\PaymentSource.cs" />
+    <Compile Include="Models\UnbilledCharge.cs" />
+    <Compile Include="Models\Enums\CreditTypeEnum.cs" />
+    <Compile Include="Models\Enums\FriendOfferTypeEnum.cs" />
+    <Compile Include="Models\Enums\ReferralSystemEnum.cs" />
+    <Compile Include="Models\Enums\ReferrerRewardTypeEnum.cs" />
+    <Compile Include="Models\Enums\RoleEnum.cs" />
+    <Compile Include="Models\Enums\NotifyReferralSystemEnum.cs" />
+    <Compile Include="Models\Enums\BillingAlignmentModeEnum.cs" />
+    <Compile Include="Models\Enums\BillingDateModeEnum.cs" />
+    <Compile Include="Models\Enums\BillingDayOfWeekModeEnum.cs" />
+    <Compile Include="Models\Enums\ChargeModelEnum.cs" />
+    <Compile Include="Models\TimeMachine.cs" />
     <Compile Include="ApiResourceActions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

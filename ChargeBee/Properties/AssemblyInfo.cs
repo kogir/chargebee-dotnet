@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -29,8 +28,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.2.8")]
-[assembly: AssemblyFileVersion("2.2.8")]
-[assembly: AssemblyCompanyAttribute("Real Artists, Inc.")]
-[assembly: AssemblyProductAttribute("RealArtists.ChargeBee")]
-[assembly: AssemblyCopyrightAttribute("©ChargeBee Inc. and Nick Sivo. See LICENSE.")]
+[assembly: AssemblyVersion("2.0.0")]
+[assembly: AssemblyFileVersion("2.3.5")]
+[assembly: AssemblyCompany("Real Artists, Inc.")]
+[assembly: AssemblyProduct("RealArtists.ChargeBee")]
+[assembly: AssemblyCopyright("©ChargeBee Inc. and Nick Sivo. See LICENSE.")]

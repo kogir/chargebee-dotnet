@@ -29,6 +29,16 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("hosted_pages", id);
       return new EntityRequest<Type>(Api, url, HttpMethod.Get);
     }
+
+    public EntityRequest<Type> Acknowledge(string id) {
+      string url = BuildUrl("hosted_pages", id, "acknowledge");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Post);
+    }
+
+    public HostedPage.HostedPageListRequest List() {
+      string url = BuildUrl("hosted_pages");
+      return new HostedPage.HostedPageListRequest(Api, url);
+    }
   }
 
   public class HostedPage : Resource {
@@ -44,9 +54,7 @@ namespace RealArtists.ChargeBee.Models {
     public StateEnum? State {
       get { return GetEnum<StateEnum>("state", false); }
     }
-    public FailureReasonEnum? FailureReason {
-      get { return GetEnum<FailureReasonEnum>("failure_reason", false); }
-    }
+
     public string PassThruContent {
       get { return GetValue<string>("pass_thru_content", false); }
     }
@@ -58,6 +66,15 @@ namespace RealArtists.ChargeBee.Models {
     }
     public DateTime? ExpiresAt {
       get { return GetDateTime("expires_at", false); }
+    }
+    public DateTime? UpdatedAt {
+      get { return GetDateTime("updated_at", false); }
+    }
+    public long? ResourceVersion {
+      get { return GetValue<long?>("resource_version", false); }
+    }
+    public JToken CheckoutInfo {
+      get { return GetJToken("checkout_info", false); }
     }
     public HostedPageContent Content {
       get {
@@ -79,6 +96,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CheckoutNewRequest TermsToCharge(int termsToCharge) {
         _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public CheckoutNewRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public CheckoutNewRequest RedirectUrl(string redirectUrl) {
@@ -165,12 +186,20 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("subscription[coupon]", subscriptionCoupon);
         return this;
       }
+      public CheckoutNewRequest SubscriptionAutoCollection(AutoCollectionEnum subscriptionAutoCollection) {
+        _params.AddOpt("subscription[auto_collection]", subscriptionAutoCollection);
+        return this;
+      }
       public CheckoutNewRequest SubscriptionInvoiceNotes(string subscriptionInvoiceNotes) {
         _params.AddOpt("subscription[invoice_notes]", subscriptionInvoiceNotes);
         return this;
       }
       public CheckoutNewRequest CardGatewayAccountId(string cardGatewayAccountId) {
         _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
+        return this;
+      }
+      public CheckoutNewRequest CustomerConsolidatedInvoicing(bool customerConsolidatedInvoicing) {
+        _params.AddOpt("customer[consolidated_invoicing]", customerConsolidatedInvoicing);
         return this;
       }
       public CheckoutNewRequest BillingAddressFirstName(string billingAddressFirstName) {
@@ -318,6 +347,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CheckoutExistingRequest ReactivateFrom(long reactivateFrom) {
         _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
+      public CheckoutExistingRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public CheckoutExistingRequest Reactivate(bool reactivate) {
@@ -472,6 +505,25 @@ namespace RealArtists.ChargeBee.Models {
       }
     }
 
+    public class HostedPageListRequest : ListRequestBase<HostedPageListRequest> {
+      public HostedPageListRequest(ChargeBeeApi api, string url)
+              : base(api, url) {
+      }
+
+      public StringFilter<HostedPageListRequest> Id() {
+        return new StringFilter<HostedPageListRequest>("id", this).SupportsMultiOperators(true);
+      }
+      public EnumFilter<HostedPage.TypeEnum, HostedPageListRequest> Type() {
+        return new EnumFilter<HostedPage.TypeEnum, HostedPageListRequest>("type", this);
+      }
+      public EnumFilter<HostedPage.StateEnum, HostedPageListRequest> State() {
+        return new EnumFilter<HostedPage.StateEnum, HostedPageListRequest>("state", this);
+      }
+      public TimestampFilter<HostedPageListRequest> UpdatedAt() {
+        return new TimestampFilter<HostedPageListRequest>("updated_at", this);
+      }
+    }
+
     public enum TypeEnum {
       Unknown,
       [Description("checkout_new")]
@@ -492,16 +544,9 @@ namespace RealArtists.ChargeBee.Models {
       Succeeded,
       [Description("cancelled")]
       Cancelled,
-      [Description("failed")]
-      Failed,
-    }
 
-    public enum FailureReasonEnum {
-      Unknown,
-      [Description("card_error")]
-      CardError,
-      [Description("server_error")]
-      ServerError,
+      [Description("acknowledged")]
+      Acknowledged,
     }
 
     public class HostedPageContent : ResultBase {

@@ -40,8 +40,12 @@ namespace RealArtists.ChargeBee.Models {
       get { return GetResourceList<CreditNoteEstimateTax>("taxes"); }
     }
     public List<CreditNoteEstimateLineItemTax> LineItemTaxes {
-      get { return GetResourceList<CreditNoteEstimateLineItemTax>("line_ite_taxes"); }
+      get { return GetResourceList<CreditNoteEstimateLineItemTax>("line_item_taxes"); }
     }
+    public List<CreditNoteEstimateLineItemDiscount> LineItemDiscounts {
+      get { return GetResourceList<CreditNoteEstimateLineItemDiscount>("line_item_discounts"); }
+    }
+
 
     public enum TypeEnum {
       Unknown,
@@ -66,6 +70,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public string Id() {
         return GetValue<string>("id", false);
+      }
+
+      public string SubscriptionId() {
+        return GetValue<string>("subscription_id", false);
       }
 
       public DateTime DateFrom() {
@@ -198,6 +206,35 @@ namespace RealArtists.ChargeBee.Models {
 
       public string TaxJurisCode() {
         return GetValue<string>("tax_juris_code", false);
+      }
+    }
+
+    public class CreditNoteEstimateLineItemDiscount : Resource {
+      public enum DiscountTypeEnum {
+        Unknown,
+        [Description("item_level_coupon")]
+        ItemLevelCoupon,
+        [Description("document_level_coupon")]
+        DocumentLevelCoupon,
+        [Description("promotional_credits")]
+        PromotionalCredits,
+        [Description("prorated_credits")]
+        ProratedCredits,
+      }
+      public string LineItemId() {
+        return GetValue<string>("line_item_id", true);
+      }
+
+      public DiscountTypeEnum DiscountType() {
+        return GetEnum<DiscountTypeEnum>("discount_type", true);
+      }
+
+      public string CouponId() {
+        return GetValue<string>("coupon_id", false);
+      }
+
+      public int DiscountAmount() {
+        return GetValue<int>("discount_amount", true);
       }
     }
   }

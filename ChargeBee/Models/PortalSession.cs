@@ -77,7 +77,7 @@ namespace RealArtists.ChargeBee.Models {
       }
 
       public CreateRequest RedirectUrl(string redirectUrl) {
-        _params.Add("redirect_url", redirectUrl);
+        _params.AddOpt("redirect_url", redirectUrl);
         return this;
       }
       public CreateRequest ForwardUrl(string forwardUrl) {

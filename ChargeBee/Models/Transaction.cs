@@ -67,6 +67,9 @@ namespace RealArtists.ChargeBee.Models {
     public StatusEnum? Status {
       get { return GetEnum<StatusEnum>("status", false); }
     }
+    public FraudFlagEnum? FraudFlag {
+      get { return GetEnum<FraudFlagEnum>("fraud_flag", false); }
+    }
     public string ErrorCode {
       get { return GetValue<string>("error_code", false); }
     }
@@ -81,6 +84,9 @@ namespace RealArtists.ChargeBee.Models {
     }
     public DateTime? UpdatedAt {
       get { return GetDateTime("updated_at", false); }
+    }
+    public string FraudReason {
+      get { return GetValue<string>("fraud_reason", false); }
     }
     public int? AmountUnused {
       get { return GetValue<int?>("amount_unused", false); }
@@ -165,7 +171,6 @@ namespace RealArtists.ChargeBee.Models {
     }
 
     public enum TypeEnum {
-
       Unknown,
       [Description("authorization")]
       Authorization,
@@ -177,8 +182,8 @@ namespace RealArtists.ChargeBee.Models {
       PaymentReversal,
 
     }
-    public enum StatusEnum {
 
+    public enum StatusEnum {
       Unknown,
       [Description("in_progress")]
       InProgress,
@@ -195,8 +200,18 @@ namespace RealArtists.ChargeBee.Models {
 
     }
 
-    public class TransactionLinkedInvoice : Resource {
+    public enum FraudFlagEnum {
+      Unknown,
+      [Description("safe")]
+      Safe,
+      [Description("suspicious")]
+      Suspicious,
+      [Description("fraudulent")]
+      Fraudulent,
 
+    }
+
+    public class TransactionLinkedInvoice : Resource {
       public string InvoiceId() {
         return GetValue<string>("invoice_id", true);
       }
@@ -220,10 +235,9 @@ namespace RealArtists.ChargeBee.Models {
       public Invoice.StatusEnum InvoiceStatus() {
         return GetEnum<Invoice.StatusEnum>("invoice_status", true);
       }
-
     }
-    public class TransactionLinkedCreditNote : Resource {
 
+    public class TransactionLinkedCreditNote : Resource {
       public string CnId() {
         return GetValue<string>("cn_id", true);
       }
@@ -255,10 +269,9 @@ namespace RealArtists.ChargeBee.Models {
       public string CnReferenceInvoiceId() {
         return GetValue<string>("cn_reference_invoice_id", true);
       }
-
     }
-    public class TransactionLinkedRefund : Resource {
 
+    public class TransactionLinkedRefund : Resource {
       public string TxnId() {
         return GetValue<string>("txn_id", true);
       }
@@ -274,7 +287,6 @@ namespace RealArtists.ChargeBee.Models {
       public int TxnAmount() {
         return GetValue<int>("txn_amount", true);
       }
-
     }
   }
 }

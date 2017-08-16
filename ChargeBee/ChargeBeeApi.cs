@@ -12,7 +12,7 @@
   using RealArtists.ChargeBee.Models;
 
   public class ChargeBeeApi {
-    public const string Version = "2.2.8";
+    public const string Version = "2.3.5";
     public const string ApiVersion = "v2";
 
     private static HttpClient DefaultHttpClient { get; set; } = CreateHttpClient();
@@ -34,12 +34,16 @@
     public EventActions Event { get; }
     public HostedPageActions HostedPage { get; }
     public InvoiceActions Invoice { get; }
+    public OrderActions Order { get; }
+    public PaymentSourceActions PaymentSource { get; }
     public PlanActions Plan { get; }
     public PortalSessionActions PortalSession { get; }
     public ResourceMigrationActions ResourceMigration { get; }
     public SiteMigrationDetailActions SiteMigrationDetail { get; }
-    public SubScriptionActions Subscription { get; }
+    public SubscriptionActions Subscription { get; }
+    public TimeMachineActions TimeMachine { get; }
     public TransactionActions Transaction { get; }
+    public UnbilledChargeActions UnbilledCharge { get; }
 
     private ChargeBeeApi() {
       Addon = new AddonActions(this);
@@ -54,12 +58,16 @@
       Event = new EventActions(this);
       HostedPage = new HostedPageActions(this);
       Invoice = new InvoiceActions(this);
+      Order = new OrderActions(this);
+      PaymentSource = new PaymentSourceActions(this);
       Plan = new PlanActions(this);
       PortalSession = new PortalSessionActions(this);
       ResourceMigration = new ResourceMigrationActions(this);
       SiteMigrationDetail = new SiteMigrationDetailActions(this);
-      Subscription = new SubScriptionActions(this);
+      Subscription = new SubscriptionActions(this);
+      TimeMachine = new TimeMachineActions(this);
       Transaction = new TransactionActions(this);
+      UnbilledCharge = new UnbilledChargeActions(this);
     }
 
     public ChargeBeeApi(string siteName, string apiKey) : this() {

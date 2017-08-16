@@ -9,8 +9,8 @@ namespace RealArtists.ChargeBee.Models {
   using RealArtists.ChargeBee.Internal;
   using RealArtists.ChargeBee.Models.Enums;
 
-  public class SubScriptionActions : ApiResourceActions {
-    public SubScriptionActions(ChargeBeeApi api) : base(api) { }
+  public class SubscriptionActions : ApiResourceActions {
+    public SubscriptionActions(ChargeBeeApi api) : base(api) { }
 
     public Subscription.CreateRequest Create() {
       string url = BuildUrl("subscriptions");
@@ -95,6 +95,11 @@ namespace RealArtists.ChargeBee.Models {
     public Subscription.ImportForCustomerRequest ImportForCustomer(string id) {
       string url = BuildUrl("customers", id, "import_subscription");
       return new Subscription.ImportForCustomerRequest(Api, url, HttpMethod.Post);
+    }
+
+    public Subscription.OverrideBillingProfileRequest OverrideBillingProfile(string id) {
+      string url = BuildUrl("subscriptions", id, "override_billing_profile");
+      return new Subscription.OverrideBillingProfileRequest(Api, url, HttpMethod.Post);
     }
 
     public EntityRequest<Type> Delete(string id) {
@@ -191,6 +196,12 @@ namespace RealArtists.ChargeBee.Models {
     public bool HasScheduledChanges {
       get { return GetValue<bool>("has_scheduled_changes", true); }
     }
+    public string PaymentSourceId {
+      get { return GetValue<string>("payment_source_id", false); }
+    }
+    public AutoCollectionEnum? AutoCollection {
+      get { return GetEnum<AutoCollectionEnum>("auto_collection", false); }
+    }
     public int? DueInvoicesCount {
       get { return GetValue<int?>("due_invoices_count", false); }
     }
@@ -217,6 +228,9 @@ namespace RealArtists.ChargeBee.Models {
     }
     public SubscriptionShippingAddress ShippingAddress {
       get { return GetSubResource<SubscriptionShippingAddress>("shipping_address"); }
+    }
+    public SubscriptionReferralInfo ReferralInfo {
+      get { return GetSubResource<SubscriptionReferralInfo>("referral_info"); }
     }
     public string InvoiceNotes {
       get { return GetValue<string>("invoice_notes", false); }
@@ -266,8 +280,16 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CreateRequest AutoCollection(AutoCollectionEnum autoCollection) {
+        _params.AddOpt("auto_collection", autoCollection);
+        return this;
+      }
       public CreateRequest TermsToCharge(int termsToCharge) {
         _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public CreateRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public CreateRequest PoNumber(string poNumber) {
@@ -288,6 +310,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest MetaData(JToken metaData) {
         _params.AddOpt("meta_data", metaData);
+        return this;
+      }
+      public CreateRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
       public CreateRequest CustomerId(string customerId) {
@@ -340,6 +366,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest CustomerAllowDirectDebit(bool customerAllowDirectDebit) {
         _params.AddOpt("customer[allow_direct_debit]", customerAllowDirectDebit);
+        return this;
+      }
+      public CreateRequest CustomerConsolidatedInvoicing(bool customerConsolidatedInvoicing) {
+        _params.AddOpt("customer[consolidated_invoicing]", customerConsolidatedInvoicing);
         return this;
       }
       public CreateRequest CardGatewayAccountId(string cardGatewayAccountId) {
@@ -542,7 +572,12 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public CreateRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
+
     public class CreateForCustomerRequest : EntityRequest<CreateForCustomerRequest> {
       public CreateForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -580,8 +615,16 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public CreateForCustomerRequest AutoCollection(AutoCollectionEnum autoCollection) {
+        _params.AddOpt("auto_collection", autoCollection);
+        return this;
+      }
       public CreateForCustomerRequest TermsToCharge(int termsToCharge) {
         _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public CreateForCustomerRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public CreateForCustomerRequest PoNumber(string poNumber) {
@@ -592,12 +635,20 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("coupon_ids", couponIds);
         return this;
       }
+      public CreateForCustomerRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
+        return this;
+      }
       public CreateForCustomerRequest InvoiceNotes(string invoiceNotes) {
         _params.AddOpt("invoice_notes", invoiceNotes);
         return this;
       }
       public CreateForCustomerRequest MetaData(JToken metaData) {
         _params.AddOpt("meta_data", metaData);
+        return this;
+      }
+      public CreateForCustomerRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
       public CreateForCustomerRequest ShippingAddressFirstName(string shippingAddressFirstName) {
@@ -668,7 +719,12 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public CreateForCustomerRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
+
     public class SubscriptionListRequest : ListRequestBase<SubscriptionListRequest> {
       public SubscriptionListRequest(ChargeBeeApi api, string url)
               : base(api, url) {
@@ -687,17 +743,20 @@ namespace RealArtists.ChargeBee.Models {
       public StringFilter<SubscriptionListRequest> PlanId() {
         return new StringFilter<SubscriptionListRequest>("plan_id", this).SupportsMultiOperators(true);
       }
-      public EnumFilter<StatusEnum, SubscriptionListRequest> Status() {
-        return new EnumFilter<StatusEnum, SubscriptionListRequest>("status", this);
+      public EnumFilter<Subscription.StatusEnum, SubscriptionListRequest> Status() {
+        return new EnumFilter<Subscription.StatusEnum, SubscriptionListRequest>("status", this);
       }
-      public EnumFilter<CancelReasonEnum, SubscriptionListRequest> CancelReason() {
-        return new EnumFilter<CancelReasonEnum, SubscriptionListRequest>("cancel_reason", this).SupportsPresenceOperator(true);
+      public EnumFilter<Subscription.CancelReasonEnum, SubscriptionListRequest> CancelReason() {
+        return new EnumFilter<Subscription.CancelReasonEnum, SubscriptionListRequest>("cancel_reason", this).SupportsPresenceOperator(true);
       }
       public NumberFilter<int, SubscriptionListRequest> RemainingBillingCycles() {
         return new NumberFilter<int, SubscriptionListRequest>("remaining_billing_cycles", this).SupportsPresenceOperator(true);
       }
       public TimestampFilter<SubscriptionListRequest> CreatedAt() {
         return new TimestampFilter<SubscriptionListRequest>("created_at", this);
+      }
+      public TimestampFilter<SubscriptionListRequest> ActivatedAt() {
+        return new TimestampFilter<SubscriptionListRequest>("activated_at", this).SupportsPresenceOperator(true);
       }
       public TimestampFilter<SubscriptionListRequest> NextBillingAt() {
         return new TimestampFilter<SubscriptionListRequest>("next_billing_at", this);
@@ -716,6 +775,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class RemoveScheduledCancellationRequest : EntityRequest<RemoveScheduledCancellationRequest> {
       public RemoveScheduledCancellationRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -726,6 +786,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class RemoveCouponsRequest : EntityRequest<RemoveCouponsRequest> {
       public RemoveCouponsRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -736,6 +797,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class UpdateRequest : EntityRequest<UpdateRequest> {
       public UpdateRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -781,6 +843,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("reactivate_from", reactivateFrom);
         return this;
       }
+      public UpdateRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
+        return this;
+      }
       public UpdateRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
@@ -815,6 +881,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateRequest MetaData(JToken metaData) {
         _params.AddOpt("meta_data", metaData);
+        return this;
+      }
+      public UpdateRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
       public UpdateRequest CardGatewayAccountId(string cardGatewayAccountId) {
@@ -1021,7 +1091,12 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public UpdateRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
+
     public class ChangeTermEndRequest : EntityRequest<ChangeTermEndRequest> {
       public ChangeTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1031,7 +1106,16 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("ter_ends_at", termEndsAt);
         return this;
       }
+      public ChangeTermEndRequest Prorate(bool prorate) {
+        _params.AddOpt("prorate", prorate);
+        return this;
+      }
+      public ChangeTermEndRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
+        return this;
+      }
     }
+
     public class CancelRequest : EntityRequest<CancelRequest> {
       public CancelRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1042,6 +1126,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class ReactivateRequest : EntityRequest<ReactivateRequest> {
       public ReactivateRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1059,11 +1144,20 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("reactivate_from", reactivateFrom);
         return this;
       }
+      public ReactivateRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
+        return this;
+      }
+      public ReactivateRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
+        return this;
+      }
       public ReactivateRequest TermsToCharge(int termsToCharge) {
         _params.AddOpt("terms_to_charge", termsToCharge);
         return this;
       }
     }
+
     public class AddChargeAtTermEndRequest : EntityRequest<AddChargeAtTermEndRequest> {
       public AddChargeAtTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1078,6 +1172,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class ChargeAddonAtTermEndRequest : EntityRequest<ChargeAddonAtTermEndRequest> {
       public ChargeAddonAtTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1096,6 +1191,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class ChargeFutureRenewalsRequest : EntityRequest<ChargeFutureRenewalsRequest> {
       public ChargeFutureRenewalsRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1106,6 +1202,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class ImportSubscriptionRequest : EntityRequest<ImportSubscriptionRequest> {
       public ImportSubscriptionRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1141,6 +1238,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ImportSubscriptionRequest BillingCycles(int billingCycles) {
         _params.AddOpt("billing_cycles", billingCycles);
+        return this;
+      }
+      public ImportSubscriptionRequest AutoCollection(AutoCollectionEnum autoCollection) {
+        _params.AddOpt("auto_collection", autoCollection);
         return this;
       }
       public ImportSubscriptionRequest PoNumber(string poNumber) {
@@ -1440,6 +1541,7 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
     }
+
     public class ImportForCustomerRequest : EntityRequest<ImportForCustomerRequest> {
       public ImportForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
@@ -1477,12 +1579,20 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
+      public ImportForCustomerRequest AutoCollection(AutoCollectionEnum autoCollection) {
+        _params.AddOpt("auto_collection", autoCollection);
+        return this;
+      }
       public ImportForCustomerRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
         return this;
       }
       public ImportForCustomerRequest CouponIds(List<string> couponIds) {
         _params.AddOpt("coupon_ids", couponIds);
+        return this;
+      }
+      public ImportForCustomerRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
         return this;
       }
       public ImportForCustomerRequest Status(StatusEnum status) {
@@ -1587,6 +1697,21 @@ namespace RealArtists.ChargeBee.Models {
       }
     }
 
+    public class OverrideBillingProfileRequest : EntityRequest<OverrideBillingProfileRequest> {
+      public OverrideBillingProfileRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public OverrideBillingProfileRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
+        return this;
+      }
+      public OverrideBillingProfileRequest AutoCollection(AutoCollectionEnum autoCollection) {
+        _params.AddOpt("auto_collection", autoCollection);
+        return this;
+      }
+    }
+
     public enum BillingPeriodUnitEnum {
 
       Unknown,
@@ -1598,6 +1723,7 @@ namespace RealArtists.ChargeBee.Models {
       Year,
 
     }
+
     public enum StatusEnum {
       Unknown,
       [Description("future")]
@@ -1611,6 +1737,7 @@ namespace RealArtists.ChargeBee.Models {
       [Description("cancelled")]
       Cancelled,
     }
+
     public enum CancelReasonEnum {
       Unknown,
       [Description("not_paid")]
@@ -1640,6 +1767,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public int? UnitPrice() {
         return GetValue<int?>("unit_price", false);
+      }
+
+      public DateTime? TrialEnd() {
+        return GetDateTime("trial_end", false);
       }
     }
 
@@ -1716,6 +1847,74 @@ namespace RealArtists.ChargeBee.Models {
 
       public ValidationStatusEnum? ValidationStatus() {
         return GetEnum<ValidationStatusEnum>("validation_status", false);
+      }
+    }
+
+    public class SubscriptionReferralInfo : Resource {
+      public enum RewardStatusEnum {
+        Unknown,
+        [Description("pending")]
+        Pending,
+        [Description("paid")]
+        Paid,
+        [Description("invalid")]
+        Invalid,
+      }
+
+      public string ReferralCode() {
+        return GetValue<string>("referral_code", false);
+      }
+
+      public string CouponCode() {
+        return GetValue<string>("coupon_code", false);
+      }
+
+      public string ReferrerId() {
+        return GetValue<string>("referrer_id", false);
+      }
+
+      public string ExternalReferenceId() {
+        return GetValue<string>("external_reference_id", false);
+      }
+
+      public RewardStatusEnum? RewardStatus() {
+        return GetEnum<RewardStatusEnum>("reward_status", false);
+      }
+
+      public ReferralSystemEnum? ReferralSystem() {
+        return GetEnum<ReferralSystemEnum>("referral_system", false);
+      }
+
+      public string AccountId() {
+        return GetValue<string>("account_id", true);
+      }
+
+      public string CampaignId() {
+        return GetValue<string>("campaign_id", true);
+      }
+
+      public string ExternalCampaignId() {
+        return GetValue<string>("external_campaign_id", false);
+      }
+
+      public FriendOfferTypeEnum? FriendOfferType() {
+        return GetEnum<FriendOfferTypeEnum>("friend_offer_type", false);
+      }
+
+      public ReferrerRewardTypeEnum? ReferrerRewardType() {
+        return GetEnum<ReferrerRewardTypeEnum>("referrer_reward_type", false);
+      }
+
+      public NotifyReferralSystemEnum? NotifyReferralSystem() {
+        return GetEnum<NotifyReferralSystemEnum>("notify_referral_system", false);
+      }
+
+      public string DestinationUrl() {
+        return GetValue<string>("destination_url", false);
+      }
+
+      public bool PostPurchaseWidgetEnabled() {
+        return GetValue<bool>("post_purchase_widget_enabled", true);
       }
     }
   }

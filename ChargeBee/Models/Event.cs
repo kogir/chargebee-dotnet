@@ -4,11 +4,11 @@ namespace RealArtists.ChargeBee.Models {
   using System.ComponentModel;
   using System.IO;
   using System.Net.Http;
+  using Newtonsoft.Json.Linq;
   using RealArtists.ChargeBee.Api;
   using RealArtists.ChargeBee.Filters.Enums;
   using RealArtists.ChargeBee.Internal;
   using RealArtists.ChargeBee.Models.Enums;
-  using Newtonsoft.Json.Linq;
 
   public class EventActions : ApiResourceActions {
     public EventActions(ChargeBeeApi api) : base(api) { }
@@ -76,6 +76,9 @@ namespace RealArtists.ChargeBee.Models {
 
       public StringFilter<EventListRequest> Id() {
         return new StringFilter<EventListRequest>("id", this).SupportsMultiOperators(true);
+      }
+      public EnumFilter<EventWebhook.WebhookStatusEnum, EventListRequest> WebhookStatus() {
+        return new EnumFilter<EventWebhook.WebhookStatusEnum, EventListRequest>("webhook_status", this);
       }
       public EnumFilter<EventTypeEnum, EventListRequest> EventType() {
         return new EnumFilter<EventTypeEnum, EventListRequest>("event_type", this);

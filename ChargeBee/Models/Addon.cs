@@ -142,7 +142,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("description", description);
         return this;
       }
-      public CreateRequest ChargeType(ChargeTypeEnum chargeType) {
+      public CreateRequest ChargeType(Addon.ChargeTypeEnum chargeType) {
         _params.Add("charge_type", chargeType);
         return this;
       }
@@ -158,11 +158,11 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("period", period);
         return this;
       }
-      public CreateRequest PeriodUnit(PeriodUnitEnum periodUnit) {
+      public CreateRequest PeriodUnit(Addon.PeriodUnitEnum periodUnit) {
         _params.AddOpt("period_unit", periodUnit);
         return this;
       }
-      public CreateRequest Type(TypeEnum type) {
+      public CreateRequest Type(Addon.TypeEnum type) {
         _params.Add("type", type);
         return this;
       }
@@ -210,6 +210,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("accounting_category2", accountingCategory2);
         return this;
       }
+      public CreateRequest Status(Addon.StatusEnum status) {
+        _params.AddOpt("status", status);
+        return this;
+      }
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {
@@ -229,7 +233,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("description", description);
         return this;
       }
-      public UpdateRequest ChargeType(ChargeTypeEnum chargeType) {
+      public UpdateRequest ChargeType(Addon.ChargeTypeEnum chargeType) {
         _params.AddOpt("charge_type", chargeType);
         return this;
       }
@@ -245,11 +249,11 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("period", period);
         return this;
       }
-      public UpdateRequest PeriodUnit(PeriodUnitEnum periodUnit) {
+      public UpdateRequest PeriodUnit(Addon.PeriodUnitEnum periodUnit) {
         _params.AddOpt("period_unit", periodUnit);
         return this;
       }
-      public UpdateRequest Type(TypeEnum type) {
+      public UpdateRequest Type(Addon.TypeEnum type) {
         _params.AddOpt("type", type);
         return this;
       }
@@ -310,11 +314,11 @@ namespace RealArtists.ChargeBee.Models {
       public StringFilter<AddonListRequest> Name() {
         return new StringFilter<AddonListRequest>("name", this).SupportsMultiOperators(true);
       }
-      public EnumFilter<TypeEnum, AddonListRequest> Type() {
-        return new EnumFilter<TypeEnum, AddonListRequest>("type", this);
+      public EnumFilter<Addon.TypeEnum, AddonListRequest> Type() {
+        return new EnumFilter<Addon.TypeEnum, AddonListRequest>("type", this);
       }
-      public EnumFilter<ChargeTypeEnum, AddonListRequest> ChargeType() {
-        return new EnumFilter<ChargeTypeEnum, AddonListRequest>("charge_type", this);
+      public EnumFilter<Addon.ChargeTypeEnum, AddonListRequest> ChargeType() {
+        return new EnumFilter<Addon.ChargeTypeEnum, AddonListRequest>("charge_type", this);
       }
       public NumberFilter<int, AddonListRequest> Price() {
         return new NumberFilter<int, AddonListRequest>("price", this);
@@ -322,11 +326,11 @@ namespace RealArtists.ChargeBee.Models {
       public NumberFilter<int, AddonListRequest> Period() {
         return new NumberFilter<int, AddonListRequest>("period", this);
       }
-      public EnumFilter<PeriodUnitEnum, AddonListRequest> PeriodUnit() {
-        return new EnumFilter<PeriodUnitEnum, AddonListRequest>("period_unit", this);
+      public EnumFilter<Addon.PeriodUnitEnum, AddonListRequest> PeriodUnit() {
+        return new EnumFilter<Addon.PeriodUnitEnum, AddonListRequest>("period_unit", this);
       }
-      public EnumFilter<StatusEnum, AddonListRequest> Status() {
-        return new EnumFilter<StatusEnum, AddonListRequest>("status", this);
+      public EnumFilter<Addon.StatusEnum, AddonListRequest> Status() {
+        return new EnumFilter<Addon.StatusEnum, AddonListRequest>("status", this);
       }
       public TimestampFilter<AddonListRequest> UpdatedAt() {
         return new TimestampFilter<AddonListRequest>("updated_at", this);

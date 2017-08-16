@@ -28,6 +28,16 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("subscriptions", id, "renewal_estimate");
       return new Estimate.RenewalEstimateRequest(Api, url, HttpMethod.Get);
     }
+
+    public EntityRequest<Type> UpcomingInvoicesEstimate(string id) {
+      string url = BuildUrl("customers", id, "upcoming_invoices_estimate");
+      return new EntityRequest<Type>(Api, url, HttpMethod.Get);
+    }
+
+    public Estimate.ChangeTermEndRequest ChangeTermEnd(string id) {
+      string url = BuildUrl("subscriptions", id, "change_term_end_estimate");
+      return new Estimate.ChangeTermEndRequest(Api, url, HttpMethod.Post);
+    }
   }
 
   public class Estimate : Resource {
@@ -40,11 +50,17 @@ namespace RealArtists.ChargeBee.Models {
     public InvoiceEstimate InvoiceEstimate {
       get { return GetSubResource<InvoiceEstimate>("invoice_estimate"); }
     }
+    public List<InvoiceEstimate> InvoiceEstimates {
+      get { return GetResourceList<InvoiceEstimate>("invoice_estimates"); }
+    }
     public InvoiceEstimate NextInvoiceEstimate {
       get { return GetSubResource<InvoiceEstimate>("next_invoice_estimate"); }
     }
     public List<CreditNoteEstimate> CreditNoteEstimates {
       get { return GetResourceList<CreditNoteEstimate>("credit_note_estimates"); }
+    }
+    public List<UnbilledCharge> UnbilledChargeEstimates {
+      get { return GetResourceList<UnbilledCharge>("unbilled_charge_estimates"); }
     }
 
     public class CreateSubscriptionRequest : EntityRequest<CreateSubscriptionRequest> {
@@ -60,8 +76,16 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("terms_to_charge", termsToCharge);
         return this;
       }
+      public CreateSubscriptionRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
+        return this;
+      }
       public CreateSubscriptionRequest CouponIds(List<string> couponIds) {
         _params.AddOpt("coupon_ids", couponIds);
+        return this;
+      }
+      public CreateSubscriptionRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
       public CreateSubscriptionRequest SubscriptionId(string subscriptionId) {
@@ -184,6 +208,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public CreateSubscriptionRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
 
     public class CreateSubForCustomerEstimateRequest : EntityRequest<CreateSubForCustomerEstimateRequest> {
@@ -195,12 +223,20 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("use_existing_balances", useExistingBalances);
         return this;
       }
+      public CreateSubForCustomerEstimateRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
+        return this;
+      }
       public CreateSubForCustomerEstimateRequest BillingCycles(int billingCycles) {
         _params.AddOpt("billing_cycles", billingCycles);
         return this;
       }
       public CreateSubForCustomerEstimateRequest TermsToCharge(int termsToCharge) {
         _params.AddOpt("terms_to_charge", termsToCharge);
+        return this;
+      }
+      public CreateSubForCustomerEstimateRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public CreateSubForCustomerEstimateRequest CouponIds(List<string> couponIds) {
@@ -279,6 +315,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public CreateSubForCustomerEstimateRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
 
     public class UpdateSubscriptionRequest : EntityRequest<UpdateSubscriptionRequest> {
@@ -300,6 +340,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateSubscriptionRequest ReactivateFrom(long reactivateFrom) {
         _params.AddOpt("reactivate_from", reactivateFrom);
+        return this;
+      }
+      public UpdateSubscriptionRequest BillingAlignmentMode(ChargeBee.Models.Enums.BillingAlignmentModeEnum billingAlignmentMode) {
+        _params.AddOpt("billing_alignment_mode", billingAlignmentMode);
         return this;
       }
       public UpdateSubscriptionRequest CouponIds(List<string> couponIds) {
@@ -332,6 +376,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateSubscriptionRequest UseExistingBalances(bool useExistingBalances) {
         _params.AddOpt("use_existing_balances", useExistingBalances);
+        return this;
+      }
+      public UpdateSubscriptionRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
       public UpdateSubscriptionRequest SubscriptionId(string subscriptionId) {
@@ -442,6 +490,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addons[unit_price][" + index + "]", addonUnitPrice);
         return this;
       }
+      public UpdateSubscriptionRequest AddonTrialEnd(int index, long addonTrialEnd) {
+        _params.AddOpt("addons[trial_end][" + index + "]", addonTrialEnd);
+        return this;
+      }
     }
 
     public class RenewalEstimateRequest : EntityRequest<RenewalEstimateRequest> {
@@ -464,6 +516,25 @@ namespace RealArtists.ChargeBee.Models {
       }
       public RenewalEstimateRequest IgnoreScheduledChanges(bool ignoreScheduledChanges) {
         _params.AddOpt("ignore_scheduled_changes", ignoreScheduledChanges);
+        return this;
+      }
+    }
+
+    public class ChangeTermEndRequest : EntityRequest<ChangeTermEndRequest> {
+      public ChangeTermEndRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public ChangeTermEndRequest TermEndsAt(long termEndsAt) {
+        _params.AddOpt("term_ends_at", termEndsAt);
+        return this;
+      }
+      public ChangeTermEndRequest Prorate(bool prorate) {
+        _params.AddOpt("prorate", prorate);
+        return this;
+      }
+      public ChangeTermEndRequest InvoiceImmediately(bool invoiceImmediately) {
+        _params.AddOpt("invoice_immediately", invoiceImmediately);
         return this;
       }
     }

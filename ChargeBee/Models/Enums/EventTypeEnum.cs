@@ -156,5 +156,26 @@ namespace RealArtists.ChargeBee.Models.Enums {
 
     [Description("card_deleted")]
     CardDeleted,
+
+    [Description("payment_source_added")]
+    PaymentSourceAdded,
+
+    [Description("payment_source_updated")]
+    PaymentSourceUpdated,
+
+    [Description("payment_source_deleted")]
+    PaymentSourceDeleted,
+
+    [Description("unbilled_charges_created")]
+    UnbilledChargesCreated,
+
+    [Description("unbilled_charges_voided")]
+    UnbilledChargesVoided,
+
+    [Description("unbilled_charges_deleted")]
+    UnbilledChargesDeleted,
+
+    [Description("unbilled_charges_invoiced")]
+    UnbilledChargesInvoiced,
   }
 }

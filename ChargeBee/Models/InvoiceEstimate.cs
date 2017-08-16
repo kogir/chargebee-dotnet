@@ -42,6 +42,9 @@ namespace RealArtists.ChargeBee.Models {
     public List<InvoiceEstimateLineItemTax> LineItemTaxes {
       get { return GetResourceList<InvoiceEstimateLineItemTax>("line_ite_taxes"); }
     }
+    public List<InvoiceEstimateLineItemDiscount> LineItemDiscounts {
+      get { return GetResourceList<InvoiceEstimateLineItemDiscount>("line_item_discounts"); }
+    }
 
     public class InvoiceEstimateLineItem : Resource {
       public enum EntityTypeEnum {
@@ -58,6 +61,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public string Id() {
         return GetValue<string>("id", false);
+      }
+
+      public string SubscriptionId() {
+        return GetValue<string>("subscription_id", false);
       }
 
       public DateTime DateFrom() {
@@ -115,7 +122,6 @@ namespace RealArtists.ChargeBee.Models {
       public string EntityId() {
         return GetValue<string>("entity_id", false);
       }
-
     }
 
     public class InvoiceEstimateDiscount : Resource {
@@ -146,11 +152,9 @@ namespace RealArtists.ChargeBee.Models {
       public string EntityId() {
         return GetValue<string>("entity_id", false);
       }
-
     }
 
     public class InvoiceEstimateTax : Resource {
-
       public string Name() {
         return GetValue<string>("name", true);
       }
@@ -162,11 +166,9 @@ namespace RealArtists.ChargeBee.Models {
       public string Description() {
         return GetValue<string>("description", false);
       }
-
     }
 
     public class InvoiceEstimateLineItemTax : Resource {
-
       public string LineItemId() {
         return GetValue<string>("line_ite_id", false);
       }
@@ -193,6 +195,36 @@ namespace RealArtists.ChargeBee.Models {
 
       public string TaxJurisCode() {
         return GetValue<string>("tax_juris_code", false);
+      }
+    }
+
+    public class InvoiceEstimateLineItemDiscount : Resource {
+      public enum DiscountTypeEnum {
+        Unknown,
+        [Description("item_level_coupon")]
+        ItemLevelCoupon,
+        [Description("document_level_coupon")]
+        DocumentLevelCoupon,
+        [Description("promotional_credits")]
+        PromotionalCredits,
+        [Description("prorated_credits")]
+        ProratedCredits,
+      }
+
+      public string LineItemId() {
+        return GetValue<string>("line_item_id", true);
+      }
+
+      public DiscountTypeEnum DiscountType() {
+        return GetEnum<DiscountTypeEnum>("discount_type", true);
+      }
+
+      public string CouponId() {
+        return GetValue<string>("coupon_id", false);
+      }
+
+      public int DiscountAmount() {
+        return GetValue<int>("discount_amount", true);
       }
     }
   }

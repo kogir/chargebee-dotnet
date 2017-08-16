@@ -36,8 +36,8 @@ namespace RealArtists.ChargeBee.Models {
   }
 
   public class Card : Resource {
-    public string CustomerId {
-      get { return GetValue<string>("customer_id", true); }
+    public string PaymentSourceId {
+      get { return GetValue<string>("payment_source_id", true); }
     }
     public StatusEnum Status {
       get { return GetEnum<StatusEnum>("status", true); }
@@ -72,6 +72,9 @@ namespace RealArtists.ChargeBee.Models {
     public int ExpiryYear {
       get { return GetValue<int>("expiry_year", true); }
     }
+    public string IssuingCountry {
+      get { return GetValue<string>("issuing_country", false); }
+    }
     public string BillingAddr1 {
       get { return GetValue<string>("billing_addr1", false); }
     }
@@ -96,6 +99,9 @@ namespace RealArtists.ChargeBee.Models {
     public string IpAddress {
       get { return GetValue<string>("ip_address", false); }
     }
+    public string CustomerId {
+      get { return GetValue<string>("customer_id", true); }
+    }
     public string MaskedNumber {
       get { return GetValue<string>("masked_number", false); }
     }
@@ -104,6 +110,7 @@ namespace RealArtists.ChargeBee.Models {
       public UpdateCardForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
       }
+
       public UpdateCardForCustomerRequest GatewayAccountId(string gatewayAccountId) {
         _params.AddOpt("gateway_account_id", gatewayAccountId);
         return this;
@@ -170,6 +177,7 @@ namespace RealArtists.ChargeBee.Models {
       public SwitchGatewayForCustomerRequest(ChargeBeeApi api, string url, HttpMethod method)
               : base(api, url, method) {
       }
+
 
       public SwitchGatewayForCustomerRequest GatewayAccountId(string gatewayAccountId) {
         _params.Add("gateway_account_id", gatewayAccountId);

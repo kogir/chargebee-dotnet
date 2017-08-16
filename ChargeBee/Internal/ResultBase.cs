@@ -28,17 +28,23 @@ namespace RealArtists.ChargeBee.Internal {
     public Customer Customer {
       get { return GetResource<Customer>("customer"); }
     }
-    public Card Card {
-      get { return GetResource<Card>("card"); }
+    public PaymentSource PaymentSource {
+      get { return GetResource<PaymentSource>("payment_source"); }
     }
     public ThirdPartyPaymentMethod ThirdPartyPaymentMethod {
       get { return GetResource<ThirdPartyPaymentMethod>("third_party_payment_method"); }
+    }
+    public Card Card {
+      get { return GetResource<Card>("card"); }
     }
     public Invoice Invoice {
       get { return GetResource<Invoice>("invoice"); }
     }
     public CreditNote CreditNote {
       get { return GetResource<CreditNote>("credit_note"); }
+    }
+    public UnbilledCharge UnbilledCharge {
+      get { return GetResource<UnbilledCharge>("unbilled_charge"); }
     }
     public Order Order {
       get { return GetResource<Order>("order"); }
@@ -85,9 +91,20 @@ namespace RealArtists.ChargeBee.Internal {
     public ResourceMigration ResourceMigration {
       get { return GetResource<ResourceMigration>("resource_migration"); }
     }
+    public TimeMachine TimeMachine {
+      get { return GetResource<TimeMachine>("time_machine"); }
+    }
+
+    public List<UnbilledCharge> UnbilledCharges {
+      get { return (List<UnbilledCharge>)GetResourceList<UnbilledCharge>("unbilled_charges", "unbilled_charge"); }
+    }
 
     public List<CreditNote> CreditNotes {
       get { return (List<CreditNote>)GetResourceList<CreditNote>("credit_notes", "credit_note"); }
+    }
+
+    public List<Invoice> Invoices {
+      get { return (List<Invoice>)GetResourceList<Invoice>("invoices", "invoice"); }
     }
 
 

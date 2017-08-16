@@ -176,6 +176,9 @@ namespace RealArtists.ChargeBee.Models {
     public List<InvoiceDiscount> Discounts {
       get { return GetResourceList<InvoiceDiscount>("discounts"); }
     }
+    public List<InvoiceLineItemDiscount> LineItemDiscounts {
+      get { return GetResourceList<InvoiceLineItemDiscount>("line_item_discounts"); }
+    }
     public List<InvoiceTax> Taxes {
       get { return GetResourceList<InvoiceTax>("taxes"); }
     }
@@ -229,6 +232,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
+        return this;
+      }
+      public CreateRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
         return this;
       }
       public CreateRequest ShippingAddressFirstName(string shippingAddressFirstName) {
@@ -342,6 +349,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("po_number", poNumber);
         return this;
       }
+      public ChargeRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
+        return this;
+      }
     }
 
     public class ChargeAddonRequest : EntityRequest<ChargeAddonRequest> {
@@ -375,6 +386,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ChargeAddonRequest PoNumber(string poNumber) {
         _params.AddOpt("po_number", poNumber);
+        return this;
+      }
+      public ChargeAddonRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
         return this;
       }
     }
@@ -786,6 +801,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("description", description);
         return this;
       }
+      public AddChargeRequest LineItemDateFrom(long lineItemDateFrom) {
+        _params.AddOpt("line_item[date_from]", lineItemDateFrom);
+        return this;
+      }
+      public AddChargeRequest LineItemDateTo(long lineItemDateTo) {
+        _params.AddOpt("line_item[date_to]", lineItemDateTo);
+        return this;
+      }
     }
 
     public class AddAddonChargeRequest : EntityRequest<AddAddonChargeRequest> {
@@ -805,6 +828,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addon_unit_price", addonUnitPrice);
         return this;
       }
+      public AddAddonChargeRequest LineItemDateFrom(long lineItemDateFrom) {
+        _params.AddOpt("line_item[date_from]", lineItemDateFrom);
+        return this;
+      }
+      public AddAddonChargeRequest LineItemDateTo(long lineItemDateTo) {
+        _params.AddOpt("line_item[date_to]", lineItemDateTo);
+        return this;
+      }
     }
 
     public class CollectPaymentRequest : EntityRequest<CollectPaymentRequest> {
@@ -814,6 +845,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public CollectPaymentRequest Amount(int amount) {
         _params.AddOpt("amount", amount);
+        return this;
+      }
+      public CollectPaymentRequest PaymentSourceId(string paymentSourceId) {
+        _params.AddOpt("payment_source_id", paymentSourceId);
         return this;
       }
     }
@@ -996,6 +1031,10 @@ namespace RealArtists.ChargeBee.Models {
         return GetValue<string>("id", false);
       }
 
+      public string SubscriptionId() {
+        return GetValue<string>("subscription_id", false);
+      }
+
       public DateTime DateFrom() {
         return (DateTime)GetDateTime("date_from", true);
       }
@@ -1080,6 +1119,36 @@ namespace RealArtists.ChargeBee.Models {
 
       public string EntityId() {
         return GetValue<string>("entity_id", false);
+      }
+
+    }
+    public class InvoiceLineItemDiscount : Resource {
+      public enum DiscountTypeEnum {
+        Unknown,
+        [Description("item_level_coupon")]
+        ItemLevelCoupon,
+        [Description("document_level_coupon")]
+        DocumentLevelCoupon,
+        [Description("promotional_credits")]
+        PromotionalCredits,
+        [Description("prorated_credits")]
+        ProratedCredits,
+      }
+
+      public string LineItemId() {
+        return GetValue<string>("line_item_id", true);
+      }
+
+      public DiscountTypeEnum DiscountType() {
+        return GetEnum<DiscountTypeEnum>("discount_type", true);
+      }
+
+      public string CouponId() {
+        return GetValue<string>("coupon_id", false);
+      }
+
+      public int DiscountAmount() {
+        return GetValue<int>("discount_amount", true);
       }
     }
 

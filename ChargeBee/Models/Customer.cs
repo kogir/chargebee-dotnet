@@ -36,6 +36,10 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("customers", id, "update_billing_info");
       return new Customer.UpdateBillingInfoRequest(Api, url, HttpMethod.Post);
     }
+    public Customer.AssignPaymentRoleRequest AssignPaymentRole(string id) {
+      string url = BuildUrl("customers", id, "assign_payment_role");
+      return new Customer.AssignPaymentRoleRequest(Api, url, HttpMethod.Post);
+    }
     public Customer.AddContactRequest AddContact(string id) {
       string url = BuildUrl("customers", id, "add_contact");
       return new Customer.AddContactRequest(Api, url, HttpMethod.Post);
@@ -71,6 +75,10 @@ namespace RealArtists.ChargeBee.Models {
     public Customer.MoveRequest Move() {
       string url = BuildUrl("customers", "move");
       return new Customer.MoveRequest(Api, url, HttpMethod.Post);
+    }
+    public Customer.ChangeBillingDateRequest ChangeBillingDate(string id) {
+      string url = BuildUrl("customers", id, "change_billing_date");
+      return new Customer.ChangeBillingDateRequest(Api, url, HttpMethod.Post);
     }
   }
 
@@ -129,11 +137,35 @@ namespace RealArtists.ChargeBee.Models {
     public string Locale {
       get { return GetValue<string>("locale", false); }
     }
+    public bool? ConsolidatedInvoicing {
+      get { return GetValue<bool?>("consolidated_invoicing", false); }
+    }
+    public int? BillingDate {
+      get { return GetValue<int?>("billing_date", false); }
+    }
+    public BillingDateModeEnum? BillingDateMode {
+      get { return GetEnum<BillingDateModeEnum>("billing_date_mode", false); }
+    }
+    public BillingDayOfWeekEnum? BillingDayOfWeek {
+      get { return GetEnum<BillingDayOfWeekEnum>("billing_day_of_week", false); }
+    }
+    public BillingDayOfWeekModeEnum? BillingDayOfWeekMode {
+      get { return GetEnum<BillingDayOfWeekModeEnum>("billing_day_of_week_mode", false); }
+    }
     public FraudFlagEnum? FraudFlag {
       get { return GetEnum<FraudFlagEnum>("fraud_flag", false); }
     }
+    public string PrimaryPaymentSourceId {
+      get { return GetValue<string>("primary_payment_source_id", false); }
+    }
+    public string BackupPaymentSourceId {
+      get { return GetValue<string>("backup_payment_source_id", false); }
+    }
     public CustomerBillingAddress BillingAddress {
       get { return GetSubResource<CustomerBillingAddress>("billing_address"); }
+    }
+    public List<CustomerReferralUrl> ReferralUrls {
+      get { return GetResourceList<CustomerReferralUrl>("referral_urls"); }
     }
     public List<CustomerContact> Contacts {
       get { return GetResourceList<CustomerContact>("contacts"); }
@@ -149,6 +181,9 @@ namespace RealArtists.ChargeBee.Models {
     }
     public int PromotionalCredits {
       get { return GetValue<int>("promotional_credits", true); }
+    }
+    public int UnbilledCharges {
+      get { return GetValue<int>("unbilled_charges", true); }
     }
     public int RefundableCredits {
       get { return GetValue<int>("refundable_credits", true); }
@@ -212,7 +247,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("vat_number", vatNumber);
         return this;
       }
-      public CreateRequest Taxability(TaxabilityEnum taxability) {
+      public CreateRequest Taxability(ChargeBee.Models.Enums.TaxabilityEnum taxability) {
         _params.AddOpt("taxability", taxability);
         return this;
       }
@@ -220,7 +255,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("locale", locale);
         return this;
       }
-      public CreateRequest EntityCode(EntityCodeEnum entityCode) {
+      public CreateRequest EntityCode(ChargeBee.Models.Enums.EntityCodeEnum entityCode) {
         _params.AddOpt("entity_code", entityCode);
         return this;
       }
@@ -230,6 +265,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest MetaData(JToken metaData) {
         _params.AddOpt("meta_data", metaData);
+        return this;
+      }
+      public CreateRequest ConsolidatedInvoicing(bool consolidatedInvoicing) {
+        _params.AddOpt("consolidated_invoicing", consolidatedInvoicing);
         return this;
       }
       public CreateRequest InvoiceNotes(string invoiceNotes) {
@@ -244,7 +283,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("card[tmp_token]", cardTmpToken);
         return this;
       }
-      public CreateRequest PaymentMethodType(TypeEnum paymentMethodType) {
+      public CreateRequest PaymentMethodType(ChargeBee.Models.Enums.TypeEnum paymentMethodType) {
         _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
       }
@@ -394,11 +433,14 @@ namespace RealArtists.ChargeBee.Models {
       public StringFilter<CustomerListRequest> Company() {
         return new StringFilter<CustomerListRequest>("company", this).SupportsPresenceOperator(true);
       }
+      public StringFilter<CustomerListRequest> Phone() {
+        return new StringFilter<CustomerListRequest>("phone", this).SupportsPresenceOperator(true);
+      }
       public EnumFilter<AutoCollectionEnum, CustomerListRequest> AutoCollection() {
         return new EnumFilter<AutoCollectionEnum, CustomerListRequest>("auto_collection", this);
       }
-      public EnumFilter<TaxabilityEnum, CustomerListRequest> Taxability() {
-        return new EnumFilter<TaxabilityEnum, CustomerListRequest>("taxability", this);
+      public EnumFilter<ChargeBee.Models.Enums.TaxabilityEnum, CustomerListRequest> Taxability() {
+        return new EnumFilter<ChargeBee.Models.Enums.TaxabilityEnum, CustomerListRequest>("taxability", this);
       }
       public TimestampFilter<CustomerListRequest> CreatedAt() {
         return new TimestampFilter<CustomerListRequest>("created_at", this);
@@ -453,7 +495,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("net_ter_days", netTermDays);
         return this;
       }
-      public UpdateRequest Taxability(TaxabilityEnum taxability) {
+      public UpdateRequest Taxability(ChargeBee.Models.Enums.TaxabilityEnum taxability) {
         _params.AddOpt("taxability", taxability);
         return this;
       }
@@ -461,7 +503,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("locale", locale);
         return this;
       }
-      public UpdateRequest EntityCode(EntityCodeEnum entityCode) {
+      public UpdateRequest EntityCode(ChargeBee.Models.Enums.EntityCodeEnum entityCode) {
         _params.AddOpt("entity_code", entityCode);
         return this;
       }
@@ -479,6 +521,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateRequest FraudFlag(FraudFlagEnum fraudFlag) {
         _params.AddOpt("fraud_flag", fraudFlag);
+        return this;
+      }
+      public UpdateRequest ConsolidatedInvoicing(bool consolidatedInvoicing) {
+        _params.AddOpt("consolidated_invoicing", consolidatedInvoicing);
         return this;
       }
     }
@@ -568,6 +614,21 @@ namespace RealArtists.ChargeBee.Models {
       }
       public UpdateBillingInfoRequest BillingAddressValidationStatus(ValidationStatusEnum billingAddressValidationStatus) {
         _params.AddOpt("billing_address[validation_status]", billingAddressValidationStatus);
+        return this;
+      }
+    }
+
+    public class AssignPaymentRoleRequest : EntityRequest<AssignPaymentRoleRequest> {
+      public AssignPaymentRoleRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public AssignPaymentRoleRequest PaymentSourceId(string paymentSourceId) {
+        _params.Add("payment_source_id", paymentSourceId);
+        return this;
+      }
+      public AssignPaymentRoleRequest Role(RoleEnum role) {
+        _params.Add("role", role);
         return this;
       }
     }
@@ -686,6 +747,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("description", description);
         return this;
       }
+      public AddPromotionalCreditsRequest CreditType(ChargeBee.Models.Enums.CreditTypeEnum creditType) {
+        _params.AddOpt("credit_type", creditType);
+        return this;
+      }
+      public AddPromotionalCreditsRequest Reference(string reference) {
+        _params.AddOpt("reference", reference);
+        return this;
+      }
     }
 
     public class DeductPromotionalCreditsRequest : EntityRequest<DeductPromotionalCreditsRequest> {
@@ -705,6 +774,14 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("description", description);
         return this;
       }
+      public DeductPromotionalCreditsRequest CreditType(ChargeBee.Models.Enums.CreditTypeEnum creditType) {
+        _params.AddOpt("credit_type", creditType);
+        return this;
+      }
+      public DeductPromotionalCreditsRequest Reference(string reference) {
+        _params.AddOpt("reference", reference);
+        return this;
+      }
     }
 
     public class SetPromotionalCreditsRequest : EntityRequest<SetPromotionalCreditsRequest> {
@@ -722,6 +799,14 @@ namespace RealArtists.ChargeBee.Models {
       }
       public SetPromotionalCreditsRequest Description(string description) {
         _params.Add("description", description);
+        return this;
+      }
+      public SetPromotionalCreditsRequest CreditType(ChargeBee.Models.Enums.CreditTypeEnum creditType) {
+        _params.AddOpt("credit_type", creditType);
+        return this;
+      }
+      public SetPromotionalCreditsRequest Reference(string reference) {
+        _params.AddOpt("reference", reference);
         return this;
       }
     }
@@ -782,6 +867,47 @@ namespace RealArtists.ChargeBee.Models {
         _params.Add("from_site", fromSite);
         return this;
       }
+    }
+
+    public class ChangeBillingDateRequest : EntityRequest<ChangeBillingDateRequest> {
+      public ChangeBillingDateRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public ChangeBillingDateRequest BillingDate(int billingDate) {
+        _params.AddOpt("billing_date", billingDate);
+        return this;
+      }
+      public ChangeBillingDateRequest BillingDateMode(ChargeBee.Models.Enums.BillingDateModeEnum billingDateMode) {
+        _params.AddOpt("billing_date_mode", billingDateMode);
+        return this;
+      }
+      public ChangeBillingDateRequest BillingDayOfWeek(Customer.BillingDayOfWeekEnum billingDayOfWeek) {
+        _params.AddOpt("billing_day_of_week", billingDayOfWeek);
+        return this;
+      }
+      public ChangeBillingDateRequest BillingDayOfWeekMode(ChargeBee.Models.Enums.BillingDayOfWeekModeEnum billingDayOfWeekMode) {
+        _params.AddOpt("billing_day_of_week_mode", billingDayOfWeekMode);
+        return this;
+      }
+    }
+
+    public enum BillingDayOfWeekEnum {
+      Unknown,
+      [Description("sunday")]
+      Sunday,
+      [Description("monday")]
+      Monday,
+      [Description("tuesday")]
+      Tuesday,
+      [Description("wednesday")]
+      Wednesday,
+      [Description("thursday")]
+      Thursday,
+      [Description("friday")]
+      Friday,
+      [Description("saturday")]
+      Saturday,
     }
 
     public enum FraudFlagEnum {
@@ -852,6 +978,42 @@ namespace RealArtists.ChargeBee.Models {
       }
     }
 
+    public class CustomerReferralUrl : Resource {
+
+      public string ExternalCustomerId() {
+        return GetValue<string>("external_customer_id", false);
+      }
+
+      public string ReferralSharingUrl() {
+        return GetValue<string>("referral_sharing_url", true);
+      }
+
+      public DateTime CreatedAt() {
+        return (DateTime)GetDateTime("created_at", true);
+      }
+
+      public DateTime UpdatedAt() {
+        return (DateTime)GetDateTime("updated_at", true);
+      }
+
+      public string ReferralCampaignId() {
+        return GetValue<string>("referral_campaign_id", true);
+      }
+
+      public string ReferralAccountId() {
+        return GetValue<string>("referral_account_id", true);
+      }
+
+      public string ReferralExternalCampaignId() {
+        return GetValue<string>("referral_external_campaign_id", false);
+      }
+
+      public ReferralSystemEnum ReferralSystem() {
+        return GetEnum<ReferralSystemEnum>("referral_system", true);
+      }
+
+    }
+
     public class CustomerContact : Resource {
       public string Id() {
         return GetValue<string>("id", true);
@@ -901,6 +1063,12 @@ namespace RealArtists.ChargeBee.Models {
         AmazonPayments,
         [Description("direct_debit")]
         DirectDebit,
+        [Description("generic")]
+        Generic,
+        [Description("alipay")]
+        Alipay,
+        [Description("unionpay")]
+        Unionpay,
       }
 
       public enum StatusEnum {
@@ -934,7 +1102,7 @@ namespace RealArtists.ChargeBee.Models {
       }
 
       public string ReferenceId() {
-        return GetValue<string>("reference_id", false);
+        return GetValue<string>("reference_id", true);
       }
     }
   }

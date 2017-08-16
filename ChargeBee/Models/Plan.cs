@@ -246,6 +246,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("meta_data", metaData);
         return this;
       }
+      public CreateRequest Status(Plan.StatusEnum status) {
+        _params.AddOpt("status", status);
+        return this;
+      }
     }
 
     public class UpdateRequest : EntityRequest<UpdateRequest> {

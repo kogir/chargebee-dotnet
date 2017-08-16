@@ -133,7 +133,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("invoice_name", invoiceName);
         return this;
       }
-      public CreateRequest DiscountType(DiscountTypeEnum discountType) {
+      public CreateRequest DiscountType(Coupon.DiscountTypeEnum discountType) {
         _params.Add("discount_type", discountType);
         return this;
       }
@@ -149,7 +149,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("discount_percentage", discountPercentage);
         return this;
       }
-      public CreateRequest ApplyOn(ApplyOnEnum applyOn) {
+      public CreateRequest ApplyOn(Coupon.ApplyOnEnum applyOn) {
         _params.Add("apply_on", applyOn);
         return this;
       }
@@ -169,7 +169,7 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("addon_ids", addonIds);
         return this;
       }
-      public CreateRequest DurationType(DurationTypeEnum durationType) {
+      public CreateRequest DurationType(Coupon.DurationTypeEnum durationType) {
         _params.Add("duration_type", durationType);
         return this;
       }
@@ -193,6 +193,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("meta_data", metaData);
         return this;
       }
+      public CreateRequest Status(Coupon.StatusEnum status) {
+        _params.AddOpt("status", status);
+        return this;
+      }
     }
 
     public class CouponListRequest : ListRequestBase<CouponListRequest> {
@@ -206,17 +210,17 @@ namespace RealArtists.ChargeBee.Models {
       public StringFilter<CouponListRequest> Name() {
         return new StringFilter<CouponListRequest>("name", this).SupportsMultiOperators(true);
       }
-      public EnumFilter<DiscountTypeEnum, CouponListRequest> DiscountType() {
-        return new EnumFilter<DiscountTypeEnum, CouponListRequest>("discount_type", this);
+      public EnumFilter<Coupon.DiscountTypeEnum, CouponListRequest> DiscountType() {
+        return new EnumFilter<Coupon.DiscountTypeEnum, CouponListRequest>("discount_type", this);
       }
-      public EnumFilter<DurationTypeEnum, CouponListRequest> DurationType() {
-        return new EnumFilter<DurationTypeEnum, CouponListRequest>("duration_type", this);
+      public EnumFilter<Coupon.DurationTypeEnum, CouponListRequest> DurationType() {
+        return new EnumFilter<Coupon.DurationTypeEnum, CouponListRequest>("duration_type", this);
       }
-      public EnumFilter<StatusEnum, CouponListRequest> Status() {
-        return new EnumFilter<StatusEnum, CouponListRequest>("status", this);
+      public EnumFilter<Coupon.StatusEnum, CouponListRequest> Status() {
+        return new EnumFilter<Coupon.StatusEnum, CouponListRequest>("status", this);
       }
-      public EnumFilter<ApplyOnEnum, CouponListRequest> ApplyOn() {
-        return new EnumFilter<ApplyOnEnum, CouponListRequest>("apply_on", this);
+      public EnumFilter<Coupon.ApplyOnEnum, CouponListRequest> ApplyOn() {
+        return new EnumFilter<Coupon.ApplyOnEnum, CouponListRequest>("apply_on", this);
       }
       public TimestampFilter<CouponListRequest> CreatedAt() {
         return new TimestampFilter<CouponListRequest>("created_at", this);
