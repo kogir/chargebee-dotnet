@@ -27,9 +27,24 @@ namespace RealArtists.ChargeBee.Models {
       return new EntityRequest<Type>(Api, url, HttpMethod.Post);
     }
 
+    public CreditNote.RecordRefundRequest RecordRefund(string id) {
+      string url = BuildUrl("credit_notes", id, "record_refund");
+      return new CreditNote.RecordRefundRequest(Api, url, HttpMethod.Post);
+    }
+
+    public CreditNote.VoidCreditNoteRequest VoidCreditNote(string id) {
+      string url = BuildUrl("credit_notes", id, "void");
+      return new CreditNote.VoidCreditNoteRequest(Api, url, HttpMethod.Post);
+    }
+
     public CreditNote.CreditNoteListRequest List() {
       string url = BuildUrl("credit_notes");
       return new CreditNote.CreditNoteListRequest(Api, url);
+    }
+
+    public CreditNote.DeleteRequest Delete(string id) {
+      string url = BuildUrl("credit_notes", id, "delete");
+      return new CreditNote.DeleteRequest(Api, url, HttpMethod.Post);
     }
   }
 
@@ -166,6 +181,44 @@ namespace RealArtists.ChargeBee.Models {
       }
     }
 
+    public class RecordRefundRequest : EntityRequest<RecordRefundRequest> {
+      public RecordRefundRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public RecordRefundRequest Comment(string comment) {
+        _params.AddOpt("comment", comment);
+        return this;
+      }
+      public RecordRefundRequest TransactionAmount(int transactionAmount) {
+        _params.AddOpt("transaction[amount]", transactionAmount);
+        return this;
+      }
+      public RecordRefundRequest TransactionPaymentMethod(ChargeBee.Models.Enums.PaymentMethodEnum transactionPaymentMethod) {
+        _params.Add("transaction[payment_method]", transactionPaymentMethod);
+        return this;
+      }
+      public RecordRefundRequest TransactionReferenceNumber(string transactionReferenceNumber) {
+        _params.AddOpt("transaction[reference_number]", transactionReferenceNumber);
+        return this;
+      }
+      public RecordRefundRequest TransactionDate(long transactionDate) {
+        _params.Add("transaction[date]", transactionDate);
+        return this;
+      }
+    }
+
+    public class VoidCreditNoteRequest : EntityRequest<VoidCreditNoteRequest> {
+      public VoidCreditNoteRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public VoidCreditNoteRequest Comment(string comment) {
+        _params.AddOpt("comment", comment);
+        return this;
+      }
+    }
+
     public class CreditNoteListRequest : ListRequestBase<CreditNoteListRequest> {
       public CreditNoteListRequest(ChargeBeeApi api, string url)
               : base(api, url) {
@@ -222,6 +275,17 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreditNoteListRequest SortByDate(SortOrderEnum order) {
         _params.AddOpt("sort_by[" + order.ToString().ToLower() + "]", "date");
+        return this;
+      }
+    }
+
+    public class DeleteRequest : EntityRequest<DeleteRequest> {
+      public DeleteRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public DeleteRequest Comment(string comment) {
+        _params.AddOpt("comment", comment);
         return this;
       }
     }

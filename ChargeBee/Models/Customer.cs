@@ -197,6 +197,9 @@ namespace RealArtists.ChargeBee.Models {
     public bool Deleted {
       get { return GetValue<bool>("deleted", true); }
     }
+    public bool? RegisteredForGst {
+      get { return GetValue<bool?>("registered_for_gst", false); }
+    }
 
     public class CreateRequest : EntityRequest<CreateRequest> {
       public CreateRequest(ChargeBeeApi api, string url, HttpMethod method)
@@ -247,6 +250,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("vat_number", vatNumber);
         return this;
       }
+      public CreateRequest RegisteredForGst(bool registeredForGst) {
+        _params.AddOpt("registered_for_gst", registeredForGst);
+        return this;
+      }
       public CreateRequest Taxability(ChargeBee.Models.Enums.TaxabilityEnum taxability) {
         _params.AddOpt("taxability", taxability);
         return this;
@@ -277,10 +284,6 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest CardGatewayAccountId(string cardGatewayAccountId) {
         _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
-        return this;
-      }
-      public CreateRequest CardTmpToken(string cardTmpToken) {
-        _params.AddOpt("card[tmp_token]", cardTmpToken);
         return this;
       }
       public CreateRequest PaymentMethodType(ChargeBee.Models.Enums.TypeEnum paymentMethodType) {
@@ -558,6 +561,10 @@ namespace RealArtists.ChargeBee.Models {
 
       public UpdateBillingInfoRequest VatNumber(string vatNumber) {
         _params.AddOpt("vat_number", vatNumber);
+        return this;
+      }
+      public UpdateBillingInfoRequest RegisteredForGst(bool registeredForGst) {
+        _params.AddOpt("registered_for_gst", registeredForGst);
         return this;
       }
       public UpdateBillingInfoRequest BillingAddressFirstName(string billingAddressFirstName) {
@@ -1069,6 +1076,8 @@ namespace RealArtists.ChargeBee.Models {
         Alipay,
         [Description("unionpay")]
         Unionpay,
+        [Description("apple_pay")]
+        ApplePay,
       }
 
       public enum StatusEnum {

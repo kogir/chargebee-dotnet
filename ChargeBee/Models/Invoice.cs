@@ -31,6 +31,14 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("invoices", "import_invoice");
       return new Invoice.ImportInvoiceRequest(Api, url, HttpMethod.Post);
     }
+    public Invoice.ApplyPaymentsRequest ApplyPayments(string id) {
+      string url = BuildUrl("invoices", id, "apply_payments");
+      return new Invoice.ApplyPaymentsRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.ApplyCreditsRequest ApplyCredits(string id) {
+      string url = BuildUrl("invoices", id, "apply_credits");
+      return new Invoice.ApplyCreditsRequest(Api, url, HttpMethod.Post);
+    }
     public Invoice.InvoiceListRequest List() {
       string url = BuildUrl("invoices");
       return new Invoice.InvoiceListRequest(Api, url);
@@ -70,6 +78,14 @@ namespace RealArtists.ChargeBee.Models {
     public Invoice.RecordRefundRequest RecordRefund(string id) {
       string url = BuildUrl("invoices", id, "record_refund");
       return new Invoice.RecordRefundRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.RemovePaymentRequest RemovePayment(string id) {
+      string url = BuildUrl("invoices", id, "remove_payment");
+      return new Invoice.RemovePaymentRequest(Api, url, HttpMethod.Post);
+    }
+    public Invoice.RemoveCreditNoteRequest RemoveCreditNote(string id) {
+      string url = BuildUrl("invoices", id, "remove_credit_note");
+      return new Invoice.RemoveCreditNoteRequest(Api, url, HttpMethod.Post);
     }
     public Invoice.VoidInvoiceRequest VoidInvoice(string id) {
       string url = BuildUrl("invoices", id, "void");
@@ -169,6 +185,9 @@ namespace RealArtists.ChargeBee.Models {
     }
     public bool? HasAdvanceCharges {
       get { return GetValue<bool?>("has_advance_charges", false); }
+    }
+    public int? AmountToCollect {
+      get { return GetValue<int?>("amount_to_collect", false); }
     }
     public List<InvoiceLineItem> LineItems {
       get { return GetResourceList<InvoiceLineItem>("line_items"); }
@@ -725,6 +744,28 @@ namespace RealArtists.ChargeBee.Models {
       }
     }
 
+    public class ApplyPaymentsRequest : EntityRequest<ApplyPaymentsRequest> {
+      public ApplyPaymentsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public ApplyPaymentsRequest TransactionId(int index, string transactionId) {
+        _params.AddOpt("transactions[id][" + index + "]", transactionId);
+        return this;
+      }
+    }
+
+    public class ApplyCreditsRequest : EntityRequest<ApplyCreditsRequest> {
+      public ApplyCreditsRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public ApplyCreditsRequest CreditNoteId(int index, string creditNoteId) {
+        _params.AddOpt("credit_notes[id][" + index + "]", creditNoteId);
+        return this;
+      }
+    }
+
     public class InvoiceListRequest : ListRequestBase<InvoiceListRequest> {
       public InvoiceListRequest(ChargeBeeApi api, string url)
               : base(api, url) {
@@ -950,6 +991,28 @@ namespace RealArtists.ChargeBee.Models {
       }
       public RecordRefundRequest CreditNoteReasonCode(CreditNote.ReasonCodeEnum creditNoteReasonCode) {
         _params.AddOpt("credit_note[reason_code]", creditNoteReasonCode);
+        return this;
+      }
+    }
+
+    public class RemovePaymentRequest : EntityRequest<RemovePaymentRequest> {
+      public RemovePaymentRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public RemovePaymentRequest TransactionId(string transactionId) {
+        _params.Add("transaction[id]", transactionId);
+        return this;
+      }
+    }
+
+    public class RemoveCreditNoteRequest : EntityRequest<RemoveCreditNoteRequest> {
+      public RemoveCreditNoteRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public RemoveCreditNoteRequest CreditNoteId(string creditNoteId) {
+        _params.Add("credit_note[id]", creditNoteId);
         return this;
       }
     }

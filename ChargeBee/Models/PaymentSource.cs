@@ -24,6 +24,11 @@ namespace RealArtists.ChargeBee.Models {
       return new PaymentSource.CreateCardRequest(Api, url, HttpMethod.Post);
     }
 
+    public PaymentSource.UpdateCardRequest UpdateCard(string id) {
+      string url = BuildUrl("payment_sources", id, "update_card");
+      return new PaymentSource.UpdateCardRequest(Api, url, HttpMethod.Post);
+    }
+
     public EntityRequest<Type> Retrieve(string id) {
       string url = BuildUrl("payment_sources", id);
       return new EntityRequest<Type>(Api, url, HttpMethod.Get);
@@ -211,6 +216,61 @@ namespace RealArtists.ChargeBee.Models {
         return this;
       }
       public CreateCardRequest CardBillingCountry(string cardBillingCountry) {
+        _params.AddOpt("card[billing_country]", cardBillingCountry);
+        return this;
+      }
+    }
+
+    public class UpdateCardRequest : EntityRequest<UpdateCardRequest> {
+      public UpdateCardRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public UpdateCardRequest GatewayMetaData(string gatewayMetaData) {
+        _params.AddOpt("gateway_meta_data", gatewayMetaData);
+        return this;
+      }
+      public UpdateCardRequest CardFirstName(string cardFirstName) {
+        _params.AddOpt("card[first_name]", cardFirstName);
+        return this;
+      }
+      public UpdateCardRequest CardLastName(string cardLastName) {
+        _params.AddOpt("card[last_name]", cardLastName);
+        return this;
+      }
+      public UpdateCardRequest CardExpiryMonth(int cardExpiryMonth) {
+        _params.AddOpt("card[expiry_month]", cardExpiryMonth);
+        return this;
+      }
+      public UpdateCardRequest CardExpiryYear(int cardExpiryYear) {
+        _params.AddOpt("card[expiry_year]", cardExpiryYear);
+        return this;
+      }
+      public UpdateCardRequest CardBillingAddr1(string cardBillingAddr1) {
+        _params.AddOpt("card[billing_addr1]", cardBillingAddr1);
+        return this;
+      }
+      public UpdateCardRequest CardBillingAddr2(string cardBillingAddr2) {
+        _params.AddOpt("card[billing_addr2]", cardBillingAddr2);
+        return this;
+      }
+      public UpdateCardRequest CardBillingCity(string cardBillingCity) {
+        _params.AddOpt("card[billing_city]", cardBillingCity);
+        return this;
+      }
+      public UpdateCardRequest CardBillingZip(string cardBillingZip) {
+        _params.AddOpt("card[billing_zip]", cardBillingZip);
+        return this;
+      }
+      public UpdateCardRequest CardBillingStateCode(string cardBillingStateCode) {
+        _params.AddOpt("card[billing_state_code]", cardBillingStateCode);
+        return this;
+      }
+      public UpdateCardRequest CardBillingState(string cardBillingState) {
+        _params.AddOpt("card[billing_state]", cardBillingState);
+        return this;
+      }
+      public UpdateCardRequest CardBillingCountry(string cardBillingCountry) {
         _params.AddOpt("card[billing_country]", cardBillingCountry);
         return this;
       }

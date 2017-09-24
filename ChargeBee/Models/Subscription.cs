@@ -376,10 +376,6 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
-      public CreateRequest CardTmpToken(string cardTmpToken) {
-        _params.AddOpt("card[tmp_token]", cardTmpToken);
-        return this;
-      }
       public CreateRequest PaymentMethodType(TypeEnum paymentMethodType) {
         _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
@@ -390,6 +386,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest PaymentMethodReferenceId(string paymentMethodReferenceId) {
         _params.AddOpt("payment_method[reference_id]", paymentMethodReferenceId);
+        return this;
+      }
+      public CreateRequest PaymentMethodTmpToken(string paymentMethodTmpToken) {
+        _params.AddOpt("payment_method[tmp_token]", paymentMethodTmpToken);
         return this;
       }
       public CreateRequest CardFirstName(string cardFirstName) {
@@ -558,6 +558,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateRequest CustomerVatNumber(string customerVatNumber) {
         _params.AddOpt("customer[vat_number]", customerVatNumber);
+        return this;
+      }
+      public CreateRequest CustomerRegisteredForGst(bool customerRegisteredForGst) {
+        _params.AddOpt("customer[registered_for_gst]", customerRegisteredForGst);
         return this;
       }
       public CreateRequest AddonId(int index, string addonId) {
@@ -891,10 +895,6 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("card[gateway_account_id]", cardGatewayAccountId);
         return this;
       }
-      public UpdateRequest CardTmpToken(string cardTmpToken) {
-        _params.AddOpt("card[tmp_token]", cardTmpToken);
-        return this;
-      }
       public UpdateRequest PaymentMethodType(TypeEnum paymentMethodType) {
         _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
@@ -1079,6 +1079,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("customer[vat_number]", customerVatNumber);
         return this;
       }
+      public UpdateRequest CustomerRegisteredForGst(bool customerRegisteredForGst) {
+        _params.AddOpt("customer[registered_for_gst]", customerRegisteredForGst);
+        return this;
+      }
       public UpdateRequest AddonId(int index, string addonId) {
         _params.AddOpt("addons[id][" + index + "]", addonId);
         return this;
@@ -1123,6 +1127,22 @@ namespace RealArtists.ChargeBee.Models {
 
       public CancelRequest EndOfTerm(bool endOfTerm) {
         _params.AddOpt("end_of_term", endOfTerm);
+        return this;
+      }
+      public CancelRequest CreditOptionForCurrentTermCharges(ChargeBee.Models.Enums.CreditOptionForCurrentTermChargesEnum creditOptionForCurrentTermCharges) {
+        _params.AddOpt("credit_option_for_current_term_charges", creditOptionForCurrentTermCharges);
+        return this;
+      }
+      public CancelRequest UnbilledChargesOption(ChargeBee.Models.Enums.UnbilledChargesOptionEnum unbilledChargesOption) {
+        _params.AddOpt("unbilled_charges_option", unbilledChargesOption);
+        return this;
+      }
+      public CancelRequest AccountReceivablesHandling(ChargeBee.Models.Enums.AccountReceivablesHandlingEnum accountReceivablesHandling) {
+        _params.AddOpt("account_receivables_handling", accountReceivablesHandling);
+        return this;
+      }
+      public CancelRequest RefundableCreditsHandling(ChargeBee.Models.Enums.RefundableCreditsHandlingEnum refundableCreditsHandling) {
+        _params.AddOpt("refundable_credits_handling", refundableCreditsHandling);
         return this;
       }
     }
@@ -1346,10 +1366,6 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ImportSubscriptionRequest CardTmpToken(string cardTmpToken) {
         _params.AddOpt("card[tmp_token]", cardTmpToken);
-        return this;
-      }
-      public ImportSubscriptionRequest PaymentMethodType(TypeEnum paymentMethodType) {
-        _params.AddOpt("payment_method[type]", paymentMethodType);
         return this;
       }
       public ImportSubscriptionRequest PaymentMethodGatewayAccountId(string paymentMethodGatewayAccountId) {

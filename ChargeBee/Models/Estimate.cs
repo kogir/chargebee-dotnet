@@ -38,6 +38,11 @@ namespace RealArtists.ChargeBee.Models {
       string url = BuildUrl("subscriptions", id, "change_term_end_estimate");
       return new Estimate.ChangeTermEndRequest(Api, url, HttpMethod.Post);
     }
+
+    public Estimate.CancelSubscriptionRequest CancelSubscription(string id) {
+      string url = BuildUrl("subscriptions", id, "cancel_subscription_estimate");
+      return new Estimate.CancelSubscriptionRequest(Api, url, HttpMethod.Post);
+    }
   }
 
   public class Estimate : Resource {
@@ -182,6 +187,10 @@ namespace RealArtists.ChargeBee.Models {
       }
       public CreateSubscriptionRequest CustomerVatNumber(string customerVatNumber) {
         _params.AddOpt("customer[vat_number]", customerVatNumber);
+        return this;
+      }
+      public CreateSubscriptionRequest CustomerRegisteredForGst(bool customerRegisteredForGst) {
+        _params.AddOpt("customer[registered_for_gst]", customerRegisteredForGst);
         return this;
       }
       public CreateSubscriptionRequest CustomerTaxability(TaxabilityEnum customerTaxability) {
@@ -478,6 +487,10 @@ namespace RealArtists.ChargeBee.Models {
         _params.AddOpt("customer[vat_number]", customerVatNumber);
         return this;
       }
+      public UpdateSubscriptionRequest CustomerRegisteredForGst(bool customerRegisteredForGst) {
+        _params.AddOpt("customer[registered_for_gst]", customerRegisteredForGst);
+        return this;
+      }
       public UpdateSubscriptionRequest AddonId(int index, string addonId) {
         _params.AddOpt("addons[id][" + index + "]", addonId);
         return this;
@@ -535,6 +548,33 @@ namespace RealArtists.ChargeBee.Models {
       }
       public ChangeTermEndRequest InvoiceImmediately(bool invoiceImmediately) {
         _params.AddOpt("invoice_immediately", invoiceImmediately);
+        return this;
+      }
+    }
+
+    public class CancelSubscriptionRequest : EntityRequest<CancelSubscriptionRequest> {
+      public CancelSubscriptionRequest(ChargeBeeApi api, string url, HttpMethod method)
+              : base(api, url, method) {
+      }
+
+      public CancelSubscriptionRequest EndOfTerm(bool endOfTerm) {
+        _params.AddOpt("end_of_term", endOfTerm);
+        return this;
+      }
+      public CancelSubscriptionRequest CreditOptionForCurrentTermCharges(CreditOptionForCurrentTermChargesEnum creditOptionForCurrentTermCharges) {
+        _params.AddOpt("credit_option_for_current_term_charges", creditOptionForCurrentTermCharges);
+        return this;
+      }
+      public CancelSubscriptionRequest UnbilledChargesOption(UnbilledChargesOptionEnum unbilledChargesOption) {
+        _params.AddOpt("unbilled_charges_option", unbilledChargesOption);
+        return this;
+      }
+      public CancelSubscriptionRequest AccountReceivablesHandling(AccountReceivablesHandlingEnum accountReceivablesHandling) {
+        _params.AddOpt("account_receivables_handling", accountReceivablesHandling);
+        return this;
+      }
+      public CancelSubscriptionRequest RefundableCreditsHandling(RefundableCreditsHandlingEnum refundableCreditsHandling) {
+        _params.AddOpt("refundable_credits_handling", refundableCreditsHandling);
         return this;
       }
     }

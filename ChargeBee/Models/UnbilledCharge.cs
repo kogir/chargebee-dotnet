@@ -72,6 +72,9 @@ namespace RealArtists.ChargeBee.Models {
     public DateTime? VoidedAt {
       get { return GetDateTime("voided_at", false); }
     }
+    public bool Deleted {
+      get { return GetValue<bool>("deleted", true); }
+    }
 
     public class InvoiceUnbilledChargesRequest : EntityRequest<InvoiceUnbilledChargesRequest> {
       public InvoiceUnbilledChargesRequest(ChargeBeeApi api, string url, HttpMethod method)
@@ -93,6 +96,10 @@ namespace RealArtists.ChargeBee.Models {
               : base(api, url) {
       }
 
+      public UnbilledChargeListRequest IncludeDeleted(bool includeDeleted) {
+        _params.AddOpt("include_deleted", includeDeleted);
+        return this;
+      }
       public StringFilter<UnbilledChargeListRequest> SubscriptionId() {
         return new StringFilter<UnbilledChargeListRequest>("subscription_id", this).SupportsMultiOperators(true).SupportsPresenceOperator(true);
       }

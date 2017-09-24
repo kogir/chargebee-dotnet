@@ -29,7 +29,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.0.0")]
-[assembly: AssemblyFileVersion("2.3.5")]
+[assembly: AssemblyFileVersion("2.4.2")]
 [assembly: AssemblyCompany("Real Artists, Inc.")]
 [assembly: AssemblyProduct("RealArtists.ChargeBee")]
 [assembly: AssemblyCopyright("©ChargeBee Inc. and Nick Sivo. See LICENSE.")]

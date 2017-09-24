@@ -12,7 +12,7 @@
   using RealArtists.ChargeBee.Models;
 
   public class ChargeBeeApi {
-    public const string Version = "2.3.5";
+    public const string Version = "2.4.2";
     public const string ApiVersion = "v2";
 
     private static HttpClient DefaultHttpClient { get; set; } = CreateHttpClient();
